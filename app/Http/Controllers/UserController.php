@@ -4,24 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\PagesController;
 use App\Models\address;
-use App\Models\order;
-use App\Models\phone_code;
-use App\Models\requests;
-use App\Models\social_qr_codes;
-use App\Models\intro_category;
 use App\Models\cart;
-use http\Env\Response;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Models\intro_category;
+use App\Models\order;
 use App\Models\pages;
+use App\Models\phone_code;
+use App\Models\refUser;
+use App\Models\requests;
 use App\Models\role;
 use App\Models\role_user;
+use App\Models\social_qr_codes;
 use App\Models\User;
-use App\Models\refUser;
+use http\Env\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver;
 use Log;
 
@@ -89,7 +89,6 @@ class UserController extends Controller
 
     public function check(Request $request)
     {
-
         $user = User::where('phoneNumber', $request->phoneNumber)->first();
 
         if ($user) {
@@ -162,11 +161,10 @@ class UserController extends Controller
             if ($role->title == 'admin2') {
                 $rolesArray[] = 'ادمین2';
             }
-           
+
             if ($role->title == 'general') {
                 $rolesArray[] = 'کاربر عادی';
             }
-            
         }
         Auth::user()->setAttribute('roles', $rolesArray);
         return view('admin.user.profile', ['myContacts' => $myContacts]);
@@ -198,7 +196,6 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        //        dd($request->all(), $user);
         $user = User::find($request->user_id);
         if (isset($request->roles)) {
             role_user::where('user_id', $user->id)->delete();
@@ -297,7 +294,7 @@ class UserController extends Controller
         // if(count($user->request)){
         //       $user->request->delete();
         // }
-       
+
         if (count($user->introCats)) {
             foreach ($user->introCats as $introCat) {
                 $introCat->delete();
@@ -361,7 +358,7 @@ class UserController extends Controller
                     $page->delete();
                 }
             }
-            
+
             if (count($user->contactUs)) {
                 foreach ($user->contactUs as $contact) {
                     $contact->delete();
@@ -507,17 +504,17 @@ class UserController extends Controller
         if (!$flag) {
             $code = rand(1000, 10000);
             phone_code::upsert(['phoneNumber' => $request->phoneNumber, 'code' => $code], ['phoneNumber'], ['code']);
-//            $apiKey = 'YTBhZjhlNDAtZGI1Zi00ZWQ1LTkwNmYtZWU2MWFhYTkzY2M0NTcxZGQ3ZjY2Yzk1MmNjZmFiM2M2ZjVmNjBhMDg2MTQ=';
-//            $client = new \IPPanel\Client($apiKey);
-//            $patternValues = [
-//                'activation_code' => $code,
-//            ];
-//            $bulkID = $client->sendPattern(
-//                '7fvdx77gveizxqn',  // pattern code
-//                '+983000505',  // originator
-//                $request->phoneNumber,  // recipient
-//                $patternValues,  // pattern values
-//            );
+            //            $apiKey = 'YTBhZjhlNDAtZGI1Zi00ZWQ1LTkwNmYtZWU2MWFhYTkzY2M0NTcxZGQ3ZjY2Yzk1MmNjZmFiM2M2ZjVmNjBhMDg2MTQ=';
+            //            $client = new \IPPanel\Client($apiKey);
+            //            $patternValues = [
+            //                'activation_code' => $code,
+            //            ];
+            //            $bulkID = $client->sendPattern(
+            //                '7fvdx77gveizxqn',  // pattern code
+            //                '+983000505',  // originator
+            //                $request->phoneNumber,  // recipient
+            //                $patternValues,  // pattern values
+            //            );
             $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -538,7 +535,7 @@ class UserController extends Controller
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
             $response = curl_exec($ch);
         }
-        return response()->json(["flag" => $flag, "user" => $user]);
+        return response()->json(['flag' => $flag, 'user' => $user]);
     }
 
     public function forget_password()
@@ -712,7 +709,7 @@ class UserController extends Controller
         if (!isset($request->status)) {
             return redirect()->back();
         }
-        if ($request->status == "accept") {
+        if ($request->status == 'accept') {
             foreach ($request->requests as $req_id) {
                 $req = requests::find($req_id);
                 $req->status = 2;
@@ -720,7 +717,7 @@ class UserController extends Controller
                 role_user::create(['user_id' => $req->user_id, 'role_id' => 4]);
             }
         }
-        if ($request->status == "delete") {
+        if ($request->status == 'delete') {
             foreach ($request->requests as $req_id) {
                 $req->delete();
             }
@@ -738,17 +735,17 @@ class UserController extends Controller
         if (!$flag) {
             $code = rand(1000, 10000);
             phone_code::upsert(['phoneNumber' => $request->phoneNumber, 'code' => $code], ['phoneNumber'], ['code']);
-//            $apiKey = 'YTBhZjhlNDAtZGI1Zi00ZWQ1LTkwNmYtZWU2MWFhYTkzY2M0NTcxZGQ3ZjY2Yzk1MmNjZmFiM2M2ZjVmNjBhMDg2MTQ=';
-//            $client = new \IPPanel\Client($apiKey);
-//            $patternValues = [
-//                'activation_code' => $code,
-//            ];
-//            $bulkID = $client->sendPattern(
-//                '7fvdx77gveizxqn',  // pattern code
-//                '+983000505',  // originator
-//                $request->phoneNumber,  // recipient
-//                $patternValues,  // pattern values
-//            );
+            //            $apiKey = 'YTBhZjhlNDAtZGI1Zi00ZWQ1LTkwNmYtZWU2MWFhYTkzY2M0NTcxZGQ3ZjY2Yzk1MmNjZmFiM2M2ZjVmNjBhMDg2MTQ=';
+            //            $client = new \IPPanel\Client($apiKey);
+            //            $patternValues = [
+            //                'activation_code' => $code,
+            //            ];
+            //            $bulkID = $client->sendPattern(
+            //                '7fvdx77gveizxqn',  // pattern code
+            //                '+983000505',  // originator
+            //                $request->phoneNumber,  // recipient
+            //                $patternValues,  // pattern values
+            //            );
             $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -831,28 +828,30 @@ class UserController extends Controller
         $userContacts->setAttribute('roles', $rolesArray);
         return response()->json($userContacts);
     }
+
     public function editInfo(Request $request)
     {
         $currentUser = Auth::user();
-        if ($request->state == "name") {
+        if ($request->state == 'name') {
             $currentUser->name = $request->inputValue;
         }
-        if ($request->state == "family") {
+        if ($request->state == 'family') {
             $currentUser->family = $request->inputValue;
         }
-        if ($request->state == "email") {
+        if ($request->state == 'email') {
             $currentUser->email = $request->inputValue;
         }
-        if ($request->state == "phoneNumber") {
+        if ($request->state == 'phoneNumber') {
             $currentUser->phoneNumber = $request->inputValue;
         }
-        if ($request->state == "password") {
+        if ($request->state == 'password') {
             $currentUser->password = Hash::make($request->inputValue);
         }
         $currentUser->save();
 
         return response()->json('ok');
     }
+
     public function editProfile(Request $request)
     {
         $name = $request->image->getClientOriginalName();

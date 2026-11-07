@@ -177,9 +177,6 @@
                                         <div class="text-xs text-gray-400">{{ $contact->contact->email ?? 'بدون ایمیل' }}</div>
                                     </div>
                                 </div>
-{{--                                <svg class="w-4 h-4 text-gray-300 group-hover:text-blue-400 transition-all group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">--}}
-{{--                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>--}}
-{{--                                </svg>--}}
                             </a>
                         @endforeach
                     @endif
