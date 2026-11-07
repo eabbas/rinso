@@ -1,0 +1,17 @@
+
+.hambarger_meno_fist_element{
+    background-image: linear-gradient(45deg,#2d3d26,#6e4c04);
+    
+}
+.animashente{
+    animation:animation_heder 1s infinite linear;
+}
+@keyframes animation_heder{
+    0%{
+        box-shadow: 0 0 0 0 #081035;
+    }
+
+    100%{
+        box-shadow: 0 0 0 10px #be1e2e00;
+    }
+}

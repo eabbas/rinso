@@ -1,0 +1,405 @@
+@import url("fontiran.css");
+
+* {
+    font-family: "IRANSansX";
+}
+
+:root{
+    /*--primary-text-color: #0D1B2A;*/
+    --primary-text-color: #111827;
+    --secondary-text-color: #6B7280;
+    --primary-color: #fc8e21;
+    --hover-primary-color: #e57200;
+    --color-blue: #0867d5;
+    --color-green: #3aae3f;
+    --color-gray: #6a6a6a;
+    --color-red: #d23334;
+}
+
+.in-fa {
+  font-family: 'IRANSansXFaNum';
+}
+
+
+
+.samim {
+    font-family: "Samim";
+}
+
+.yekan {
+    font-family: "Yekan";
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    /* Firefox */
+}
+
+.dashbord__shadow {
+    box-shadow: 1px 1px 4px -1px rgb(18, 22, 147) inset;
+}
+
+.active-circle {
+    animation: mmd 1s infinite;
+}
+
+@keyframes mmd {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.color__a:hover {
+    color: #1b84ff;
+}
+
+.shadow__prosheh {
+    background-color: rgba(255, 16, 16, 0.237);
+}
+
+.family {
+    font-family: Comic Sans MS;
+}
+
+.shadow__all__prof {
+    box-shadow: 0px 0px 25px -8px black;
+}
+
+.img__parent:hover + .profaill {
+    visibility: visible;
+}
+
+.shadow__labkhand {
+    border-top-left-radius: 36px;
+    border-top-right-radius: 36px;
+    outline: 8px solid rgb(255, 255, 255);
+    outline-offset: 6px;
+    position: relative;
+    z-index: 1;
+}
+
+.leftaye {
+    position: relative;
+    animation: cheshmak 10s infinite;
+}
+
+.rightaye {
+    position: relative;
+    animation: cheshmak 10s infinite;
+}
+
+@keyframes cheshmak {
+    0% {
+        transform: translatey(0);
+    }
+
+    50% {
+        transform: translatey(16px);
+    }
+}
+
+.leftaye::after {
+    position: absolute;
+    content: "";
+    width: 76px;
+    height: 6px;
+    border: 6px solid rgb(255, 255, 255);
+    border-radius: 12px;
+    transform: rotate(115deg);
+    top: -38px;
+    left: -24px;
+}
+
+.rightaye::before {
+    position: absolute;
+    content: "";
+    width: 76px;
+    height: 6px;
+    border: 6px solid rgb(255, 255, 255);
+    border-radius: 12px;
+    transform: rotate(115deg);
+    top: -38px;
+    left: -24px;
+}
+
+.leftaye__animation {
+    animation: aye 4s infinite;
+}
+
+.rightaye__animation {
+    animation: aye 4s infinite;
+}
+
+@keyframes aye {
+    0% {
+        transform: translateX(0);
+    }
+
+    30% {
+        transform: translateX(6px);
+    }
+
+    60% {
+        transform: translateX(12px);
+    }
+
+    90% {
+        transform: translateX(-6px);
+    }
+}
+
+.Z__index {
+    position: relative;
+    z-index: 3;
+    margin-top: -16px;
+}
+
+.moon {
+    height: 330px;
+    width: 330px;
+    border-radius: 50%;
+    background-color: white;
+    animation: moon 4s infinite;
+    position: absolute;
+    z-index: 1;
+}
+
+.background {
+    background-color: black;
+    position: relative;
+    z-index: 3;
+}
+
+@keyframes moon {
+    0% {
+        transform: translateX(0px);
+    }
+
+    30% {
+        transform: translateX(20px);
+        box-shadow: 0px 0px 15px -1px white;
+    }
+
+    60% {
+        transform: translateX(33px);
+        box-shadow: 0px 0px 15px -1px white;
+    }
+
+    90% {
+        transform: translateX(-25px);
+        box-shadow: 0px 0px 15px -1px white;
+    }
+}
+
+.shadow__mobail__karbary {
+    box-shadow: inset 0 0 10px -1px gray;
+}
+
+.shadow__profaill__karbary {
+    box-shadow: 0 0 4px -1px gray;
+}
+
+.shadow__header {
+    box-shadow: 0 0 12px -1px #e8355d;
+}
+
+.items__shadow {
+    box-shadow: 0 0 4px -1px #e8355d;
+}
+
+.in__shadow {
+    box-shadow: inset 0 0 10px -1px #e41505;
+}
+
+.shadow__prosheh {
+    background-color: rgba(255, 16, 16, 0.237);
+}
+
+.family {
+    font-family: Comic Sans MS;
+}
+
+.shadow__all__prof {
+    box-shadow: 0px 0px 25px -8px black;
+}
+
+.hover_profile:hover div {
+    visibility: visible;
+    opacity: 1;
+}
+
+.closeButtonXmark > svg > path {
+    transition: all 300ms;
+}
+.closeButtonXmark:hover {
+    border-color: black;
+}
+.closeButtonXmark:hover svg > path {
+    fill: black;
+}
+
+tr {
+    border-top: 1px solid rgba(128, 128, 128, 0.169);
+}
+thead tr:first-child {
+    border-top: none;
+}
+.border {
+    border: none;
+}
+td {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.shadow__profaill__list_products {
+    box-shadow: 0 0 6px -1px rgb(162, 159, 159);
+}
+.shadow__fhoto__insetting__profaill {
+    box-shadow: 0px 0px 15px -1px gray;
+}
+
+.loading-wave {
+    width: 300px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.loading-bar {
+    width: 20px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: #3498db;
+    border-radius: 5px;
+    animation: loading-wave-animation 1s ease-in-out infinite;
+}
+
+.loading-bar:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.loading-bar:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.loading-bar:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+@keyframes loading-wave-animation {
+    0% {
+        height: 10px;
+    }
+
+    50% {
+        height: 50px;
+    }
+
+    100% {
+        height: 10px;
+    }
+}
+
+.close_icon > svg > path {
+    transition: all 300ms;
+}
+.close_icon:hover svg path {
+    fill: white;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    border: 3px solid;
+    border-color: #fff #fff transparent transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+.loader::after,
+.loader::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    border: 3px solid;
+    border-color: transparent transparent #ff3d00 #ff3d00;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: rotationBack 0.5s linear infinite;
+    transform-origin: center center;
+}
+.loader::before {
+    width: 32px;
+    height: 32px;
+    border-color: #fff #fff transparent transparent;
+    animation: rotation 1.5s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes rotationBack {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+.activeCatCareer::before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #eb3254;
+    border-radius: 4px;
+    transition: all 300ms ease-in-out;
+}
+
+.arrow{
+    animation: selected 1500ms infinite;
+}
+@keyframes selected{
+    0%{
+        transform: translate(13px, -13px);
+    }
+    50%{
+        transform: translate(27px, -13px);
+    }
+    100%{
+        transform: translate(13px, -13px);
+    }
+}
