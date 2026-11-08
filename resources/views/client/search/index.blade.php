@@ -5,32 +5,17 @@
     
     <main>
 
-        <!-- Hero -->
         <section class="pt-5 sm:pt-8 lg:pt-9">
             <div class="w-[calc(100%-24px)] sm:w-[calc(100%-40px)] xl:max-w-[1240px] mx-auto">
 
                 <div
                     class="max-w-[1000px] mx-auto text-center bg-[#111e2e] rounded-2xl sm:rounded-[26px] px-3 sm:px-6 md:px-12 py-8 sm:py-10 md:py-14 relative overflow-hidden">
 
-                    <!-- Badge -->
-                    <div
-                        class="inline-flex items-center gap-2 rounded-full bg-white/10 text-[#ffc078] px-3.5 py-2 text-[10px] sm:text-[11px] font-semibold mb-4 sm:mb-5">
-                        <span class="w-[7px] h-[7px] rounded-full bg-[#ff9018]"></span>
-                        دنیای آدم‌ها و کسب‌وکارها
-                    </div>
-
-                    <!-- Title -->
-                    <h1 class="text-[25px] sm:text-[32px] md:text-[42px] leading-[1.8] font-extrabold text-white">
-                        چیزی که دنبالش هستی،
-                        <span class="text-[#ff9018]">پیدا کن.</span>
-                    </h1>
-
                     <p
                         class="text-[11px] sm:text-[13px] md:text-[14px] leading-7 sm:leading-8 text-slate-300 mt-2 mb-6 sm:mb-8">
                         بین صفحه‌های رینسو بگرد؛ از اسم و آیدی تا خدمات، شبکه‌های اجتماعی و وب‌سایت.
                     </p>
 
-                    <!-- Search -->
                     <div
                         class="flex items-center gap-2 sm:gap-3 bg-white border border-slate-200 rounded-xl sm:rounded-2xl p-1.5 sm:p-2 pr-3 sm:pr-4 max-w-[760px] mx-auto shadow-[0_14px_38px_rgba(17,30,46,0.12)] focus-within:border-[#ffb45e] focus-within:ring-4 focus-within:ring-orange-500/10 transition">
 
@@ -50,7 +35,6 @@
                         </button>
                     </div>
 
-                    <!-- Popular searches -->
                     <div class="flex flex-wrap items-center justify-center gap-2 mt-5 text-[10px] sm:text-[12px]">
                         <span class="text-slate-400 ml-1">جست‌وجوهای پرطرفدار:</span>
 
@@ -67,10 +51,8 @@
             </div>
         </section>
 
-        <!-- Discovery -->
         <section class="w-[calc(100%-24px)] sm:w-[calc(100%-40px)] xl:max-w-[1240px] mx-auto py-8 sm:py-10 lg:py-11">
 
-            <!-- Heading -->
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-5 sm:mb-6">
 
                 <div>
@@ -86,7 +68,7 @@
                     </h2>
 
                     <p class="text-[11px] sm:text-[13px] text-slate-500 mt-1.5">
-                        آدم‌ها، متخصص‌ها و کسب‌وکارهای موردنظرت رو پیدا کن.
+                        اشخاص، متخصص‌ها و کسب‌وکارهای موردنظرت رو پیدا کن.
                     </p>
                 </div>
 
@@ -101,11 +83,9 @@
                 </div>
             </div>
 
-            <!-- Layout -->
             <div
                 class="layout grid grid-cols-1 md:grid-cols-[220px_minmax(0,1fr)] lg:grid-cols-[245px_minmax(0,1fr)] gap-4 lg:gap-6 items-start">
 
-                <!-- Sidebar -->
                 <aside class="sidebar bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 order-1">
 
                     <div class="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -116,7 +96,6 @@
                         </button>
                     </div>
 
-                    <!-- Page type -->
                     <div class="py-4 border-b border-slate-100">
                         <h4 class="text-[11px] sm:text-[12px] font-bold text-slate-700 mb-2">نوع صفحه</h4>
 
@@ -145,7 +124,6 @@
                         </label>
                     </div>
 
-                    <!-- Social networks -->
                     <div class="py-4 border-b border-slate-100">
                         <h4 class="text-[11px] sm:text-[12px] font-bold text-slate-700 mb-2">شبکه‌های اجتماعی</h4>
 
@@ -174,7 +152,6 @@
                         </label>
                     </div>
 
-                    <!-- Categories -->
                     <div class="pt-4">
                         <h4 class="text-[11px] sm:text-[12px] font-bold text-slate-700 mb-3">دسته‌بندی موضوعی</h4>
 
@@ -202,7 +179,6 @@
                     </div>
                 </aside>
 
-                <!-- Results -->
                 <div class="results-area min-w-0 order-2">
 
                     <div class="flex items-center justify-between gap-3 mb-4">
@@ -217,12 +193,10 @@
                         </div>
                     </div>
 
-                    <!-- Profile grid -->
                     <div id="profileGrid"
                         class="profile-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
                     </div>
 
-                    <!-- Empty state -->
                     <div id="emptyState"
                         class="hidden bg-white border border-slate-200 rounded-2xl py-12 sm:py-16 px-5 text-center">
 
@@ -248,7 +222,6 @@
                         </button>
                     </div>
 
-                    <!-- Load more -->
                     <div class="text-center mt-6 sm:mt-7">
                         <button id="loadMore"
                             class="bg-white border border-slate-200 hover:border-[#ff9018] hover:text-[#d97706] rounded-xl px-6 py-3 text-[11px] sm:text-[12px] font-semibold text-slate-600 transition">
@@ -259,7 +232,6 @@
             </div>
         </section>
 
-        <!-- CTA -->
         <section class="w-[calc(100%-24px)] sm:w-[calc(100%-40px)] xl:max-w-[1240px] mx-auto pb-8 sm:pb-12">
 
             <div

@@ -273,4 +273,6 @@
         </div>
 
     </div>
+    
 </footer>
+<script src="{{ asset('assets/js/home.js') }}"></script>
