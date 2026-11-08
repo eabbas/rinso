@@ -92,12 +92,10 @@
 
 
             {{-- وسط: جستجوی دسکتاپ --}}
-            <form action="{{ route('search') }}"
-                method="POST"
+            <form action="{{ route('search.search') }}"
+                method="GET"
                 dir="rtl"
                 class="hidden md:flex flex-1 max-w-[420px] mx-4">
-
-                @csrf
 
                 <div class="group w-full h-[46px] flex items-center gap-3
                     px-4 rounded-2xl bg-slate-50
@@ -337,10 +335,8 @@
 
                 </div>
 
-                <form action="{{ route('search') }}"
-                    method="POST" dir="rtl">
-
-                    @csrf
+                <form action="{{ route('search.search') }}"
+                    method="GET" dir="rtl">
 
                     <div class="flex items-center gap-3 p-2
                         rounded-2xl border border-slate-200

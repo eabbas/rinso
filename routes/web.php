@@ -196,7 +196,6 @@ Route::group([
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/printery', [HomeController::class, 'printery'])->name('printery');
-Route::any('search', [SearchController::class, 'search'])->name('search');
 // Route::any('filter', [HomeController::class, 'filter'])->name('filter');
 Route::get('/login/{message?}', [UserController::class, 'login'])->name('login')->middleware([LoginMiddleware::class]);
 Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard')->middleware([UserMiddleware::class]);
@@ -211,6 +210,14 @@ Route::post('/save_password', [UserController::class, 'save_password'])->name('s
 Route::post('/check', [UserController::class, 'checkAuth'])->name('checkAuth');
 Route::post('/loginWithActivationCode', [UserController::class, 'loginWithActivationCode'])->name('loginWithActivationCode');
 Route::post('/check-activation-code', [UserController::class, 'checkActivationCode'])->name('checkActivationCode');
+
+Route::group([
+    'prefix'=>'search',
+    'controller'=>SearchController::class,
+    'as'=>'search.'
+], function(){
+    Route::get('/', 'search')->name('search');
+});
 
 Route::group([
     'prefix' => 'users',
