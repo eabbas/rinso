@@ -55,6 +55,7 @@ use App\Http\Controllers\LessonClassController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ClassCommentController;
 use App\Http\Controllers\ClassAttachmentController;
+use App\Http\Controllers\SearchController;
 use App\Http\Middleware\savePreviousUrl;
 
 
@@ -195,8 +196,8 @@ Route::group([
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/printery', [HomeController::class, 'printery'])->name('printery');
-Route::any('search', [HomeController::class, 'search'])->name('search');
-Route::any('filter', [HomeController::class, 'filter'])->name('filter');
+Route::any('search', [SearchController::class, 'search'])->name('search');
+// Route::any('filter', [HomeController::class, 'filter'])->name('filter');
 Route::get('/login/{message?}', [UserController::class, 'login'])->name('login')->middleware([LoginMiddleware::class]);
 Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard')->middleware([UserMiddleware::class]);
 Route::post('userData', [UserController::class, 'userData'])->name('userData')->middleware([UserMiddleware::class]);

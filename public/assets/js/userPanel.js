@@ -1,30 +1,30 @@
 // let menuBlockliet = document.getElementById('menuBlockliet')
-let menuList = document.getElementById('menuList')
-function hamburgerMenu(state){
-    if (state == "open") {
-        menuBlock.classList.remove('invisible')
-        menuBlock.classList.remove('opacity-0')
-        menuList.classList.remove('translate-x-full')
-        menuBlockliet.children[0].classList.add('-translate-x-[30px]')
-        menuBlockliet.children[0].classList.add('opacity-0')
-        menuBlockliet.children[1].classList.add('translate-x-[30px]')
-        menuBlockliet.children[1].classList.add('opacity-0')
-        menuBlockliet.children[2].classList.add('-translate-x-[30px]')
-        menuBlockliet.children[2].classList.add('opacity-0')
-    }
-    if (state == "close") {
-        console.log("asgfk.asjhgfkgsf")
-        menuBlock.classList.add('invisible')
-        menuBlock.classList.add('opacity-0')
-        menuList.classList.add('translate-x-full')
-        menuBlockliet.children[0].classList.remove('-translate-x-[30px]')
-        menuBlockliet.children[0].classList.remove('opacity-0')
-        menuBlockliet.children[1].classList.remove('translate-x-[30px]')
-        menuBlockliet.children[1].classList.remove('opacity-0')
-        menuBlockliet.children[2].classList.remove('-translate-x-[30px]')
-        menuBlockliet.children[2].classList.remove('opacity-0')
-    }
-}
+// let menuList = document.getElementById('menuList')
+// function hamburgerMenu(state){
+//     if (state == "open") {
+//         menuBlock.classList.remove('invisible')
+//         menuBlock.classList.remove('opacity-0')
+//         menuList.classList.remove('translate-x-full')
+//         menuBlockliet.children[0].classList.add('-translate-x-[30px]')
+//         menuBlockliet.children[0].classList.add('opacity-0')
+//         menuBlockliet.children[1].classList.add('translate-x-[30px]')
+//         menuBlockliet.children[1].classList.add('opacity-0')
+//         menuBlockliet.children[2].classList.add('-translate-x-[30px]')
+//         menuBlockliet.children[2].classList.add('opacity-0')
+//     }
+//     if (state == "close") {
+//         console.log("asgfk.asjhgfkgsf")
+//         menuBlock.classList.add('invisible')
+//         menuBlock.classList.add('opacity-0')
+//         menuList.classList.add('translate-x-full')
+//         menuBlockliet.children[0].classList.remove('-translate-x-[30px]')
+//         menuBlockliet.children[0].classList.remove('opacity-0')
+//         menuBlockliet.children[1].classList.remove('translate-x-[30px]')
+//         menuBlockliet.children[1].classList.remove('opacity-0')
+//         menuBlockliet.children[2].classList.remove('-translate-x-[30px]')
+//         menuBlockliet.children[2].classList.remove('opacity-0')
+//     }
+// }
 
 // let menus = document.querySelectorAll('.dashboard')
 // menus.forEach((element)=>{
@@ -83,18 +83,18 @@ parentFields.forEach((parentField) => {
 
 // search popup
 
-let searchP = document.getElementById('searchP')
-let searchSection = document.getElementById('searchSection')
+// let searchP = document.getElementById('searchP')
+// let searchSection = document.getElementById('searchSection')
 
-function searchPopup(state){
-    if(state == 'open'){
-        searchP.classList.remove('invisible')
-        searchP.classList.remove('opacity-0')
-        searchSection.classList.remove('-translate-y-full')
-    }
-    if(state == 'close'){
-        searchP.classList.add('invisible')
-        searchP.classList.add('opacity-0')
-        searchSection.classList.add('-translate-y-full')
-    }
-}
+// function searchPopup(state){
+//     if(state == 'open'){
+//         searchP.classList.remove('invisible')
+//         searchP.classList.remove('opacity-0')
+//         searchSection.classList.remove('-translate-y-full')
+//     }
+//     if(state == 'close'){
+//         searchP.classList.add('invisible')
+//         searchP.classList.add('opacity-0')
+//         searchSection.classList.add('-translate-y-full')
+//     }
+// }
