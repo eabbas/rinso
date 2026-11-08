@@ -293,7 +293,7 @@
 <div class="w-full relative">
     <header class="w-full fixed top-0 right-0 z-10">
 
-        @include('header')
+        @include('admin.app.header')
 
 
 
@@ -311,7 +311,7 @@
 
 {{-- <script src="{{ asset('assets/js/ecomm_product_create.js') }}"></script> --}}
 
-{{-- <script src="{{ asset('assets/js/userPanel.js') }}"></script> --}}
+<script src="{{ asset('assets/js/adminMenu.js') }}"></script>
 </body>
 
 </html>

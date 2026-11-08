@@ -83,18 +83,18 @@ parentFields.forEach((parentField) => {
 
 // search popup
 
-let searchP = document.getElementById('searchP')
-let searchSection = document.getElementById('searchSection')
+// let searchP = document.getElementById('searchP')
+// let searchSection = document.getElementById('searchSection')
 
-function searchPopup(state){
-    if(state == 'open'){
-        searchP.classList.remove('invisible')
-        searchP.classList.remove('opacity-0')
-        searchSection.classList.remove('-translate-y-full')
-    }
-    if(state == 'close'){
-        searchP.classList.add('invisible')
-        searchP.classList.add('opacity-0')
-        searchSection.classList.add('-translate-y-full')
-    }
-}
+// function searchPopup(state){
+//     if(state == 'open'){
+//         searchP.classList.remove('invisible')
+//         searchP.classList.remove('opacity-0')
+//         searchSection.classList.remove('-translate-y-full')
+//     }
+//     if(state == 'close'){
+//         searchP.classList.add('invisible')
+//         searchP.classList.add('opacity-0')
+//         searchSection.classList.add('-translate-y-full')
+//     }
+// }

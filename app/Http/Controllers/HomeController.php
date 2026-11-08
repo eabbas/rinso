@@ -31,54 +31,50 @@ class HomeController extends Controller
         }
         $datas = [];
         $datas['title'] = $request->search;
-        $datas['careerCategory'] = careerCategory::where('title', 'like', "%" . $request->search . "%")->get();
-        $datas['career'] = career::where('title', 'like', "%" . $request->search . "%")->get();
         $datas['pages'] = pages::where('title', 'like', "%" . $request->search . "%")->get();
         $datas['menu'] = menu::where('title', 'like', "%" . $request->search . "%")->get();
         $datas['ecomm'] = ecomm::where('title', 'like', "%" . $request->search . "%")->get();
         return view('client.search.index', ['datas' => $datas, 'searchTitle' => $request->search]);
     }
 
-    public function filter(Request $request)
-    {
-        $relations = ['careerCategory' => 'career', 'career' => 'menus', 'covers' => 'social_address'];
-        $datas = [];
-        if (isset($request->models)) {
-            if (in_array('all', $request->models)) {
-                $datas['careerCategory'] = careerCategory::where('title', 'like', "%" . $request->search . "%")->get();
-                $datas['career'] = career::where('title', 'like', "%" . $request->search . "%")->get();
-                $datas['pages'] = pages::where('title', 'like', "%" . $request->search . "%")->get();
-                $datas['menu'] = menu::where('title', 'like', "%" . $request->search . "%")->get();
-                $datas['ecomm'] = ecomm::where('title', 'like', "%" . $request->search . "%")->get();
-            } else {
-                if (isset($request->models)) {
-                    foreach ($request->models as $model) {
-                        $className = 'App\\Models\\' . $model;
-                        $datas[$model] = $className::where('title', 'like', "%" . $request->searchTitle . "%")->get();
-                        // foreach($relations as $key=>$value){
-                        //     if(($className==$key)){
-                        //         // $modelName = 'App\\Models\\' . $value;
-                        //         foreach($datas[$model] as $data){
-                        //             $datas=$data->$value;
-                        //         }
+    // public function filter(Request $request)
+    // {
+    //     $relations = ['careerCategory' => 'career', 'career' => 'menus', 'covers' => 'social_address'];
+    //     $datas = [];
+    //     if (isset($request->models)) {
+    //         if (in_array('all', $request->models)) {
+    //             $datas['pages'] = pages::where('title', 'like', "%" . $request->search . "%")->get();
+    //             $datas['menu'] = menu::where('title', 'like', "%" . $request->search . "%")->get();
+    //             $datas['ecomm'] = ecomm::where('title', 'like', "%" . $request->search . "%")->get();
+    //         } else {
+    //             if (isset($request->models)) {
+    //                 foreach ($request->models as $model) {
+    //                     $className = 'App\\Models\\' . $model;
+    //                     $datas[$model] = $className::where('title', 'like', "%" . $request->searchTitle . "%")->get();
+    //                     // foreach($relations as $key=>$value){
+    //                     //     if(($className==$key)){
+    //                     //         // $modelName = 'App\\Models\\' . $value;
+    //                     //         foreach($datas[$model] as $data){
+    //                     //             $datas=$data->$value;
+    //                     //         }
 
-                        //     }
-                        // }
+    //                     //     }
+    //                     // }
 
-                    }
-                }
-            }
-        }
-        return response()->json($datas);
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return response()->json($datas);
 
-        $datas['careers'] = career::where('title', 'like', "%" . $request->search . "%")->get();
-        $datas['careerCategories'] = careerCategory::where('title', 'like', "%" . $request->search . "%")->get();
-        $datas['socialMedias'] = pages::where('title', 'like', "%" . $request->search . "%")->get();
-        $datas['menus'] = menu::where('title', 'like', "%" . $request->search . "%")->get();
+    //     $datas['careers'] = career::where('title', 'like', "%" . $request->search . "%")->get();
+    //     $datas['careerCategories'] = careerCategory::where('title', 'like', "%" . $request->search . "%")->get();
+    //     $datas['socialMedias'] = pages::where('title', 'like', "%" . $request->search . "%")->get();
+    //     $datas['menus'] = menu::where('title', 'like', "%" . $request->search . "%")->get();
 
-        return view('client.search.index', ['datas' => $datas, 'searchTitle' => $request->search]);
+    //     return view('client.search.index', ['datas' => $datas, 'searchTitle' => $request->search]);
 
-    }
+    // }
 
     // public function filter(Request $request){
     //     $datas = [];
