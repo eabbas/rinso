@@ -214,7 +214,7 @@ function addLink() {
     siteLinkForm.classList.remove('opacity-0')
     siteLinkForm.classList.remove('top-full')
     siteLinkForm.classList.add('top-0')
-    siteLinkForm.classList.add('translate-y-1/4')
+    // siteLinkForm.classList.add('translate-y-1/4')
 }
 
 function addFaq() {
@@ -352,7 +352,6 @@ function contactus(state) {
             <div class="w-11/12 p-4 bg-[#fff] rounded-lg flex flex-col gap-4">
                 <h2 class="text-md font-bold text-center">شماره موبایل</h2>
                 <div class="w-full flex flex-col justify-center gap-5">
-                    <input type="text" class="outline-hidden w-full py-3 text-sm" name="pageContactusTitle" id="page_contactus_title_create" placeholder="عنوان اصلی بلاک" autofocus>
                     <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1 parentPageContacts"> 
                         <span class="w-full h-[1px] bg-[#e4e6eb] rounded-2xl"></span>
                         <input type="text" class="outline-hidden w-full py-3 text-sm createPageContactusRequire" name="pageContactus[0][key]" id="key_input" placeholder="عنوان ایتم">
@@ -374,7 +373,6 @@ function contactus(state) {
             <div class="w-11/12 p-4 bg-[#fff] rounded-lg flex flex-col gap-4">
                 <h2 class="text-md font-bold text-center">شماره ثابت</h2>
                 <div class="w-full flex flex-col justify-center gap-5">
-                    <input type="text" class="outline-hidden w-full py-3 text-sm" name='pageContactusTitle' placeholder="عنوان اصلی بلاک" id="page_contactus_title_create" autofocus>
                     <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1 parentPageContacts">
                         <span class="w-full h-[1px] bg-[#e4e6eb] rounded-2xl"></span>
                         <input type="text" class="outline-hidden w-full py-3 text-sm createPageContactusRequire" name='pageContactus[0][key]' id="key_input" placeholder="عنوان ایتم">
@@ -397,7 +395,6 @@ function contactus(state) {
             <div  class="w-11/12 p-4 bg-[#fff] rounded-lg flex flex-col gap-4">
                 <h2 class="text-md font-bold text-center">ایمیل </h2>
                 <div class="w-full flex flex-col justify-center gap-5">
-                    <input type="text" class="outline-hidden w-full py-3 text-sm" name='pageContactusTitle' id="page_contactus_title_create" placeholder="عنوان اصلی بلاک" autofocus>
                     <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1 parentPageContacts">
                         <span class="w-full h-[1px] bg-[#e4e6eb] rounded-2xl"></span>
                         <input type="text" class="outline-hidden w-full py-3 text-sm createPageContactusRequire" name='pageContactus[0][key]' id="key_input" placeholder="عنوان ایتم">
@@ -419,7 +416,6 @@ function contactus(state) {
             <div class="w-11/12 p-4 bg-[#fff] rounded-lg flex flex-col gap-4">
                 <h2 class="text-md font-bold text-center">شماره پیامک </h2>
                 <div class="w-full flex flex-col justify-center gap-5">
-                    <input type="text" class="outline-hidden w-full py-3 text-sm" name='pageContactusTitle' id="page_contactus_title_create" placeholder="عنوان اصلی بلاک" autofocus>
                     <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1 parentPageContacts">
                         <span class="w-full h-[1px] bg-[#e4e6eb] rounded-2xl"></span>
                         <input type="text" class="outline-hidden w-full py-3 text-sm createPageContactusRequire"name='pageContactus[0][key]' id="key_input"placeholder="عنوان ایتم">

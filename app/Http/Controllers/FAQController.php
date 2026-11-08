@@ -71,13 +71,17 @@ class FAQController extends Controller
     {
         $id = $request->input('id');
         $faq = FAQ::find($id);
-        $page_blocks = page_blocks::where('page_id', $faq->page_id)->get();
-         foreach ($page_blocks as $page_block) {
-                $page_block->delete();
-            }
+        $blockId = $faq->block_id;
+        $remainingFaqs = FAQ::where('block_id', $blockId)->count();
+        if ($remainingFaqs == 0) {
+            page_blocks::where('id', $blockId)
+                ->where('type', 'FAQS')
+                ->delete();
+        }
         $faq->delete();
         return response()->json('ok');
     }
+    
     public function addQuestion(Request $request)
     {
         $faq = FAQ::create([
