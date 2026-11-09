@@ -48,12 +48,28 @@ class PageContactusController extends Controller
         $pc->save();
         return response()->json($pc);
     }
+
     public function delete(Request $request)
     {
         $id = $request->input('id');
-        $pc = page_contactus::find($id);
+
+        $pc = page_contactus::findOrFail($id);
+
+        $blockId = $pc->block_id;
+
         $pc->delete();
-        return response()->json('ok');
+
+        $remainingPcs = page_contactus::where('block_id', $blockId)->count();
+
+        if ($remainingPcs == 0) {
+            page_blocks::where('id', $blockId)
+                ->where('type', 'pageContactus')
+                ->delete();
+        }
+
+        return response()->json([
+            'remaining' => $remainingPcs
+        ]);
     }
     public function addContactus(Request $request)
     {

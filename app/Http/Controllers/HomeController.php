@@ -15,12 +15,13 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $pages = pages::all();
-        $userPages=null;
-        if(Auth::check()){
-            $userPages=Auth::user()->pages;
-        }
-        return view('home', ['pages' => $pages,'userPages'=>$userPages]);
+        return view('home1');
+        // $pages = pages::all();
+        // $userPages=null;
+        // if(Auth::check()){
+        //     $userPages=Auth::user()->pages;
+        // }
+        // return view('home', ['pages' => $pages,'userPages'=>$userPages]);
     }
 
     public function search(Request $request)
