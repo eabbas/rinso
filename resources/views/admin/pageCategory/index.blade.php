@@ -340,23 +340,7 @@
                            focus:border-[#FF8000] focus:bg-white transition"
                         placeholder="اسلاگ را وارد کنید">
                 </div>
-                <div>
-                    <label class="block text-xs font-bold text-[#00143A] mb-2">
-                       اسلاگ
-                    </label>
-
-                    <select id="editParentId"
-                        class="w-full h-12 px-4 rounded-xl bg-[#F5F7FC]
-                           border border-[#E7EBF2] outline-none text-sm
-                           focus:border-[#FF8000] focus:bg-white transition"
-                        placeholder="اسلاگ را وارد کنید">
-                        <option value="0">بدون والد</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->title }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
+                
                 <div>
                     <label class="block text-xs font-bold text-[#00143A] mb-2">
                         توضیحات
@@ -390,11 +374,11 @@
         </div>
     </div>
 
-    <div class="fixed w-full h-dvh top-0 right-0 bg-black/50 transition-all duration-300 flex justify-center items-center invisible opacity-0"
+    <div class="fixed w-full h-dvh top-0 right-0 bg-black/50 transition-all duration-300 flex justify-center items-center invisible opacity-0 z-99999"
         id="loader">
         <div class="w-11/12 lg:w-1/3 p-5 rounded-xl bg-white flex flex-col items-center justify-center gap-4 lg:gap-8">
-            <div class="size-16 rounded-full border-4 border-[#6AA28D] border-t-4 border-t-white animate-spin"></div>
-            <span class="lg:text-lg font-bold text-[#6AA28D]">لطفا شکیبا باشید ...</span>
+            <div class="size-16 rounded-full border-4 border-[#FF8000] border-t-4 border-t-white animate-spin"></div>
+            <span class="lg:text-lg font-bold text-[#FF8000]">لطفا شکیبا باشید ...</span>
         </div>
     </div>
 

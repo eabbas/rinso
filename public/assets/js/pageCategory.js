@@ -6,7 +6,6 @@ const deleteAllButton = document.getElementById('deleteAllButton')
 const selectedCount = document.getElementById('selectedCount')
 const editModal = document.getElementById('editModal')
 const editForm = document.getElementById('editForm')
-let categories = document.getElementById('editParentId')
 
 let currentRow = null;
 
@@ -152,11 +151,6 @@ searchInput.addEventListener('input', () => {
 
 // باز کردن پاپ‌آپ ویرایش
 function openEditModal(button, categoryId) {
-    for(let option of categories){
-        if(option.value == categoryId){
-            option.selected = true
-        }
-    }
     currentRow = button.closest('.category-row');
     document.getElementById('editName').value = currentRow.dataset.name;
     document.getElementById('editSlug').value = currentRow.dataset.slug;
@@ -195,9 +189,9 @@ editForm.addEventListener('submit', event => {
             'title': title,
             'slug': slug,
             'description': description,
-            'parentId': categories.value || 0
         },
         success: function(data){
+            console.log(data)
             loader('close')
             currentRow.dataset.name = title;
             currentRow.dataset.slug = slug;
@@ -209,7 +203,8 @@ editForm.addEventListener('submit', event => {
             searchInput.dispatchEvent(new Event('input'));
         },
         error: function(xhr, status,error){
-            console.log(xhr.responseJSON.errors)
+            loader('close')
+            console.log(xhr.responseJSON.message)
         }
     })
 });

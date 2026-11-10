@@ -59,7 +59,6 @@ class PageCategoryController extends Controller
             'title'=>$validated['title'],
             'slug'=>$validated['slug'],
             'description'=>$validated['description'],
-            'parent_id'=>$validated['parentId'],
         ]);
         return response()->json($category);
     }
