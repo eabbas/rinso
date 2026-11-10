@@ -11,6 +11,16 @@ let categories = document.getElementById('editParentId')
 let currentRow = null;
 
 
+function loader(status) {
+    if (status === 'open') {
+        document.getElementById('loader').classList.remove('invisible', 'opacity-0')
+    }
+    if (status === 'close') {
+        document.getElementById('loader').classList.add('invisible', 'opacity-0')
+    }
+}
+
+
 // تمام ردیف‌ها
 function getRows() {
     return [...categoryTable.querySelectorAll('.category-row')];
@@ -176,6 +186,7 @@ editForm.addEventListener('submit', event => {
     const description = document.getElementById('editDescription').value.trim();
     const categoryId = document.getElementById('editId').value.trim(); 
     if (!title || !slug) return;
+    loader('open')
     $.ajax({
         url: api +'updatePageCategory/'+categoryId,
         type: "POST",
@@ -187,22 +198,20 @@ editForm.addEventListener('submit', event => {
             'parentId': categories.value || 0
         },
         success: function(data){
-            console.log(data)
+            loader('close')
+            currentRow.dataset.name = title;
+            currentRow.dataset.slug = slug;
+            currentRow.dataset.description = description;
+            currentRow.querySelector('.category-name').textContent = title;
+            currentRow.querySelector('.category-slug').textContent = slug;
+            currentRow.querySelector('.category-description').textContent = description;
+            closeEditModal();
+            searchInput.dispatchEvent(new Event('input'));
         },
-        error: function(){
-            console.log('error')
+        error: function(xhr, status,error){
+            console.log(xhr.responseJSON.errors)
         }
     })
-
-    currentRow.dataset.name = title;
-    currentRow.dataset.slug = slug;
-    currentRow.dataset.description = description;
-    currentRow.querySelector('.category-name').textContent = title;
-    currentRow.querySelector('.category-slug').textContent = slug;
-    currentRow.querySelector('.category-description').textContent = description;
-    closeEditModal();
-    // اعمال مجدد فیلتر جست‌وجو
-    searchInput.dispatchEvent(new Event('input'));
 });
 
 

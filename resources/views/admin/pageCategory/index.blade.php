@@ -390,6 +390,14 @@
         </div>
     </div>
 
+    <div class="fixed w-full h-dvh top-0 right-0 bg-black/50 transition-all duration-300 flex justify-center items-center invisible opacity-0"
+        id="loader">
+        <div class="w-11/12 lg:w-1/3 p-5 rounded-xl bg-white flex flex-col items-center justify-center gap-4 lg:gap-8">
+            <div class="size-16 rounded-full border-4 border-[#6AA28D] border-t-4 border-t-white animate-spin"></div>
+            <span class="lg:text-lg font-bold text-[#6AA28D]">لطفا شکیبا باشید ...</span>
+        </div>
+    </div>
+
     <script src="{{ asset('assets/js/pageCategory.js') }}"></script>
 
 @endsection
