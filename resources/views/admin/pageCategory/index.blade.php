@@ -198,7 +198,7 @@
 
                                     <td class="px-5 py-4 text-center">
                                         <span
-                                            class="inline-flex px-3 py-1 rounded-full bg-green-50 text-green-600 text-[11px] font-bold">
+                                            class="category-slug inline-flex px-3 py-1 rounded-full bg-green-50 text-green-600 text-[11px] font-bold">
                                             {{ $category->slug }}
                                         </span>
                                     </td>
@@ -317,7 +317,7 @@
 
             <!-- Modal Form -->
             <form id="editForm" class="p-6 space-y-5">
-
+                <input type="hidden" id="editId">
                 <div>
                     <label class="block text-xs font-bold text-[#00143A] mb-2">
                         نام دسته‌بندی
@@ -328,6 +328,33 @@
                            border border-[#E7EBF2] outline-none text-sm
                            focus:border-[#FF8000] focus:bg-white transition"
                         placeholder="نام دسته را وارد کنید">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-[#00143A] mb-2">
+                       اسلاگ
+                    </label>
+
+                    <input id="editSlug" type="text" required
+                        class="w-full h-12 px-4 rounded-xl bg-[#F5F7FC]
+                           border border-[#E7EBF2] outline-none text-sm
+                           focus:border-[#FF8000] focus:bg-white transition"
+                        placeholder="اسلاگ را وارد کنید">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-[#00143A] mb-2">
+                       اسلاگ
+                    </label>
+
+                    <select id="editParentId"
+                        class="w-full h-12 px-4 rounded-xl bg-[#F5F7FC]
+                           border border-[#E7EBF2] outline-none text-sm
+                           focus:border-[#FF8000] focus:bg-white transition"
+                        placeholder="اسلاگ را وارد کنید">
+                        <option value="0">بدون والد</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->title }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div>
@@ -363,256 +390,6 @@
         </div>
     </div>
 
-    <script>
-        const categoryTable = document.getElementById('categoryTable');
-        const searchInput = document.getElementById('searchInput');
-        const masterCheckbox = document.getElementById('masterCheckbox');
-        const selectAllButton = document.getElementById('selectAllButton');
-        const deleteAllButton = document.getElementById('deleteAllButton');
-        const selectedCount = document.getElementById('selectedCount');
-        const editModal = document.getElementById('editModal');
-        const editForm = document.getElementById('editForm');
-
-        let currentRow = null;
-
-
-        // تمام ردیف‌ها
-        function getRows() {
-            return [...categoryTable.querySelectorAll('.category-row')];
-        }
-
-
-        // ردیف‌های قابل مشاهده
-        function getVisibleRows() {
-            return getRows().filter(row => !row.classList.contains('hidden'));
-        }
-
-
-        // ردیف‌های انتخاب‌شده
-        function getSelectedRows() {
-            return getRows().filter(row =>
-                row.querySelector('.category-checkbox').checked
-            );
-        }
-
-
-        // بروزرسانی آمار و وضعیت انتخاب‌ها
-        function updateSelection() {
-            const rows = getRows();
-            const visibleRows = getVisibleRows();
-            const selectedRows = getSelectedRows();
-
-            selectedCount.textContent = `${selectedRows.length} مورد انتخاب شده`;
-
-            deleteAllButton.disabled = selectedRows.length === 0;
-
-            masterCheckbox.checked =
-                visibleRows.length > 0 &&
-                visibleRows.every(row => row.querySelector('.category-checkbox').checked);
-
-            masterCheckbox.indeterminate =
-                visibleRows.some(row => row.querySelector('.category-checkbox').checked) &&
-                !masterCheckbox.checked;
-
-            selectAllButton.textContent =
-                visibleRows.length > 0 &&
-                visibleRows.every(row => row.querySelector('.category-checkbox').checked) ?
-                'لغو انتخاب همه' :
-                'انتخاب همه';
-
-            updateStatistics();
-        }
-
-
-        // بروزرسانی آمار
-        function updateStatistics() {
-            const rows = getRows();
-            const visibleRows = getVisibleRows();
-
-            const total = rows.length;
-
-            const used = rows.filter(row => {
-                const count = Number(
-                    row.querySelector('td:nth-child(4) span').textContent.trim()
-                );
-
-                return count > 0;
-            }).length;
-
-            document.getElementById('totalCategories').textContent = total;
-            document.getElementById('footerTotal').textContent = total;
-            document.getElementById('visibleCount').textContent = visibleRows.length;
-            document.getElementById('usedCategories').textContent = used;
-            document.getElementById('activeCategories').textContent = total;
-        }
-
-
-        // انتخاب همه
-        selectAllButton.addEventListener('click', () => {
-            const visibleRows = getVisibleRows();
-
-            const allSelected =
-                visibleRows.length > 0 &&
-                visibleRows.every(row => row.querySelector('.category-checkbox').checked);
-
-            visibleRows.forEach(row => {
-                row.querySelector('.category-checkbox').checked = !allSelected;
-            });
-
-            updateSelection();
-        });
-
-
-        // چک‌باکس بالای جدول
-        masterCheckbox.addEventListener('change', () => {
-            getVisibleRows().forEach(row => {
-                row.querySelector('.category-checkbox').checked = masterCheckbox.checked;
-            });
-
-            updateSelection();
-        });
-
-
-        // تغییر انتخاب هر ردیف
-        categoryTable.addEventListener('change', event => {
-            if (event.target.classList.contains('category-checkbox')) {
-                updateSelection();
-            }
-        });
-
-
-        // جست‌وجو
-        searchInput.addEventListener('input', () => {
-            const keyword = searchInput.value.trim().toLowerCase();
-
-            getRows().forEach(row => {
-                const name = row.dataset.name.toLowerCase();
-                const description = row.dataset.description.toLowerCase();
-
-                const matched =
-                    name.includes(keyword) ||
-                    description.includes(keyword);
-
-                row.classList.toggle('hidden', !matched);
-            });
-
-            document.getElementById('emptyState').classList.toggle(
-                'hidden',
-                getVisibleRows().length !== 0
-            );
-
-            updateSelection();
-        });
-
-
-        // باز کردن پاپ‌آپ ویرایش
-        function openEditModal(button) {
-            currentRow = button.closest('.category-row');
-
-            document.getElementById('editName').value = currentRow.dataset.name;
-            document.getElementById('editDescription').value = currentRow.dataset.description;
-
-            editModal.classList.remove('hidden');
-            editModal.classList.add('flex');
-
-            document.getElementById('editName').focus();
-        }
-
-
-        // بستن پاپ‌آپ
-        function closeEditModal() {
-            editModal.classList.add('hidden');
-            editModal.classList.remove('flex');
-
-            currentRow = null;
-        }
-
-
-        // ذخیره ویرایش
-        editForm.addEventListener('submit', event => {
-            event.preventDefault();
-
-            if (!currentRow) return;
-
-            const name = document.getElementById('editName').value.trim();
-            const description = document.getElementById('editDescription').value.trim();
-
-            if (!name) return;
-
-            currentRow.dataset.name = name;
-            currentRow.dataset.description = description;
-
-            currentRow.querySelector('.category-name').textContent = name;
-            currentRow.querySelector('.category-description').textContent = description;
-
-            closeEditModal();
-
-            // اعمال مجدد فیلتر جست‌وجو
-            searchInput.dispatchEvent(new Event('input'));
-        });
-
-
-        // حذف یک دسته
-        function deleteCategory(button) {
-            const row = button.closest('.category-row');
-            const name = row.dataset.name;
-
-            if (!confirm(`آیا از حذف دسته «${name}» مطمئن هستید؟`)) {
-                return;
-            }
-
-            row.remove();
-
-            updateSelection();
-
-            document.getElementById('emptyState').classList.toggle(
-                'hidden',
-                getVisibleRows().length !== 0
-            );
-        }
-
-
-        // حذف دسته‌های انتخاب‌شده
-        deleteAllButton.addEventListener('click', () => {
-            const selectedRows = getSelectedRows();
-
-            if (selectedRows.length === 0) return;
-
-            if (!confirm(`آیا از حذف ${selectedRows.length} دسته انتخاب‌شده مطمئن هستید؟`)) {
-                return;
-            }
-
-            selectedRows.forEach(row => row.remove());
-
-            masterCheckbox.checked = false;
-
-            updateSelection();
-
-            document.getElementById('emptyState').classList.toggle(
-                'hidden',
-                getVisibleRows().length !== 0
-            );
-        });
-
-
-        // بستن پاپ‌آپ با کلیک روی فضای بیرونی
-        editModal.addEventListener('click', event => {
-            if (event.target === editModal) {
-                closeEditModal();
-            }
-        });
-
-
-        // بستن پاپ‌آپ با کلید Escape
-        document.addEventListener('keydown', event => {
-            if (event.key === 'Escape' && !editModal.classList.contains('hidden')) {
-                closeEditModal();
-            }
-        });
-
-
-        // مقداردهی اولیه
-        updateSelection();
-    </script>
+    <script src="{{ asset('assets/js/pageCategory.js') }}"></script>
 
 @endsection

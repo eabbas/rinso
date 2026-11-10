@@ -51,7 +51,17 @@ class PageCategoryController extends Controller
 
     public function update(Request $request, page_category $category)
     {
-        return $category;
+        $request->merge([
+            'parent_id' => $request->input('parentId', 0),
+        ]);
+        $validated = $request->validate($this->validator(), $this->messages());
+        $category->update([
+            'title'=>$validated['title'],
+            'slug'=>$validated['slug'],
+            'description'=>$validated['description'],
+            'parent_id'=>$validated['parentId'],
+        ]);
+        return response()->json($category);
     }
 
     public function delete(page_category $category)

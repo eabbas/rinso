@@ -14,6 +14,19 @@
     <title>@yield('title')</title>
 
     @include('broad')
+    <script>
+        let userLoggedIn = "{{ Auth::check() }}"
+        let url = "{{ url('/') }}/"
+        let api = "{{ url('/api') }}/"
+        let storage = "{{ url('/storage') }}/"
+        let assets = "{{ asset('/assets') }}/"
+        
+    </script>
+    @if(Auth::check())
+        <script>
+            let uesrId = "{{ Auth::id() }}"
+        </script>
+    @endif
 </head>
 
 <body class="bg-[#F5F7FB]">
