@@ -76,6 +76,6 @@ class pages extends Model
 
   public function categories()
   {
-    return $this->belongsToMany(page_category::class, 'page_category_page');
+    return $this->belongsToMany(page_category::class, 'page_category_pages');
   }
 }
