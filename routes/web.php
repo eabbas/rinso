@@ -58,22 +58,24 @@ use App\Http\Controllers\ClassAttachmentController;
 use App\Http\Controllers\SearchController;
 use App\Http\Middleware\savePreviousUrl;
 
+use App\Http\Controllers\PageCategoryController;
+use App\Http\Middleware\AdminMiddleware;
 
-use App\Http\Controllers\MahdiQuestionController;
-use App\Http\Controllers\MahdiQuestionOptionController;
-use App\Http\Controllers\MahdiTestController;
-
-use App\Models\social_qr_codes;
-use App\Models\order;
-use App\Models\pages;
-Route::get('/fttest', function(){
-    $pages = pages::all();
-    dd($pages);
+Route::group([
+    'prefix'=>'page-category',
+    'controller'=>PageCategoryController::class,
+    'middleware'=>[UserMiddleware::class, AdminMiddleware::class],
+    'as'=>'pageCategory.'
+], function(){
+    Route::get('/create', 'create')->name('create');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/edit/{category}', 'edit')->name('edit');
+    Route::post('/update/{category}', 'update')->name('update');
+    Route::get('/delete/{category}', 'delete')->name('delete');
+    Route::get('/list', 'list')->name('list');
+    Route::get('/single/{category}', 'single')->name('list');
 });
 
-Route::get('/deleteOrder', function () {
-    order::where('user_id', 18)->delete();
-});
 
 Route::get('/roadmap', function () {
     return view('guys.nasiri.roadmap');
@@ -86,27 +88,8 @@ Route::get('/computer-services', function () {
     return view('guys.ft.computer');
 })->name('computer.services');
 
-Route::group([
-    'prefix' => 'guys',
-    'as' => 'guy.'
-], function () {
-    Route::get('/najafi', function () {
-        return view('guys.najafi');
-    })->name('najafi');
-});
-
 Route::get('rinform', function () {
     return view('newhome');
-});
-
-
-Route::get('/test', function () {
-    $link = url('/') . "/qrcode/5/" . 'Dviq52Dnxp';
-    dd($link);
-});
-
-Route::get("mahdi/test", function () {
-    return view('english');
 });
 
 Route::get("ringaa/mahdi", function () {
@@ -115,16 +98,6 @@ Route::get("ringaa/mahdi", function () {
 
 Route::get('/robot', function () {
     return view('abbasScratch.index');
-});
-
-Route::get('/set-page-path', function () {
-    $qrCodes = social_qr_codes::all();
-    foreach ($qrCodes as $code) {
-        $slugArr = explode('/', $code->slug);
-        $code->page_path = $code->slug;
-        $code->slug = $slugArr[count($slugArr) - 1];
-        $code->save();
-    }
 });
 
 Route::get('/set-ref-code', [UserController::class, "setRefCode"]);

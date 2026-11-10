@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('page_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('fa_title');
-            $table->string('en_title');
-            $table->integer('parent_id');
-            $table->text('description');
+            $table->string('title')->nullable();
+            $table->string('slug')->nullable();
+            $table->integer('parent_id')->default(0);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
