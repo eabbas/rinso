@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
 
-<head>
-    @PwaHead
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="{{ asset('assets/js/tailwind.js#t=0.1') }}"></script>
-    <script src="{{ asset('assets/js/jquery.js#t=0.1') }}"></script>
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css#t=0.1') }}" type="text/css">
-    <link rel="shortcut icon" href="{{ asset('logo/faveIcon.png#t=0.1') }}" type="image/png">
-    <script src="{{ asset('assets/js/html5-qrcode.min.js#t=0.1') }}"></script>
-    <title>@yield('title')</title>
-
-</head>
 @php
     $isLoggedIn = Auth::check();
     $ids = $isLoggedIn
@@ -21,7 +7,7 @@
 @endphp
 
 <header dir="rtl"
-    class="sticky top-0 z-[1000] w-[calc(100%-265px)] float-left bg-white/95 backdrop-blur-xl border-b border-slate-100">
+    class="sticky top-0 z-[1000] w-full lg:w-[calc(100%-265px)] float-left bg-white/95 backdrop-blur-xl border-b border-slate-100">
 
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
 
@@ -373,191 +359,664 @@
 </header>
 
 {{-- پس‌زمینه منو --}}
+
+{{-- Mobile Admin Menu --}}
 <div id="menuBlock"
-    dir="rtl"
-    class="fixed inset-0 z-[9998] invisible opacity-0
-           bg-[#142033]/40 backdrop-blur-sm
-           transition-all duration-300">
+     dir="rtl"
+     onclick="if(event.target === this) hamburgerMenu('close')"
+     class="fixed inset-0 z-[9998] invisible opacity-0
+            bg-[#142033]/50 backdrop-blur-sm
+            transition-all duration-300">
 
-    {{-- پنل منو --}}
     <aside id="menuList"
-        class="absolute top-0 right-0 h-full w-[85%] max-w-[340px]
-               bg-white shadow-2xl
-               translate-x-full
+        class="absolute top-0 right-0 h-full w-[88%] max-w-[370px]
+               bg-[#F8FAFC] shadow-2xl translate-x-full
                transition-transform duration-300 ease-out
-               flex flex-col">
+               flex flex-col overflow-hidden">
 
-        {{-- سربرگ --}}
-        <div class="flex items-center justify-between px-5 py-5
-                    border-b border-slate-100">
+        {{-- Header --}}
+        <div class="relative bg-[#142033] px-5 pt-6 pb-6">
 
-            <a href="{{ route('home') }}">
-                <img src="{{ asset('logo/rinso.png') }}"
-                    alt="رینسو"
-                    class="w-[105px] h-11 object-contain">
-            </a>
+            <div class="flex items-center justify-between">
 
-            <button type="button"
-                onclick="hamburgerMenu('close')"
-                class="size-10 rounded-xl flex items-center justify-center
-                       bg-slate-50 hover:bg-orange-50
-                       transition-colors"
-                aria-label="بستن منو">
+                <a href="{{ route('dashboard') }}"
+                   class="flex items-center gap-3">
 
-                <svg viewBox="0 0 24 24"
-                    class="size-5"
-                    fill="none" stroke="#142033"
-                    stroke-width="1.8" stroke-linecap="round">
-                    <path d="m18 6-12 12M6 6l12 12"/>
-                </svg>
+                    <div class="size-11 rounded-xl bg-white/10
+                                flex items-center justify-center">
 
-            </button>
+                        <img src="{{ asset('logo/rinso.png') }}"
+                             alt="رینسو"
+                             class="w-9 h-9 object-contain">
+                    </div>
+
+                    <div>
+                        <p class="text-white font-extrabold text-lg">
+                            پنل مدیریت
+                        </p>
+                        <p class="text-white/50 text-[11px] mt-1">
+                            مدیریت هوشمند رینسو
+                        </p>
+                    </div>
+
+                </a>
+
+                <button type="button"
+                    onclick="hamburgerMenu('close')"
+                    aria-label="بستن منو"
+                    class="size-10 rounded-xl bg-white/10
+                           text-white flex items-center justify-center
+                           hover:bg-white/20 transition">
+
+                    <svg viewBox="0 0 24 24"
+                         class="size-5"
+                         fill="none" stroke="currentColor"
+                         stroke-width="1.8">
+                        <path d="m18 6-12 12M6 6l12 12"/>
+                    </svg>
+
+                </button>
+
+            </div>
+
+            @if(Auth::check())
+                <a href="{{ route('user.profile') }}" class="flex items-center gap-3 mt-6
+                            bg-white/5 border border-white/10
+                            rounded-2xl p-3">
+
+                    @if(!Auth::user()->main_image)
+                        <img src="{{ asset('assets/img/user.png') }}"
+                             class="size-11 rounded-xl object-cover"
+                             alt="پروفایل">
+                    @else
+                        <img src="{{ asset('storage/' . Auth::user()->main_image) }}"
+                             class="size-11 rounded-xl object-cover"
+                             alt="پروفایل">
+                    @endif
+
+                    <div class="min-w-0">
+                        <p class="text-sm font-bold text-white truncate">
+                            {{ Auth::user()->name }}
+                            {{ Auth::user()?->family }}
+                        </p>
+
+                        <p class="text-[11px] text-white/50 mt-1">
+                            خوش آمدی!
+                        </p>
+                    </div>
+
+                </a>
+            @endif
+
         </div>
 
 
-        {{-- محتوای منو --}}
-        <div class="flex-1 overflow-y-auto px-5 py-6">
+        {{-- Menu Body --}}
+        <div class="flex-1 overflow-y-auto px-4 py-5"
+             style="scrollbar-width:none;">
 
-            <p class="text-[11px] font-bold text-slate-400 mb-4 px-2">
+            <p class="text-[11px] font-bold text-slate-400
+                      px-3 mb-3">
                 منوی اصلی
             </p>
 
             <nav class="flex flex-col gap-2">
 
+                {{-- Dashboard --}}
                 <a href="{{ route('home') }}"
-                    class="flex items-center gap-3 px-4 py-3.5
-                    rounded-2xl transition-all
-                    {{ Route::is('home')
-                        ? 'bg-orange-50 text-[#FF9018] font-bold'
-                        : 'text-[#142033] hover:bg-slate-50' }}">
+                   class="flex items-center gap-3 px-4 py-3.5
+                   rounded-xl transition-all
+                   {{ Route::is('home')
+                        ? 'bg-[#142033] text-white shadow-lg shadow-slate-900/10'
+                        : 'text-slate-600 hover:bg-white hover:text-[#142033]' }}">
 
-                    <svg viewBox="0 0 24 24" class="size-5 shrink-0"
-                        fill="none" stroke="currentColor" stroke-width="1.8">
-                        <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/>
-                    </svg>
+                   <svg viewBox="0 0 24 24"
+     class="size-5 shrink-0"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.8"
+     stroke-linecap="round"
+     stroke-linejoin="round">
 
-                    <span class="text-sm">خانه</span>
+    <path d="M3 10.5L12 3L21 10.5"/>
+    <path d="M5 9.5V20C5 20.55 5.45 21 6 21H18C18.55 21 19 20.55 19 20V9.5"/>
+    <path d="M9 21V14H15V21"/>
+
+</svg>
+
+                    <span class="text-sm font-semibold">
+                       خانه
+                    </span>
 
                     @if(Route::is('home'))
                         <span class="mr-auto size-2 rounded-full bg-[#FF9018]"></span>
                     @endif
                 </a>
+                <a href="{{ route('dashboard') }}"
+                   class="flex items-center gap-3 px-4 py-3.5
+                   rounded-xl transition-all
+                   {{ Route::is('dashboard')
+                        ? 'bg-[#142033] text-white shadow-lg shadow-slate-900/10'
+                        : 'text-slate-600 hover:bg-white hover:text-[#142033]' }}">
 
-
-                <a href="{{ route('aboutUs.clientList') }}"
-                    class="flex items-center gap-3 px-4 py-3.5
-                    rounded-2xl transition-all
-                    {{ Route::is('aboutUs.clientList')
-                        ? 'bg-orange-50 text-[#FF9018] font-bold'
-                        : 'text-[#142033] hover:bg-slate-50' }}">
-
-                    <svg viewBox="0 0 24 24" class="size-5 shrink-0"
-                        fill="none" stroke="currentColor" stroke-width="1.8">
-                        <circle cx="12" cy="12" r="9"/>
-                        <path d="M12 11v5m0-8h.01"/>
+                    <svg viewBox="0 0 24 24"
+                         class="size-5 shrink-0"
+                         fill="none" stroke="currentColor"
+                         stroke-width="1.8">
+                        <rect x="3" y="3" width="8" height="8" rx="2"/>
+                        <rect x="13" y="3" width="8" height="5" rx="2"/>
+                        <rect x="13" y="10" width="8" height="11" rx="2"/>
+                        <rect x="3" y="13" width="8" height="8" rx="2"/>
                     </svg>
 
-                    <span class="text-sm">درباره ما</span>
+                    <span class="text-sm font-semibold">
+                        داشبورد
+                    </span>
+
+                    @if(Route::is('dashboard'))
+                        <span class="mr-auto size-2 rounded-full bg-[#FF9018]"></span>
+                    @endif
                 </a>
 
 
-                <a href="{{ route('contactUs.create') }}"
-                    class="flex items-center gap-3 px-4 py-3.5
-                    rounded-2xl transition-all
-                    {{ Route::is('contactUs.create')
-                        ? 'bg-orange-50 text-[#FF9018] font-bold'
-                        : 'text-[#142033] hover:bg-slate-50' }}">
+                {{-- Page Categories --}}
+                @if(in_array(1, $ids))
 
-                    <svg viewBox="0 0 24 24" class="size-5 shrink-0"
-                        fill="none" stroke="currentColor" stroke-width="1.8">
-                        <rect x="3" y="5" width="18" height="14" rx="3"/>
-                        <path d="m3 7 9 6 9-6"/>
-                    </svg>
+                    <details class="group rounded-xl overflow-hidden"
+                        @if(Route::is('pageCategory.*')) open @endif>
 
-                    <span class="text-sm">ارتباط با ما</span>
-                </a>
+                        <summary class="list-none cursor-pointer
+                            flex items-center justify-between
+                            px-4 py-3.5 rounded-xl
+                            transition-all
+                            {{ Route::is('pageCategory.*')
+                                ? 'bg-white text-[#142033] font-bold'
+                                : 'text-slate-600 hover:bg-white' }}">
+
+                            <div class="flex items-center gap-3">
+
+                                <svg viewBox="0 0 24 24"
+                                     class="size-5 shrink-0 text-[#FF9018]"
+                                     fill="none" stroke="currentColor"
+                                     stroke-width="1.8">
+                                    <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                </svg>
+
+                                <span class="text-sm">
+                                    دسته‌های صفحه‌ها
+                                </span>
+
+                            </div>
+
+                            <svg viewBox="0 0 24 24"
+                                 class="size-4 text-slate-400
+                                        transition-transform
+                                        group-open:rotate-180"
+                                 fill="none" stroke="currentColor"
+                                 stroke-width="2">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+
+                        </summary>
+
+                        <div class="mr-6 ml-2 mt-1 pr-4
+                                    border-r-2 border-slate-200
+                                    flex flex-col gap-1">
+
+                            <a href="{{ route('pageCategory.create') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('pageCategory.create')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                ایجاد دسته
+                            </a>
+
+                            <a href="{{ route('pageCategory.list') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('pageCategory.list')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                لیست دسته‌ها
+                            </a>
+
+                        </div>
+
+                    </details>
+
+                @endif
+
+
+                {{-- Pages --}}
+                <details class="group rounded-xl overflow-hidden"
+                    @if(Route::is('pages.*') ||
+                        Route::is('socialMedia.create') ||
+                        Route::is('socialMedia.list')) open @endif>
+
+                    <summary class="list-none cursor-pointer
+                        flex items-center justify-between
+                        px-4 py-3.5 rounded-xl transition-all
+                        {{ Route::is('pages.*') ||
+                           Route::is('socialMedia.create') ||
+                           Route::is('socialMedia.list')
+                            ? 'bg-white text-[#142033] font-bold'
+                            : 'text-slate-600 hover:bg-white' }}">
+
+                        <div class="flex items-center gap-3">
+
+                            <svg viewBox="0 0 24 24"
+                                 class="size-5 shrink-0 text-[#FF9018]"
+                                 fill="none" stroke="currentColor"
+                                 stroke-width="1.8">
+                                <rect x="4" y="3" width="16" height="18" rx="2"/>
+                                <path d="M8 8h8M8 12h8M8 16h5"/>
+                            </svg>
+
+                            <span class="text-sm">صفحه‌ها</span>
+
+                        </div>
+
+                        <svg viewBox="0 0 24 24"
+                             class="size-4 text-slate-400
+                                    transition-transform group-open:rotate-180"
+                             fill="none" stroke="currentColor"
+                             stroke-width="2">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+
+                    </summary>
+
+                    <div class="mr-6 ml-2 mt-1 pr-4
+                                border-r-2 border-slate-200
+                                flex flex-col gap-1">
+
+                        <a href="{{ route('pages.create') }}"
+                           class="px-4 py-3 rounded-lg text-sm transition
+                           {{ Route::is('pages.create')
+                                ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                : 'text-slate-500 hover:bg-white' }}">
+                            ایجاد صفحه
+                        </a>
+
+                        <a href="{{ route('pages.social_list') }}"
+                           class="px-4 py-3 rounded-lg text-sm transition
+                           {{ Route::is('pages.social_list')
+                                ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                : 'text-slate-500 hover:bg-white' }}">
+                            لیست صفحه‌های من
+                        </a>
+
+                        @if(in_array(1, $ids))
+
+                            <a href="{{ route('pages.list') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('pages.list')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                لیست همه صفحه‌ها
+                            </a>
+
+                            <div class="border-t border-slate-200 my-1"></div>
+
+                            <a href="{{ route('socialMedia.create') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('socialMedia.create')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                ایجاد شبکه اجتماعی
+                            </a>
+
+                            <a href="{{ route('socialMedia.list') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('socialMedia.list')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                لیست شبکه‌های اجتماعی
+                            </a>
+
+                        @endif
+
+                    </div>
+
+                </details>
+
+
+                {{-- Users --}}
+                @if(in_array(1, $ids) || in_array(4, $ids))
+
+                    <details class="group rounded-xl overflow-hidden"
+                        @if(Route::is('user.list') ||
+                            Route::is('user.create_user') ||
+                            Route::is('user.myUsers') ||
+                            Route::is('user.requestList')) open @endif>
+
+                        <summary class="list-none cursor-pointer
+                            flex items-center justify-between
+                            px-4 py-3.5 rounded-xl transition-all
+                            {{ Route::is('user.list') ||
+                               Route::is('user.create_user') ||
+                               Route::is('user.myUsers') ||
+                               Route::is('user.requestList')
+                                ? 'bg-white text-[#142033] font-bold'
+                                : 'text-slate-600 hover:bg-white' }}">
+
+                            <div class="flex items-center gap-3">
+
+                                <svg viewBox="0 0 24 24"
+                                     class="size-5 shrink-0 text-[#FF9018]"
+                                     fill="none" stroke="currentColor"
+                                     stroke-width="1.8">
+                                    <circle cx="9" cy="8" r="4"/>
+                                    <path d="M2 21v-2a7 7 0 0 1 14 0v2"/>
+                                    <path d="M17 4a4 4 0 0 1 0 8m2 3a5 5 0 0 1 3 5v1"/>
+                                </svg>
+
+                                <span class="text-sm">کاربران</span>
+
+                            </div>
+
+                            <svg viewBox="0 0 24 24"
+                                 class="size-4 text-slate-400
+                                        transition-transform group-open:rotate-180"
+                                 fill="none" stroke="currentColor"
+                                 stroke-width="2">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+
+                        </summary>
+
+                        <div class="mr-6 ml-2 mt-1 pr-4
+                                    border-r-2 border-slate-200
+                                    flex flex-col gap-1">
+
+                            <a href="{{ route('user.myUsers') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('user.myUsers')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                مشتریان من
+                            </a>
+
+                            <a href="{{ route('user.list') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('user.list')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                همه کاربران
+                            </a>
+
+                            <a href="{{ route('user.create_user') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('user.create_user')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                ایجاد کاربر جدید
+                            </a>
+
+                            @if(in_array(1, $ids) || in_array(4, $ids))
+                                <a href="{{ route('user.requestList') }}"
+                                   class="px-4 py-3 rounded-lg text-sm transition
+                                   {{ Route::is('user.requestList')
+                                        ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                        : 'text-slate-500 hover:bg-white' }}">
+                                    لیست درخواست‌ها
+                                </a>
+                            @endif
+
+                        </div>
+
+                    </details>
+
+                @endif
+
+
+                {{-- Contact Us --}}
+                @if(in_array(1, $ids))
+
+                    <details class="group rounded-xl overflow-hidden"
+                        @if(Route::is('contactUs.*')) open @endif>
+
+                        <summary class="list-none cursor-pointer
+                            flex items-center justify-between
+                            px-4 py-3.5 rounded-xl transition-all
+                            {{ Route::is('contactUs.*')
+                                ? 'bg-white text-[#142033] font-bold'
+                                : 'text-slate-600 hover:bg-white' }}">
+
+                            <div class="flex items-center gap-3">
+
+                                <svg viewBox="0 0 24 24"
+                                     class="size-5 shrink-0 text-[#FF9018]"
+                                     fill="none" stroke="currentColor"
+                                     stroke-width="1.8">
+                                    <rect x="3" y="4" width="18" height="16" rx="3"/>
+                                    <path d="m3 7 9 6 9-6"/>
+                                </svg>
+
+                                <span class="text-sm">ارتباط با ما</span>
+
+                            </div>
+
+                            <svg viewBox="0 0 24 24"
+                                 class="size-4 text-slate-400
+                                        transition-transform group-open:rotate-180"
+                                 fill="none" stroke="currentColor"
+                                 stroke-width="2">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+
+                        </summary>
+
+                        <div class="mr-6 ml-2 mt-1 pr-4
+                                    border-r-2 border-slate-200
+                                    flex flex-col gap-1">
+
+                            <a href="{{ route('contactUs.list') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('contactUs.list')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                لیست تیکت‌ها
+                            </a>
+
+                            <a href="{{ route('contactUs.create') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('contactUs.create')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                فرم ارتباط با ما
+                            </a>
+
+                        </div>
+
+                    </details>
+
+                @endif
+
+
+                {{-- About Us --}}
+                <details class="group rounded-xl overflow-hidden"
+                    @if(Route::is('aboutUs.*')) open @endif>
+
+                    <summary class="list-none cursor-pointer
+                        flex items-center justify-between
+                        px-4 py-3.5 rounded-xl transition-all
+                        {{ Route::is('aboutUs.*')
+                            ? 'bg-white text-[#142033] font-bold'
+                            : 'text-slate-600 hover:bg-white' }}">
+
+                        <div class="flex items-center gap-3">
+
+                            <svg viewBox="0 0 24 24"
+                                 class="size-5 shrink-0 text-[#FF9018]"
+                                 fill="none" stroke="currentColor"
+                                 stroke-width="1.8">
+                                <circle cx="12" cy="12" r="9"/>
+                                <path d="M12 11v5m0-8h.01"/>
+                            </svg>
+
+                            <span class="text-sm">درباره ما</span>
+
+                        </div>
+
+                        <svg viewBox="0 0 24 24"
+                             class="size-4 text-slate-400
+                                    transition-transform group-open:rotate-180"
+                             fill="none" stroke="currentColor"
+                             stroke-width="2">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+
+                    </summary>
+
+                    <div class="mr-6 ml-2 mt-1 pr-4
+                                border-r-2 border-slate-200
+                                flex flex-col gap-1">
+
+                        @if(in_array(1, $ids))
+                            <a href="{{ route('aboutUs.create_edit') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('aboutUs.create_edit')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                ایجاد درباره ما
+                            </a>
+                        @endif
+
+                        <a href="{{ route('aboutUs.list') }}"
+                           class="px-4 py-3 rounded-lg text-sm transition
+                           {{ Route::is('aboutUs.list')
+                                ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                : 'text-slate-500 hover:bg-white' }}">
+                            درباره ما
+                        </a>
+
+                    </div>
+
+                </details>
+
+
+                {{-- QR Codes --}}
+                <details class="group rounded-xl overflow-hidden"
+                    @if(Route::is('generalQrCodes.*')) open @endif>
+
+                    <summary class="list-none cursor-pointer
+                        flex items-center justify-between
+                        px-4 py-3.5 rounded-xl transition-all
+                        {{ Route::is('generalQrCodes.*')
+                            ? 'bg-white text-[#142033] font-bold'
+                            : 'text-slate-600 hover:bg-white' }}">
+
+                        <div class="flex items-center gap-3">
+
+                            <svg viewBox="0 0 24 24"
+                                 class="size-5 shrink-0 text-[#FF9018]"
+                                 fill="none" stroke="currentColor"
+                                 stroke-width="1.8">
+                                <rect x="3" y="3" width="7" height="7" rx="1"/>
+                                <rect x="14" y="3" width="7" height="7" rx="1"/>
+                                <rect x="3" y="14" width="7" height="7" rx="1"/>
+                                <path d="M14 14h3v3h-3zm4 4h3v3h-3zm0-4h3m-7 4v3"/>
+                            </svg>
+
+                            <span class="text-sm">کیوآر کد</span>
+
+                        </div>
+
+                        <svg viewBox="0 0 24 24"
+                             class="size-4 text-slate-400
+                                    transition-transform group-open:rotate-180"
+                             fill="none" stroke="currentColor"
+                             stroke-width="2">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+
+                    </summary>
+
+                    <div class="mr-6 ml-2 mt-1 pr-4
+                                border-r-2 border-slate-200
+                                flex flex-col gap-1">
+
+                        <a href="{{ route('generalQrCodes.create') }}"
+                           class="px-4 py-3 rounded-lg text-sm transition
+                           {{ Route::is('generalQrCodes.create')
+                                ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                : 'text-slate-500 hover:bg-white' }}">
+                            ایجاد کیوآر کد جدید
+                        </a>
+
+                        <a href="{{ route('generalQrCodes.list') }}"
+                           class="px-4 py-3 rounded-lg text-sm transition
+                           {{ Route::is('generalQrCodes.list')
+                                ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                : 'text-slate-500 hover:bg-white' }}">
+                            لیست کیوآر کدهای من
+                        </a>
+
+                    </div>
+
+                </details>
 
             </nav>
 
 
-            {{-- بخش حساب کاربری --}}
-            <div class="mt-9">
+            {{-- Account --}}
+            <div class="mt-8 pt-6 border-t border-slate-200">
 
-                <p class="text-[11px] font-bold text-slate-400 mb-4 px-2">
+                <p class="text-[11px] font-bold text-slate-400
+                          px-3 mb-3">
                     حساب کاربری
                 </p>
 
                 @if(Auth::check())
 
-                    <div class="p-4 rounded-2xl bg-[#F5F7FA]">
+                    <div class="bg-white rounded-2xl p-2
+                                border border-slate-100">
 
-                        <div class="flex items-center gap-3 mb-4">
+                        <a href="{{ route('user.profile') }}"
+                           class="flex items-center gap-3 p-3 rounded-xl
+                                  text-sm text-slate-600
+                                  hover:bg-orange-50 hover:text-[#FF9018]
+                                  transition">
+                            <svg viewBox="0 0 24 24"
+                                 class="size-5"
+                                 fill="none" stroke="currentColor"
+                                 stroke-width="1.8">
+                                <circle cx="12" cy="8" r="4"/>
+                                <path d="M5 21v-2a7 7 0 0 1 14 0v2"/>
+                            </svg>
+                            پروفایل من
+                        </a>
 
-                            @if(!Auth::user()->main_image)
-                                <img src="{{ asset('assets/img/user.png') }}"
-                                    class="size-11 rounded-xl object-cover"
-                                    alt="پروفایل">
-                            @else
-                                <img src="{{ asset('storage/' . Auth::user()->main_image) }}"
-                                    class="size-11 rounded-xl object-cover"
-                                    alt="پروفایل">
-                            @endif
+                        <a href="{{ route('user.setting') }}"
+                           class="flex items-center gap-3 p-3 rounded-xl
+                                  text-sm text-slate-600
+                                  hover:bg-orange-50 hover:text-[#FF9018]
+                                  transition">
+                            <svg viewBox="0 0 24 24"
+                                 class="size-5"
+                                 fill="none" stroke="currentColor"
+                                 stroke-width="1.8">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="m19.4 15 .1.1 1.4 1.1-1.5 2.6-1.8-.6a8 8 0 0 1-1.5.9l-.3 1.9h-3l-.3-1.9a8 8 0 0 1-1.5-.9l-1.8.6-1.5-2.6 1.5-1.2a8 8 0 0 1 0-1.8l-1.5-1.2 1.5-2.6 1.8.6a8 8 0 0 1 1.5-.9l.3-1.9h3l.3 1.9a8 8 0 0 1 1.5.9l1.8-.6 1.5 2.6-1.5 1.2a8 8 0 0 1 0 1.8z"/>
+                            </svg>
+                            تنظیمات حساب
+                        </a>
 
-                            <div class="min-w-0">
-                                <p class="text-sm font-bold text-[#142033] truncate">
-                                    {{ Auth::user()->name }}
-                                    {{ Auth::user()?->family }}
-                                </p>
-                                <p class="text-xs text-slate-400 mt-1">
-                                    خوش آمدی!
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <div class="flex flex-col gap-1">
-
-                            <a href="{{ route('user.profile') }}"
-                                class="px-3 py-2.5 rounded-xl text-sm text-slate-600
-                                       hover:bg-white hover:text-[#FF9018] transition-colors">
-                                پروفایل من
-                            </a>
-
-                            <a href="{{ route('user.setting') }}"
-                                class="px-3 py-2.5 rounded-xl text-sm text-slate-600
-                                       hover:bg-white hover:text-[#FF9018] transition-colors">
-                                تنظیمات حساب
-                            </a>
-
-                            <a href="{{ route('user.logout') }}"
-                                class="px-3 py-2.5 rounded-xl text-sm text-rose-500
-                                       hover:bg-white transition-colors">
-                                خروج از حساب کاربری
-                            </a>
-
-                        </div>
+                        <a href="{{ route('user.logout') }}"
+                           class="flex items-center gap-3 p-3 rounded-xl
+                                  text-sm text-rose-500
+                                  hover:bg-rose-50 transition">
+                            <svg viewBox="0 0 24 24"
+                                 class="size-5"
+                                 fill="none" stroke="currentColor"
+                                 stroke-width="1.8">
+                                <path d="M10 17l5-5-5-5m5 5H3"/>
+                                <path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/>
+                            </svg>
+                            خروج از حساب کاربری
+                        </a>
 
                     </div>
-
-                @else
-
-                    <a href="{{ route('login') }}"
-                        class="flex items-center justify-center gap-2
-                               w-full py-3.5 rounded-2xl
-                               bg-[#142033] text-white
-                               hover:bg-[#FF9018] transition-all">
-
-                        <svg viewBox="0 0 24 24" class="size-5"
-                            fill="none" stroke="currentColor" stroke-width="1.8">
-                            <circle cx="12" cy="8" r="4"/>
-                            <path d="M5 21v-2a7 7 0 0 1 14 0v2"/>
-                        </svg>
-
-                        <span class="text-sm font-bold">
-                            ورود | ثبت نام
-                        </span>
-
-                    </a>
 
                 @endif
 
@@ -566,12 +1025,20 @@
         </div>
 
 
-        {{-- پایین منو --}}
-        <div class="px-5 py-4 border-t border-slate-100">
-            <p class="text-[11px] text-slate-400 text-center">
-                تجربه‌ای ساده‌تر با رینسو
-            </p>
+        {{-- Footer --}}
+        <div class="px-5 py-4 bg-white border-t border-slate-100
+                    flex items-center justify-between">
+
+            <span class="text-[11px] text-slate-400">
+                Powered by Rinso
+            </span>
+
+            <span class="text-xs font-bold text-[#142033]">
+                rinso.ir
+            </span>
+
         </div>
 
     </aside>
 </div>
+
