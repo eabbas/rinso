@@ -73,7 +73,7 @@ Route::group([
     Route::post('/update/{category}', 'update')->name('update');
     Route::get('/delete/{category}', 'delete')->name('delete');
     Route::get('/list', 'list')->name('list');
-    Route::get('/single/{category}', 'single')->name('list');
+    Route::get('/single/{category}', 'single')->name('show');
 });
 
 

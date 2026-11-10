@@ -62,7 +62,8 @@ class PageCategoryController extends Controller
     public function list()
     {
         $categories = page_category::all();
-        return $categories;
+        // return $categories;
+        return view('admin.pageCategory.index');
     }
 
     public function single(page_category $category)
