@@ -1,55 +1,113 @@
 @extends('client.document')
-@section('title', 'ایجاد ارتباط باما')
+@section('title', 'ایجاد ارتباط با ما')
 @section('content')
-    <div class="2xl:container w-10/12 mx-auto">
-        <div class="text-center mb-4 mt-4 lg:mt-10">
-            <h1 class="text-lg font-bold text-gray-800">
-               ارسال تیکت به ادمین
+
+<div class="relative -mt-16 min-h-screen bg-white py-12 md:py-20" dir="rtl">
+    <div class="mx-auto w-11/12 max-w-6xl">
+        <div class="mb-10 text-center">
+            <span class="mb-4 inline-flex items-center gap-2 rounded-full bg-[#FB9413]/10 px-4 py-2 text-sm font-semibold text-[#FB9413]">
+                <span class="h-2 w-2 rounded-full bg-[#FB9413]"></span>
+                پشتیبانی و ارتباط با ما
+            </span>
+
+            <h1 class="text-2xl font-black text-[#101827] md:text-4xl">
+                ارسال تیکت به ادمین
             </h1>
+            <p class="mx-auto mt-4 max-w-xl text-sm leading-8 text-gray-500 md:text-base">
+                اگر سوال یا درخواستی دارید، از طریق فرم زیر با ما در ارتباط باشید.
+                پیام شما در سریع‌ترین زمان ممکن بررسی می‌شود.
+            </p>
+            <div class="mx-auto mt-5 h-1 w-16 rounded-full bg-[#FB9413]"></div>
         </div>
         @if (count(Auth::user()->contactUs))
-            <a href="{{ route('contactUs.myMessage') }}" class="text-sky-700 inline-block mb-5">لیست تیکت ها</a>
+            <div class="mb-5 flex justify-center md:justify-start">
+                <a href="{{ route('contactUs.myMessage') }}"
+                   class="inline-flex items-center gap-2 rounded-lg border border-[#101827]/15 bg-white px-5 py-3 text-sm font-bold text-[#101827] transition hover:border-[#FB9413] hover:text-[#FB9413]">
+                    مشاهده تیکت‌های قبلی
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </a>
+            </div>
         @endif
         <form action="{{ route('contactUs.store') }}" method="post">
             @csrf
-            <div class="flex items-start justify-center">
-                <div class="bg-white rounded-2xl shadow-md p-3 w-full lg:w-3/4">
-                    <div class="text-center mb-4">
-                        <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-3 my-4">
-                            <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1">
-                                <label class="w-30 text-sm mb-1 mt-2.5 flex">شماره تماس</label>
-                                <div
-                                        class="rounded-lg focus:border-none focus:outline-none focus:bg-[#F1F1F4] bg-[#F9F9F9] text-[#99A1B7] w-full flex">
-                                    <input class="p-4 w-full focus:outline-none text-sm font-bold mr-2 " type="number"
-                                           name='phoneNumber' placeholder="شماره تماس" title="شماره تماس" required>
-                                </div>
-                            </div>
-                            <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1">
-                                <label class="w-30 text-sm mb-1 mt-2.5 flex">عنوان</label>
-                                <div
-                                        class="rounded-lg focus:border-none focus:outline-none focus:bg-[#F1F1F4] bg-[#F9F9F9] text-[#99A1B7] w-full flex">
-                                    <input class="p-4 w-full focus:outline-none text-sm font-bold mr-2" type="text"
-                                           name='title' placeholder="عنوان" required>
-                                </div>
-                            </div>
-                            <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1 lg:col-span-2">
-                                <label class="w-30 text-sm mb-1 mt-2.5 flex">توضیحات</label>
-                                <div
-                                        class="rounded-lg focus:border-none focus:outline-none focus:bg-[#F1F1F4] bg-[#F9F9F9] text-[#99A1B7] w-full flex">
-                                    <textarea class="p-4 w-full focus:outline-none text-sm font-bold mr-2"
-                                              name='description' placeholder="توضیحات را وارد کنید" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full text-center">
-                            <button type="submit"
-                                    class="mt-2 bg-[#eb3254] text-white p-3 max-md:p-2 rounded-md hover:bg-blue-700 transition duration-200 font-medium cursor-pointer">
-                                ثبت
-                            </button>
-                        </div>
+            <div class="mx-auto max-w-4xl rounded-2xl border border-[#101827] bg-[#101827] p-6 md:p-10">
+                <div class="mb-8 border-b border-white/15 pb-5">
+                    <h2 class="text-xl font-black text-white">
+                        فرم ارسال پیام
+                    </h2>
+                    <p class="mt-2 text-sm text-white/60">
+                        لطفاً اطلاعات زیر را تکمیل کنید.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div class="flex flex-col gap-2">
+                        <label for="phoneNumber" class="text-sm font-bold text-white">
+                            شماره تماس
+                        </label>
+                        <input
+                            id="phoneNumber"
+                            type="tel"
+                            name="phoneNumber"
+                            value="{{ old('phoneNumber') }}"
+                            placeholder="مثلاً 09123456789"
+                            title="شماره تماس"
+                            required
+                            class="w-full rounded-lg border border-[#D5DCE6] bg-[#E9EDF3] px-4 py-4 text-sm text-[#101827] outline-none transition placeholder:text-[#8792A3] focus:border-[#FB9413] focus:bg-[#F0F2F6] focus:ring-2 focus:ring-[#FB9413]/15"
+                        >
+                        @error('phoneNumber')
+                            <span class="text-xs text-red-400">{{ $message }}</span>
+                        @enderror
                     </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="title" class="text-sm font-bold text-white">
+                            عنوان تیکت
+                        </label>
+                        <input
+                            id="title"
+                            type="text"
+                            name="title"
+                            value="{{ old('title') }}"
+                            placeholder="موضوع پیام خود را بنویسید"
+                            required
+                            class="w-full rounded-lg border border-[#D5DCE6] bg-[#E9EDF3] px-4 py-4 text-sm text-[#101827] outline-none transition placeholder:text-[#8792A3] focus:border-[#FB9413] focus:bg-[#F0F2F6] focus:ring-2 focus:ring-[#FB9413]/15"
+                        >
+                        @error('title')
+                            <span class="text-xs text-red-400">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="flex flex-col gap-2 md:col-span-2">
+                        <label for="description" class="text-sm font-bold text-white">
+                            توضیحات
+                        </label>
+                        <textarea
+                            id="description"
+                            name="description"
+                            rows="6"
+                            placeholder="توضیحات و درخواست خود را اینجا بنویسید..."
+                            required
+                            class="w-full rounded-lg border border-[#D5DCE6] bg-[#E9EDF3] px-4 py-4 text-sm text-[#101827] outline-none transition placeholder:text-[#8792A3] focus:border-[#FB9413] focus:bg-[#F0F2F6] focus:ring-2 focus:ring-[#FB9413]/15"
+                        >{{ old('description') }}</textarea>
+
+                        @error('description')
+                            <span class="text-xs text-red-400">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-end">
+                    <button
+                        type="submit"
+                        class="inline-flex min-w-36 items-center justify-center gap-3 rounded-lg bg-[#FB9413] px-8 py-4 text-sm font-bold text-[#101827] transition duration-300 hover:bg-white"
+                    >
+                        ثبت تیکت
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M7 7h10v10"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </form>
     </div>
+</div>
 @endsection

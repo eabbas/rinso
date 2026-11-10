@@ -1,140 +1,180 @@
 
- @extends('client.document')
- @section('title', 'ارتباط با ما')
- @section('content')
-    <div class="w-full flex flex-col pb-4">
-        <div class="bg-white rounded-lg">
+@extends('client.document')
 
-            <h2 class="text-lg font-bold text-[red] p-4 text-center">لیست ارتباط با ما</h2>
-            <a href="{{ route('contactUs.create') }}" class="text-sky-700">برگشت</a>
+@section('title', 'ارتباط با ما')
 
-            <form class="flex flex-col gap-5" action="{{ route('contactUs.deleteAll') }}" method="post">
-                @csrf
-               
-                <div class="w-10/12 mx-auto flex flex-row justify-between items-center">
-                    <div class="flex flex-row items-center gap-3">
-                        <input type="checkbox" id="all" onchange="checkAll()">
-                        <label for="all" class="text-gray-700 text-xs">انتخاب همه</label>
-                    </div>
-                    <div class="flex justify-center">
-                        <button
-                            class="w-fit flex flex-row items-center justify-center bg-red-500 hover:bg-red-600 p-1 rounded-sm cursor-pointer"
-                            title="حذف">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 448 512">
-                                <path fill="white"
-                                    d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <div
-                    class="max-w-90 mx-auto shadow-md rounded mb-5 overflow-x-auto [&::-webkit-scrollbar]:hidden lg:overflow-visible">
-                    <div
-                        class="min-w-100 flex flex-row lg:grid lg:grid-cols-12 items-center divide-x divide-[#f1f1f4] sticky -top-5">
-                        <div class="text-center text-xs font-medium text-gray-600 bg-gray-100 h-full">
-                            <div class="w-10 lg:w-full h-10 text-gray-100"></div>
-                        </div>
-                        <div class="px-1 lg:px-6 py-3 text-center text-xs font-medium text-gray-600 bg-gray-100">
-                            <span class="block w-10 lg:w-full text-center">ردیف</span>
-                        </div>
-                        <div class="px-1 lg:px-6 py-3 text-center text-xs font-medium text-gray-600 bg-gray-100 col-span-2">
-                            <span class="block w-20 lg:w-full">عنوان</span>
-                        </div>
-                        <div class="px-1 lg:px-6 py-3 text-center text-xs font-medium text-gray-600 bg-gray-100 col-span-2">
-                            <span class="block w-20 lg:w-full">توضیحات</span>
-                        </div>
-                        <div class="px-1 lg:px-6 py-3 text-center text-xs font-medium text-gray-600 bg-gray-100 col-span-2">
-                            <span class="block w-[120px] lg:w-full">شماره تماس</span>
-                        </div>
-                        <div class="px-1 lg:px-6 py-3 text-center text-xs font-medium text-gray-600 bg-gray-100 col-span-4">
-                            <span class="block w-[320px] lg:w-full">عملیات</span>
-                        </div>
+@section('content')
+<div class="w-full pb-8" dir="rtl">
 
-                    </div>
-                    <div class="bg-white divide-y divide-[#f1f1f4]">
+    <div class="rounded-2xl border border-[#101827]/10 bg-white p-4 md:p-7">
+
+        {{-- عنوان صفحه --}}
+        <div class="mb-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <span class="text-sm font-semibold text-[#FB9413]">
+                    بخش پشتیبانی
+                </span>
+                <h2 class="mt-2 text-xl font-black text-[#101827] md:text-2xl">
+                    لیست ارتباط با ما
+                </h2>
+                <p class="mt-2 text-sm text-gray-500">
+                    پیام‌ها و درخواست‌های ثبت‌شده را از این قسمت مدیریت کنید.
+                </p>
+            </div>
+
+            <a href="{{ route('contactUs.create') }}"
+               class="inline-flex items-center justify-center gap-2 rounded-lg border border-[#101827]/15 px-5 py-3 text-sm font-bold text-[#101827] transition hover:border-[#FB9413] hover:bg-[#FB9413]">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 5v14m-7-7h14"/>
+                </svg>
+                ارسال پیام جدید
+            </a>
+        </div>
+
+        {{-- فرم حذف گروهی --}}
+        <form class="flex flex-col gap-5"
+              action="{{ route('contactUs.deleteAll') }}"
+              method="post">
+            @csrf
+
+            {{-- نوار ابزار --}}
+            <div class="flex items-center justify-between rounded-xl border border-[#101827]/10 bg-[#F5F6F8] px-4 py-3">
+                <label for="all" class="flex cursor-pointer items-center gap-3 text-sm font-medium text-[#101827]">
+                    <input type="checkbox"
+                           id="all"
+                           onchange="checkAll()"
+                           class="h-4 w-4 cursor-pointer accent-[#FB9413]">
+                    انتخاب همه
+                </label>
+
+                <button type="submit"
+                        class="inline-flex items-center gap-2 rounded-lg bg-[#101827] px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#FB9413] hover:text-[#101827]"
+                        title="حذف موارد انتخاب‌شده">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-12 0h18"/>
+                    </svg>
+                    حذف انتخاب‌شده‌ها
+                </button>
+            </div>
+
+            {{-- جدول --}}
+            <div class="overflow-x-auto rounded-xl border border-[#101827]/10">
+                <table class="w-full min-w-[850px] border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-[#101827] text-white">
+                            <th class="w-14 px-3 py-4 text-center font-semibold">انتخاب</th>
+                            <th class="w-16 px-3 py-4 text-center font-semibold">ردیف</th>
+                            <th class="px-4 py-4 text-center font-semibold">عنوان</th>
+                            <th class="px-4 py-4 text-center font-semibold">توضیحات</th>
+                            <th class="px-4 py-4 text-center font-semibold">شماره تماس</th>
+                            <th class="w-40 px-4 py-4 text-center font-semibold">عملیات</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-[#101827]/10 bg-white">
                         @php
                             $i = 1;
-                         @endphp
-                        @foreach (Auth::user()->contactUs as $contactUs)
-                                    <div
-                                        class="w-full flex flex-row lg:grid lg:grid-cols-12 items-center divide-x divide-[#f1f1f4]">
-                                         <div
-                                            class="p-1 lg:p-3 text-xs lg:text-sm h-full flex items-center justify-center text-gray-900 text-center">
-                                            <div class="w-10 lg:w-full">
-                                                <input type="checkbox" class="check" name="allContactUs[]" value="{{ $contactUs->id }}">
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="p-1 lg:p-3 text-xs lg:text-sm h-full flex items-center justify-center text-gray-900 text-center">
-                                            <span class="block w-10 lg:w-full">{{ $i }}</span>
-                                        </div>
-                                       
-                                        <div
-                                            class="p-1 lg:p-3 text-xs lg:text-sm h-full flex items-center justify-center text-gray-900 text-center col-span-2">
-                                            <span class="block w-20 lg:w-full">{{ $contactUs->title }}</span>
-                                        </div>
-                                        <div
-                                            class="p-1 lg:p-3 text-xs lg:text-sm h-full flex items-center justify-center text-gray-900 lg:w-full text-center col-span-2 overflow-y-auto break-words scrolling-auto">
-                                            <span
-                                                class="block w-[120px] lg:w-full">{{ $contactUs->description }}</span>
-                                        </div>
-                                        <div
-                                            class="p-1 lg:p-3 text-xs lg:text-sm h-full flex items-center justify-center text-gray-900 w-[500px] lg:w-full text-center col-span-2">
-                                            <span class="block w-24 lg:w-full">{{ $contactUs->phoneNumber }}</span>
-                                        </div>
+                        @endphp
 
-                                        <div class="col-span-4">
-                                            <div class="lg:w-full grid grid-cols-3 divide-x divide-[#f1f1f4] items-center w-[300px]">
+                        @forelse (Auth::user()->contactUs as $contactUs)
+                            <tr class="transition hover:bg-[#F8F9FB]">
 
-                                                <ul class="text-sm mt-1 rounded-sm p-1 grid grid-cols-3 flex justify-center">
-                                                    <li class="flex justify-center">
-                                                        <a href="{{ route('contactUs.show', [$contactUs]) }}"
-                                                            class="w-fit flex flex-row items-center justify-center bg-sky-500 hover:bg-sky-600 p-1 rounded-sm"
-                                                            title="مشاهده">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4"
-                                                                viewBox="0 0 576 512">
-                                                                <path fill="white"
-                                                                    d="M288 80c-65.2 0-118.8 29.6-159.9 67.7C89.6 183.5 63 226 49.4 256c13.6 30 40.2 72.5 78.6 108.3C169.2 402.4 222.8 432 288 432s118.8-29.6 159.9-67.7C486.4 328.5 513 286 526.6 256c-13.6-30-40.2-72.5-78.6-108.3C406.8 109.6 353.2 80 288 80zM95.4 112.6C142.5 68.8 207.2 32 288 32s145.5 36.8 192.6 80.6c46.8 43.5 78.1 95.4 93 131.1c3.3 7.9 3.3 16.7 0 24.6c-14.9 35.7-46.2 87.7-93 131.1C433.5 443.2 368.8 480 288 480s-145.5-36.8-192.6-80.6C48.6 356 17.3 304 2.5 268.3c-3.3-7.9-3.3-16.7 0-24.6C17.3 208 48.6 156 95.4 112.6zM288 336c44.2 0 80-35.8 80-80s-35.8-80-80-80c-.7 0-1.3 0-2 0c1.3 5.1 2 10.5 2 16c0 35.3-28.7 64-64 64c-5.5 0-10.9-.7-16-2c0 .7 0 1.3 0 2c0 44.2 35.8 80 80 80zm0-208a128 128 0 1 1 0 256 128 128 0 1 1 0-256z" />
-                                                            </svg>
-                                                        </a>
-                                                    </li>
-                                                    <li class="flex justify-center">
-                                                        <a href="{{ route('contactUs.edit', [$contactUs]) }}"
-                                                            class="w-fit flex flex-row items-center justify-center bg-green-500 hover:bg-green-600 p-1 rounded-sm"
-                                                            title="ویرایش">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4"
-                                                                viewBox="0 0 512 512">
-                                                                <path fill="white"
-                                                                    d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z" />
-                                                            </svg>
-                                                        </a>
-                                                    </li>
-                                                    <li class="flex justify-center">
-                                                        <a href="{{ route('contactUs.delete', [$contactUs]) }}"
-                                                            class="w-fit flex flex-row items-center justify-center bg-red-500 hover:bg-red-600 p-1 rounded-sm"
-                                                            title="حذف">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4"
-                                                                viewBox="0 0 448 512">
-                                                                <path fill="white"
-                                                                    d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z" />
-                                                            </svg>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                               
-                                @php
-                                    $i++;
-                                @endphp
-                            @endforeach
+                                <td class="px-3 py-4 text-center">
+                                    <input type="checkbox"
+                                           class="check h-4 w-4 cursor-pointer accent-[#FB9413]"
+                                           name="allContactUs[]"
+                                           value="{{ $contactUs->id }}">
+                                </td>
 
+                                <td class="px-3 py-4 text-center text-gray-500">
+                                    {{ $i }}
+                                </td>
 
-                        {{-- <div class="p-1 lg:p-3 text-xs text-center lg:text-sm h-full flex items-center justify-center font-medium">
-                                        <a href="{{ route('cpm.create', [$career])}}" class="text-sky-700">ایجاد منوی شخصی سازی شده </a>
-                                    </div> --}}
-                    </div>
-                </div>
-            </form>
-        </div>
+                                <td class="max-w-[180px] px-4 py-4 text-center font-semibold text-[#101827]">
+                                    <span class="block break-words">
+                                        {{ $contactUs->title }}
+                                    </span>
+                                </td>
+
+                                <td class="max-w-[300px] px-4 py-4 text-center leading-7 text-gray-600">
+                                    <span class="block break-words">
+                                        {{ $contactUs->description }}
+                                    </span>
+                                </td>
+
+                                <td class="px-4 py-4 text-center text-gray-700" dir="ltr">
+                                    {{ $contactUs->phoneNumber }}
+                                </td>
+
+                                <td class="px-4 py-4">
+                                    <div class="flex items-center justify-center gap-2">
+
+                                        {{-- مشاهده --}}
+                                        <a href="{{ route('contactUs.show', [$contactUs]) }}"
+                                           class="flex h-9 w-9 items-center justify-center rounded-lg border border-[#101827]/10 text-[#101827] transition hover:border-[#FB9413] hover:bg-[#FB9413]"
+                                           title="مشاهده">
+                                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                                      d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7z"/>
+                                                <circle cx="12" cy="12" r="3" stroke-width="1.8"/>
+                                            </svg>
+                                        </a>
+
+                                        {{-- ویرایش --}}
+                                        <a href="{{ route('contactUs.edit', [$contactUs]) }}"
+                                           class="flex h-9 w-9 items-center justify-center rounded-lg border border-[#101827]/10 text-[#101827] transition hover:border-[#FB9413] hover:bg-[#FB9413]"
+                                           title="ویرایش">
+                                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                                      d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L8 18l-4 1 1-4 11.5-11.5z"/>
+                                            </svg>
+                                        </a>
+
+                                        {{-- حذف --}}
+                                        <a href="{{ route('contactUs.delete', [$contactUs]) }}"
+                                           class="flex h-9 w-9 items-center justify-center rounded-lg border border-red-100 text-red-500 transition hover:bg-red-500 hover:text-white"
+                                           title="حذف">
+                                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                                      d="M3 6h18M8 6V4h8v2m-9 0l1 14h8l1-14M10 10v6m4-6v6"/>
+                                            </svg>
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                            @php
+                                $i++;
+                            @endphp
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-4 py-14 text-center">
+                                    <div class="flex flex-col items-center gap-3">
+                                        <div class="flex h-14 w-14 items-center justify-center rounded-full bg-[#101827]/5 text-[#101827]">
+                                            <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"
+                                                      d="M8 10h8M8 14h5m-9 5V5a2 2 0 012-2h12a2 2 0 012 2v14l-4-3H6a2 2 0 01-2-2z"/>
+                                            </svg>
+                                        </div>
+                                        <p class="font-bold text-[#101827]">
+                                            هنوز پیامی ثبت نشده است.
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            پیام‌های شما بعد از ثبت در این قسمت نمایش داده می‌شوند.
+                                        </p>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </form>
     </div>
-    <script src="{{ asset('assets/js/checkAll.js') }}"></script>
+</div>
+
+<script src="{{ asset('assets/js/checkAll.js') }}"></script>
 @endsection

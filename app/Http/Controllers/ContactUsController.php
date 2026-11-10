@@ -57,10 +57,13 @@ class ContactUsController extends Controller
         return to_route('contactUs.myMessage');
     }
 
-    public function delete(contactUs $contactUs)
+    public function delete(ContactUs $contactUs)
     {
         $contactUs->delete();
-        return to_route('contactUs.myMessage');
+
+       
+        return redirect()->back()->with('message', 'تیکت با موفقیت حذف شد');
+        // return to_route('contactUs.myMessage');
     }
      public function deleteAll(Request $request)
     {
