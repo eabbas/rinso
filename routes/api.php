@@ -3,7 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CareerController;
+use App\Http\Controllers\PageCategoryController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\MahdiTestController;
@@ -42,7 +42,9 @@ Route::get('/menu/showMenuClient/{menu}', [MenuController::class, 'showMenuClien
 Route::post('/checkUserName', [PagesController::class, 'checkUserName']);
 Route::post('/checkUserNameFromEdit', [PagesController::class, 'checkUserNameFromEdit']);
 
-Route::get('/educational-base', [MahdiTestController::class, 'edub']);
+Route::post('/updatePageCategory/{category}', [PageCategoryController::class, 'update']);
+Route::get('/deletePageCategory/{category}', [PageCategoryController::class, 'delete']);
+Route::post('/deleteAllPageCategory', [PageCategoryController::class, 'deleteAll']);
 
 Route::post('/store-log', [ClientController::class, 'storeLog'])->name('store.log');
 Route::post('/user/checkFromMenu', [UserController::class, 'checkFromMenu'])->withoutMiddleware([UserMiddleware::class]);
