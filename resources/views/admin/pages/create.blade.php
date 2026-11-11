@@ -1,144 +1,282 @@
-    <style>
-        input:focus {
-            color: #2196F3;
-        }
-    </style>
-    @extends('admin.app.panel')
-    @section('title', 'ایجاد صفحه معرفی')
-    @section('content')
-        @php
-            if (Auth::check()) {
-                $roles = Auth::user()->role;
-                $ids = $roles->pluck('id')->toArray();
-            }
-        @endphp
-        <div class="text-center mb-4">
-            <h1 class="text-lg font-bold text-gray-800">
-                ایجاد صفحه جدید
-            </h1>
-        </div>
-        <form action="{{ route('pages.store') }}" method="post" enctype='multipart/form-data'>
-            @csrf
-            <div class="min-h-screen flex items-start justify-center">
-                <div class="bg-white rounded-2xl shadow-md p-3 w-full lg:w-3/4">
-                    <div class="text-center mb-4">
-                        <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-3 my-4">
 
-                            <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1">
-                                <label class="w-30 text-sm mb-1 mt-2.5 flex">نام کاربری (انگلیسی)</label>
-                                <div
-                                    class="rounded-lg focus:outline-none focus:bg-[#F1F1F4] bg-[#F9F9F9] text-[#99A1B7] w-full flex">
-                                    <input class="p-4 w-full focus:outline-none text-sm font-bold mr-2" id="user_name" type="text"
-                                        name='user_name' placeholder="نام کاربری" required dir="ltr">
-                                </div>
-                            </div>
-                            <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1">
-                                <label class="w-30 text-sm mb-1 mt-2.5 flex">عنوان</label>
-                                <div
-                                    class="rounded-lg focus:border-none focus:outline-none focus:bg-[#F1F1F4] bg-[#F9F9F9] text-[#99A1B7] w-full flex">
-                                    <input class="p-4 w-full focus:outline-none text-sm font-bold mr-2" type="text"
-                                        name='title' placeholder="عنوان"required>
-                                </div>
-                            </div>
-                            <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1">
-                                <label class="w-30 text-sm mb-1 mt-2.5 flex">عنوان فرعی</label>
-                                <div
-                                    class="rounded-lg focus:border-none focus:outline-none focus:bg-[#F1F1F4] bg-[#F9F9F9] text-[#99A1B7] w-full flex">
-                                    <input class="p-4 w-full focus:outline-none text-sm font-bold mr-2" type="text"
-                                        name='subTitle' placeholder="عنوان فرعی"required>
-                                </div>
-                            </div>
-                            <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1">
-                                <label class="w-30 text-sm mb-1 mt-2.5 flex">لوگو</label>
-                                <div
-                                    class="rounded-lg focus:border-none focus:outline-none focus:bg-[#F1F1F4] bg-[#F9F9F9] text-[#99A1B7] w-full flex">
-                                    <input class="p-4 w-full focus:outline-none text-sm font-bold mr-2 cursor-pointer"
-                                        type="file" name='logo_path' title="لوگو"required>
-                                </div>
-                            </div>
-                            <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1">
-                                <label class="w-30 text-sm mb-1 mt-2.5 flex">کاور</label>
-                                <div
-                                    class="rounded-lg focus:border-none focus:outline-none focus:bg-[#F1F1F4] bg-[#F9F9F9] text-[#99A1B7] w-full flex">
-                                    <input class="p-4 w-full focus:outline-none text-sm font-bold mr-2 cursor-pointer"
-                                        type="file" name='cover_path' title="کاور"required>
-                                </div>
-                            </div>
-                            @if (in_array(1, $ids))
-                                <div class="w-full flex flex-rows gap-3 itmes-center max-md:flex-row max-md:gap-1">
-                                    <label class="text-sm mb-1 mt-2.5 flex">فعال</label>
-                                    <div class="text-[#99A1B7] flex">
-                                        <input class="p-1 w-full focus:outline-none text-sm font-bold mr-2" type="checkbox"
-                                            name='active[]'>
-                                    </div>
-                                </div>
-                                <div class="w-full flex flex-rows gap-3 itmes-center max-md:flex-row max-md:gap-1">
-                                    <label class="w-30 text-sm mb-1 mt-2.5 flex">نمایش در صفحه اول</label>
-                                    <div class="text-[#99A1B7] flex">
-                                        <input class="p-1 w-full focus:outline-none text-sm font-bold mr-2" type="checkbox"
-                                            name='show_in_home[]'>
-                                    </div>
-                                </div>
-                            @endif
-                            <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1 lg:col-span-2">
-                                <label class="w-30 text-sm mb-1 mt-2.5 flex">توضیحات</label>
-                                <div
-                                    class="rounded-lg focus:border-none focus:outline-none focus:bg-[#F1F1F4] bg-[#F9F9F9] text-[#99A1B7] w-full flex">
-                                    <textarea class="p-4 w-full focus:outline-none text-sm font-bold mr-2" type="text" name='description'
-                                        placeholder="توضیحات"></textarea>
-                                </div>
-                            </div>
+<style>
+    #create-page-form input:focus,
+    #create-page-form textarea:focus {
+        outline: none;
+        border-color: #FB9413;
+        box-shadow: 0 0 0 3px rgba(251, 148, 19, 0.10);
+    }
+
+    #create-page-form input[type="checkbox"] {
+        accent-color: #FB9413;
+        width: 17px;
+        height: 17px;
+        cursor: pointer;
+    }
+
+    #create-page-form input[type="file"]::file-selector-button {
+        background: #101827;
+        color: white;
+        border: none;
+        border-radius: 7px;
+        padding: 8px 12px;
+        margin-left: 12px;
+        cursor: pointer;
+    }
+
+    #submitBtn:not(:disabled) {
+        background-color: #FB9413 !important;
+        color: white !important;
+        cursor: pointer !important;
+        opacity: 1 !important;
+    }
+
+    #submitBtn:disabled {
+        background-color: #FB9413 !important;
+        opacity: 0.45;
+        cursor: not-allowed !important;
+    }
+</style>
+
+@extends('admin.app.panel')
+
+@section('title', 'ایجاد صفحه معرفی')
+
+@section('content')
+    @php
+        if (Auth::check()) {
+            $roles = Auth::user()->role;
+            $ids = $roles->pluck('id')->toArray();
+        }
+    @endphp
+
+    <div dir="rtl" class="w-full min-h-screen bg-[#F7F8FA] py-7 px-3 md:px-6">
+
+        {{-- عنوان صفحه --}}
+        <div class="max-w-5xl mx-auto mb-6">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-[#FB9413]/10 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-[#FB9413]" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                            d="M12 4v16m8-8H4" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-[#101827]">
+                        ایجاد صفحه جدید
+                    </h1>
+                    <p class="text-xs text-gray-500 mt-1">
+                        اطلاعات موردنیاز برای ساخت صفحه معرفی را وارد کنید.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <form id="create-page-form" action="{{ route('pages.store') }}" method="post"
+            enctype="multipart/form-data">
+
+            @csrf
+
+            <div class="max-w-5xl mx-auto">
+                <div class="bg-white rounded-2xl border border-[#E6E9EF] shadow-sm overflow-hidden">
+
+                    {{-- سربرگ فرم --}}
+                    <div class="px-5 md:px-8 py-5 border-b border-[#ECEEF2] flex items-center justify-between">
+                        <div>
+                            <h2 class="text-[#101827] font-bold text-base">
+                                اطلاعات صفحه
+                            </h2>
+                            <p class="text-gray-500 text-xs mt-1">
+                                فیلدهای زیر را با دقت تکمیل کنید.
+                            </p>
                         </div>
-                        <div class="w-full text-left">
+
+                        <div class="w-10 h-10 rounded-xl bg-[#FB9413]/10 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-[#FB9413]" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                    d="M7 7h10M7 12h10M7 17h6" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="p-5 md:p-8">
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-5">
+
+                            {{-- نام کاربری --}}
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold text-[#263449]">
+                                    نام کاربری (انگلیسی)
+                                </label>
+                                <input
+                                    class="w-full rounded-xl bg-[#F5F6F8] border border-[#E1E5EB] px-4 py-3.5 text-sm font-medium text-[#101827] placeholder:text-gray-400 transition"
+                                    id="user_name" type="text" name="user_name"
+                                    placeholder="نام کاربری" required dir="ltr">
+                                    <p id="username-message" class="hidden text-xs text-red-500 mt-1">
+                                        این نام کاربری قبلاً ثبت شده؛ لطفاً نام دیگری انتخاب کنید.
+                                    </p>
+                            </div>
+
+                            {{-- عنوان --}}
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold text-[#263449]">
+                                    عنوان
+                                </label>
+                                <input
+                                    class="w-full rounded-xl bg-[#F5F6F8] border border-[#E1E5EB] px-4 py-3.5 text-sm font-medium text-[#101827] placeholder:text-gray-400 transition"
+                                    type="text" name="title" placeholder="عنوان" required>
+                            </div>
+
+                            {{-- عنوان فرعی --}}
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold text-[#263449]">
+                                    عنوان فرعی
+                                </label>
+                                <input
+                                    class="w-full rounded-xl bg-[#F5F6F8] border border-[#E1E5EB] px-4 py-3.5 text-sm font-medium text-[#101827] placeholder:text-gray-400 transition"
+                                    type="text" name="subTitle" placeholder="عنوان فرعی" required>
+                            </div>
+
+                            {{-- لوگو --}}
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold text-[#263449]">
+                                    لوگو
+                                </label>
+                                <input
+                                    class="w-full rounded-xl bg-[#F5F6F8] border border-[#E1E5EB] px-3 py-2.5 text-sm text-[#101827] transition"
+                                    type="file" name="logo_path" title="لوگو" required>
+                            </div>
+
+                            {{-- کاور --}}
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold text-[#263449]">
+                                    کاور
+                                </label>
+                                <input
+                                    class="w-full rounded-xl bg-[#F5F6F8] border border-[#E1E5EB] px-3 py-2.5 text-sm text-[#101827] transition"
+                                    type="file" name="cover_path" title="کاور" required>
+                            </div>
+
+                            @if (in_array(1, $ids))
+
+                                <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-3">
+
+                                    {{-- فعال --}}
+                                    <div class="flex items-center gap-3 rounded-xl bg-[#F7F8FA] border border-[#E6E9EF] px-4 py-3">
+                                        <input
+                                            class="w-4 h-4 accent-[#FB9413] cursor-pointer"
+                                            type="checkbox" name="active[]">
+                                        <label class="text-sm font-medium text-[#263449] cursor-pointer">
+                                            فعال
+                                        </label>
+                                    </div>
+
+                                    {{-- نمایش در صفحه اول --}}
+                                    <div class="flex items-center gap-3 rounded-xl bg-[#F7F8FA] border border-[#E6E9EF] px-4 py-3">
+                                        <input
+                                            class="w-4 h-4 accent-[#FB9413] cursor-pointer"
+                                            type="checkbox" name="show_in_home[]">
+                                        <label class="text-sm font-medium text-[#263449] cursor-pointer">
+                                            نمایش در صفحه اول
+                                        </label>
+                                    </div>
+
+                                    {{-- خصوصی --}}
+                                    <div class="flex items-center gap-3 rounded-xl bg-[#F7F8FA] border border-[#E6E9EF] px-4 py-3">
+                                        <input
+                                            class="w-4 h-4 accent-[#FB9413] cursor-pointer"
+                                            type="checkbox" name="is_private[]">
+                                        <label class="text-sm font-medium text-[#263449] cursor-pointer">
+                                            خصوصی
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            @endif
+
+                            {{-- توضیحات --}}
+                            <div class="lg:col-span-2 flex flex-col gap-2">
+                                <label class="text-sm font-semibold text-[#263449]">
+                                    توضیحات
+                                </label>
+                                <textarea
+                                    class="w-full min-h-[140px] rounded-xl bg-[#F5F6F8] border border-[#E1E5EB] px-4 py-3.5 text-sm font-medium text-[#101827] placeholder:text-gray-400 transition resize-y"
+                                    type="text" name="description"
+                                    placeholder="توضیحات"></textarea>
+                            </div>
+
+                        </div>
+
+                        {{-- دکمه ثبت --}}
+                        <div class="mt-7 pt-5 border-t border-[#ECEEF2] flex justify-end">
                             <button type="submit" id="submitBtn"
-                                class="active:bg-[#03a9f47a] mt-2 bg-[#03a9f47a] text-white p-3 max-md:p-2 rounded-md hover:bg-[#03a9f47a] transition duration-200 font-medium cursor-no-drop" disabled>
-                                ثبت
+                                class="mt-2 bg-[#FB9413] text-white px-9 py-3 rounded-xl hover:bg-[#e78308] transition duration-200 font-semibold cursor-not-allowed"
+                                disabled>
+                                ثبت صفحه
                             </button>
                         </div>
+
                     </div>
                 </div>
             </div>
         </form>
+    </div>
 
-        <script>
-            let submitBtn = document.getElementById('submitBtn')
-            let link = "{{ url('/') }}/"
-            let user_name = document.getElementById('user_name')
-            user_name.addEventListener('keyup', ()=>{
-                $.ajax({
-                    url: link+"api/checkUserName",
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        'letter': user_name.value
-                    },
-                    success: function(response){
-                        if(response.flag){
-                            user_name.classList.add('border-1')
-                            user_name.classList.add('rounded-lg')
-                            user_name.classList.remove('border-red-500')
-                            user_name.classList.add('border-green-500')
-                            submitBtn.classList = 'active:bg-[#0080e5] mt-2 bg-[#03A9F4] text-white p-3 max-md:p-2 rounded-md hover:bg-blue-700 transition duration-200 font-medium cursor-pointer'
-                            submitBtn.disabled = false
-                        } else {
-                            user_name.classList.add('border-1')
-                            user_name.classList.add('rounded-lg')
-                            user_name.classList.remove('border-green-500')
-                            user_name.classList.add('border-red-500')
-                            submitBtn.disabled = true
-                            submitBtn.classList = 'active:bg-[#03a9f47a] mt-2 bg-[#03a9f47a] text-white p-3 max-md:p-2 rounded-md hover:bg-[#03a9f47a] transition duration-200 font-medium cursor-no-drop'
-                        }
-                        if(user_name.value.trim() == ''){
-                            user_name.classList.remove('border-1')
-                            user_name.classList.remove('rounded-lg')
-                            user_name.classList.remove('border-green-500')
-                            user_name.classList.remove('border-red-500')
-                        }
-                    },
-                    error: function(){
-                        console.log('error')
+    <script>
+        let submitBtn = document.getElementById('submitBtn')
+        let link = "{{ url('/') }}/"
+        let user_name = document.getElementById('user_name')
+
+        user_name.addEventListener('keyup', ()=>{
+            $.ajax({
+                url: link+"api/checkUserName",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    'letter': user_name.value
+                },
+               success: function(response){
+                    let message = document.getElementById('username-message');
+
+                    if(response.flag){
+                        message.classList.add('hidden');
+
+                        user_name.classList.add('border-1');
+                        user_name.classList.add('rounded-lg');
+                        user_name.classList.remove('border-red-500');
+                        user_name.classList.add('border-green-500');
+
+                        submitBtn.classList = 'active:bg-[#0080e5] mt-2 bg-[#03A9F4] text-white p-3 max-md:p-2 rounded-md hover:bg-blue-700 transition duration-200 font-medium cursor-pointer';
+                        submitBtn.disabled = false;
+
+                    } else {
+                        message.classList.remove('hidden');
+
+                        user_name.classList.add('border-1');
+                        user_name.classList.add('rounded-lg');
+                        user_name.classList.remove('border-green-500');
+                        user_name.classList.add('border-red-500');
+
+                        submitBtn.disabled = true;
+                        submitBtn.classList = 'active:bg-[#03a9f47a] mt-2 bg-[#03a9f47a] text-white p-3 max-md:p-2 rounded-md hover:bg-[#03a9f47a] transition duration-200 font-medium cursor-no-drop';
                     }
-                })
+
+                    if(user_name.value.trim() == ''){
+                        message.classList.add('hidden');
+
+                        user_name.classList.remove('border-1');
+                        user_name.classList.remove('rounded-lg');
+                        user_name.classList.remove('border-green-500');
+                        user_name.classList.remove('border-red-500');
+                    }
+                },
+                error: function(){
+                    console.log('error')
+                }
             })
-        </script>
-    @endsection
+        })
+    </script>
+@endsection

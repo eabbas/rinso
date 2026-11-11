@@ -47,7 +47,8 @@ class pagesController extends Controller
             'logo_path' => $logoPath,
             'cover_path' => $coverPath,
             'show_in_home'=> isset($request->show_in_home) ? 1 : 0,
-            'active'=> isset($request->active) ? 1 : 0
+            'active'=> isset($request->active) ? 1 : 0,
+            'is_private'=> isset($request->is_private) ? 1 : 0
         ]);
 
 
@@ -124,6 +125,7 @@ class pagesController extends Controller
         $pages->description = $request->description;
         $pages->show_in_home = $request->show_in_home ? 1 : 0;
         $pages->active= $request->active ? 1 : 0;
+        $pages->is_private= $request->is_private ? 1 : 0;
         $pages->save();
         if (Auth::user()->role[0]->title == 'admin') {
             return to_route('pages.list');

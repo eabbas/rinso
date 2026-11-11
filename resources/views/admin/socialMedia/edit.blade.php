@@ -1,61 +1,171 @@
+
 @extends('admin.app.panel')
+
 @section('title', 'ویرایش شبکه اجتماعی')
+
 @section('content')
 
+<style>
+    #social-media-form input:focus {
+        outline: none;
+        border-color: #FB9413;
+        box-shadow: 0 0 0 3px rgba(251, 148, 19, 0.10);
+    }
 
-    <div class="text-center mb-4">
-        <h1 class="text-lg font-bold text-gray-800">
-            ویرایش شبکه اجتماعی
-        </h1>
+    #social-media-form input[type="file"]::file-selector-button {
+        background: #101827;
+        color: white;
+        border: none;
+        border-radius: 7px;
+        padding: 8px 12px;
+        margin-left: 12px;
+        cursor: pointer;
+    }
+
+    #social-media-form input[type="color"] {
+        width: 48px;
+        height: 42px;
+        padding: 4px;
+        border: 1px solid #E1E5EB;
+        border-radius: 9px;
+        background: white;
+        cursor: pointer;
+    }
+</style>
+
+<div dir="rtl" class="w-full min-h-screen bg-[#F7F8FA] py-7 px-3 md:px-6">
+
+    {{-- عنوان صفحه --}}
+    <div class="max-w-5xl mx-auto mb-6">
+        <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-[#FB9413]/10 flex items-center justify-center">
+                <svg class="w-6 h-6 text-[#FB9413]" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                        d="M16 8a6 6 0 016 6m-6-6a6 6 0 00-6 6m6-6V2m0 12a6 6 0 01-6 6m6-6a6 6 0 006 6m-6-6v8M2 14a6 6 0 016-6" />
+                </svg>
+            </div>
+
+            <div>
+                <h1 class="text-xl font-bold text-[#101827]">
+                    ویرایش شبکه اجتماعی
+                </h1>
+                <p class="text-xs text-gray-500 mt-1">
+                    اطلاعات شبکه اجتماعی را ویرایش کنید.
+                </p>
+            </div>
+        </div>
     </div>
-    <form action="{{ route('socialMedia.update') }}" method="post" enctype='multipart/form-data'>
+
+    <form id="social-media-form" action="{{ route('socialMedia.update') }}"
+        method="post" enctype="multipart/form-data">
+
         @csrf
-        <div class="min-h-screen flex items-start justify-center">
-            <div class="bg-white rounded-2xl shadow-md p-3 w-full lg:w-3/4">
-                <div class="text-center mb-4">
-                    <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-3 my-4">
-                        <input type="hidden" name="id" value="{{ $socialMedia->id }}">
-                        <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1">
-                            <label class="w-30 text-sm mb-1 mt-2.5 flex">عنوان</label>
-                            <div
-                                class="rounded-lg focus:border-none focus:outline-none focus:bg-[#F1F1F4] bg-[#F9F9F9] text-[#99A1B7] w-full flex">
-                                <input class="p-4 w-full focus:outline-none text-sm font-bold mr-2" type="text"
-                                    name='title' placeholder="عنوان" value ="{{ $socialMedia->title }}">
-                            </div>
-                        </div>
-                        <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1">
-                            <label class="w-30 text-sm mb-1 mt-2.5 flex">لینک</label>
-                            <div
-                                class="rounded-lg focus:border-none focus:outline-none focus:bg-[#F1F1F4] bg-[#F9F9F9] text-[#99A1B7] w-full flex">
-                                <input class="p-4 w-full focus:outline-none text-sm font-bold mr-2" type="text"
-                                    name='link' dir="ltr" placeholder="لینک" value="{{ $socialMedia->link }}">
-                            </div>
-                        </div>
-                        <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1">
-                            <label class="w-30 text-sm mb-1 mt-2.5 flex">آیکون شبکه اجتماعی</label>
-                            <div
-                                class="rounded-lg focus:border-none focus:outline-none focus:bg-[#F1F1F4] bg-[#F9F9F9] text-[#99A1B7] w-full flex">
-                                <input class="p-4 w-full focus:outline-none text-sm font-bold mr-2 cursor-pointer"
-                                    type="file" name='icon_path' title="آیکون شبکه اجتماعی">
-                            </div>
-                        </div>
-                        <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1">
-                            <label class="w-30 text-sm mb-1 mt-2.5 flex">رنگ پس زمینه</label>
-                            <div
-                                class="rounded-lg focus:border-none focus:outline-none focus:bg-[#F1F1F4] bg-[#F9F9F9] text-[#99A1B7] w-full flex">
-                                <input class="w-10 focus:outline-none text-sm font-bold mr-2 cursor-pointer"
-                                    type="color" name='color' value="{{ $socialMedia->color }}" title="کد رنگی را وارد کنید">
-                            </div>
-                        </div>
+
+        <input type="hidden" name="id" value="{{ $socialMedia->id }}">
+
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-white rounded-2xl border border-[#E6E9EF] shadow-sm overflow-hidden">
+
+                {{-- سربرگ فرم --}}
+                <div class="px-5 md:px-8 py-5 border-b border-[#ECEEF2] flex items-center justify-between">
+                    <div>
+                        <h2 class="text-[#101827] font-bold text-base">
+                            اطلاعات شبکه اجتماعی
+                        </h2>
+                        <p class="text-gray-500 text-xs mt-1">
+                            مشخصات و ظاهر شبکه اجتماعی را تغییر دهید.
+                        </p>
                     </div>
-                    <div class="w-full text-left ">
+
+                    <div class="w-10 h-10 rounded-xl bg-[#FB9413]/10 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-[#FB9413]" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                d="M7 7h10M7 12h10M7 17h6" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="p-5 md:p-8">
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-5">
+
+                        {{-- عنوان --}}
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold text-[#263449]">
+                                عنوان
+                            </label>
+
+                            <input
+                                class="w-full rounded-xl bg-[#F5F6F8] border border-[#E1E5EB] px-4 py-3.5 text-sm font-medium text-[#101827] placeholder:text-gray-400 transition"
+                                type="text"
+                                name="title"
+                                placeholder="عنوان"
+                                value="{{ $socialMedia->title }}">
+                        </div>
+
+                        {{-- لینک --}}
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold text-[#263449]">
+                                لینک
+                            </label>
+
+                            <input
+                                class="w-full rounded-xl bg-[#F5F6F8] border border-[#E1E5EB] px-4 py-3.5 text-sm font-medium text-[#101827] placeholder:text-gray-400 transition"
+                                type="text"
+                                name="link"
+                                dir="ltr"
+                                placeholder="لینک"
+                                value="{{ $socialMedia->link }}">
+                        </div>
+
+                        {{-- آیکون --}}
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold text-[#263449]">
+                                آیکون شبکه اجتماعی
+                            </label>
+
+                            <input
+                                class="w-full rounded-xl bg-[#F5F6F8] border border-[#E1E5EB] px-3 py-2.5 text-sm text-[#101827] transition"
+                                type="file"
+                                name="icon_path"
+                                title="آیکون شبکه اجتماعی">
+                        </div>
+
+                        {{-- رنگ پس زمینه --}}
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold text-[#263449]">
+                                رنگ پس زمینه
+                            </label>
+
+                            <div class="w-full flex items-center gap-3 rounded-xl bg-[#F5F6F8] border border-[#E1E5EB] px-4 py-2.5">
+                                <input
+                                    type="color"
+                                    name="color"
+                                    value="{{ $socialMedia->color }}"
+                                    title="کد رنگی را وارد کنید">
+
+                                <span class="text-xs text-gray-500">
+                                    رنگ فعلی شبکه اجتماعی
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {{-- دکمه ثبت --}}
+                    <div class="mt-7 pt-5 border-t border-[#ECEEF2] flex justify-end">
                         <button type="submit"
-                            class="active:bg-[#0080e5] mt-2 bg-[#03A9F4] text-white p-3 max-md:p-2 rounded-md hover:bg-blue-700 transition duration-200 font-medium cursor-pointer">
-                            ثبت
+                            class="mt-2 bg-[#FB9413] text-white px-9 py-3 rounded-xl hover:bg-[#e78308] transition duration-200 font-semibold cursor-pointer">
+                            ثبت تغییرات
                         </button>
                     </div>
+
                 </div>
             </div>
         </div>
     </form>
+</div>
+
 @endsection
