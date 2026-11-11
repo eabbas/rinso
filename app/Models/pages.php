@@ -16,7 +16,8 @@ class pages extends Model
     'active',
     'show_in_home',
     'count',
-    'user_name'
+    'user_name',
+    'is_private'
   ];
 
   public function socialMedia()
