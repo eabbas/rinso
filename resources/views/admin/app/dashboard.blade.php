@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'رینگا | داشبورد')
+@section('title', 'ینسو | داشبورد')
 @section('content')
     {{--  topol and miss.khodagholipour  --}}
     <div class="absolute top-0 opacity-0 invisible right-1/2 translate-x-1/2 w-3/4 lg:w-1/3 bg-white rounded-lg shadow-md transition-all duration-500 z-99999999"

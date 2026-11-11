@@ -1,6 +1,6 @@
 
 @extends('admin.app.panel')
-@section('title', 'درباره ما')
+@section('title', 'رینسو | درباره ما')
 @section('content')
 
 <div class="w-full flex flex-col pb-6">
