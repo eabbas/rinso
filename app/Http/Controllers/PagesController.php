@@ -10,6 +10,7 @@ use App\Models\FAQ;
 use App\Models\page_blocks;
 use App\Models\socialMedia;
 use App\Models\page_contactus;
+use App\Models\page_category;
 use App\Models\intro_category;
 use App\Models\intro_product;
 use Illuminate\Http\Request;
@@ -21,11 +22,12 @@ class pagesController extends Controller
 {
     public function create()
     {
-        return view('admin.pages.create');
+        $categories = page_category::all();
+        return view('admin.pages.create', ['categories'=>$categories]);
     }
     public function store(Request $request)
     {
-//        dd($request->all());
+        dd($request->all());
         $logoPath = null;
         $coverPath = null;
         if (isset($request->logo_path)) {

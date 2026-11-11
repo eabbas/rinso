@@ -86,27 +86,22 @@
                                focus:border-[#FF8000] focus:bg-white transition">
 
                     </div>
-
                     <!-- Bulk Actions -->
                     <div class="flex flex-wrap items-center gap-2">
 
                         <span id="selectedCount" class="text-xs text-slate-500 ml-2 in-fa">
                             ۰ مورد انتخاب شده
                         </span>
-
                         <button type="button" id="selectAllButton"
                             class="inline-flex items-center gap-2 px-4 py-2.5
                                rounded-xl border border-[#E7EBF2]
                                text-xs font-bold text-[#00143A]
                                hover:bg-[#F5F7FC] transition">
-
                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="m5 12 4 4L19 6" />
                             </svg>
-
                             انتخاب همه
                         </button>
-
                         <button type="button" id="deleteAllButton" disabled
                             class="inline-flex items-center gap-2 px-4 py-2.5
                                rounded-xl bg-red-50 text-red-500
