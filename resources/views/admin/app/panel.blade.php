@@ -9,7 +9,7 @@
     <script src="{{ asset('assets/js/jquery.js') }}"></script>
 
     <link rel="stylesheet" href="{{ url('assets/css/style.css') }}" type="text/css">
-    <link rel="shortcut icon" href="{{ asset('storage/logos/ringaLogo1.png') }}" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('logo/faveIcon.png') }}" type="image/png">
 
     <title>@yield('title')</title>
 

@@ -35,7 +35,6 @@
 
         <!-- Statistics -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-
             <div class="bg-white border border-[#E7EBF2] rounded-2xl p-5 flex items-center gap-4">
                 <div class="size-12 rounded-xl bg-[#FFF0DF] text-[#FF8000] flex items-center justify-center">
                     <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -46,10 +45,9 @@
 
                 <div>
                     <p class="text-xs text-slate-500">تعداد کل دسته‌ها</p>
-                    <h3 id="totalCategories" class="text-2xl font-black text-[#00143A] mt-1">۴</h3>
+                    <h3 id="totalCategories" class="text-2xl font-black text-[#00143A] mt-1 in-fa">۴</h3>
                 </div>
             </div>
-
             <div class="bg-white border border-[#E7EBF2] rounded-2xl p-5 flex items-center gap-4">
                 <div class="size-12 rounded-xl bg-[#EAF0F8] text-[#08285A] flex items-center justify-center">
                     <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -57,28 +55,11 @@
                         <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" />
                     </svg>
                 </div>
-
                 <div>
                     <p class="text-xs text-slate-500">دسته‌های دارای صفحه</p>
-                    <h3 id="usedCategories" class="text-2xl font-black text-[#00143A] mt-1">۳</h3>
+                    <h3 id="usedCategories" class="text-2xl font-black text-[#00143A] mt-1 in-fa">۳</h3>
                 </div>
             </div>
-
-            <div
-                class="bg-white border border-[#E7EBF2] rounded-2xl p-5 flex items-center gap-4 sm:col-span-2 lg:col-span-1">
-                <div class="size-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center">
-                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                        <path d="m5 12 4 4L19 6" />
-                        <circle cx="12" cy="12" r="9" />
-                    </svg>
-                </div>
-
-                <div>
-                    <p class="text-xs text-slate-500">دسته‌های فعال</p>
-                    <h3 id="activeCategories" class="text-2xl font-black text-[#00143A] mt-1">۴</h3>
-                </div>
-            </div>
-
         </div>
 
 
@@ -109,7 +90,7 @@
                     <!-- Bulk Actions -->
                     <div class="flex flex-wrap items-center gap-2">
 
-                        <span id="selectedCount" class="text-xs text-slate-500 ml-2">
+                        <span id="selectedCount" class="text-xs text-slate-500 ml-2 in-fa">
                             ۰ مورد انتخاب شده
                         </span>
 
