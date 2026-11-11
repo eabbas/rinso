@@ -9,7 +9,6 @@ const editForm = document.getElementById('editForm')
 
 let currentRow = null;
 
-
 function loader(status) {
     if (status === 'open') {
         document.getElementById('loader').classList.remove('invisible', 'opacity-0')
@@ -19,28 +18,20 @@ function loader(status) {
     }
 }
 
-
-// تمام ردیف‌ها
 function getRows() {
     return [...categoryTable.querySelectorAll('.category-row')];
 }
 
-
-// ردیف‌های قابل مشاهده
 function getVisibleRows() {
     return getRows().filter(row => !row.classList.contains('hidden'));
 }
 
-
-// ردیف‌های انتخاب‌شده
 function getSelectedRows() {
     return getRows().filter(row =>
         row.querySelector('.category-checkbox').checked
     );
 }
 
-
-// بروزرسانی آمار و وضعیت انتخاب‌ها
 function updateSelection() {
     const rows = getRows();
     const visibleRows = getVisibleRows();
@@ -156,6 +147,7 @@ function openEditModal(button, categoryId) {
     document.getElementById('editSlug').value = currentRow.dataset.slug;
     document.getElementById('editId').value = categoryId;
     document.getElementById('editDescription').value = currentRow.dataset.description;
+    document.getElementById('editParentId').value = currentRow.dataset.parentId;
     editModal.classList.remove('hidden');
     editModal.classList.add('flex');
     document.getElementById('editName').focus();
@@ -179,6 +171,7 @@ editForm.addEventListener('submit', event => {
     const slug = document.getElementById('editSlug').value.trim();
     const description = document.getElementById('editDescription').value.trim();
     const categoryId = document.getElementById('editId').value.trim(); 
+    const parentId = document.getElementById('editParentId').value; 
     if (!title || !slug) return;
     loader('open')
     $.ajax({
@@ -189,6 +182,7 @@ editForm.addEventListener('submit', event => {
             'title': title,
             'slug': slug,
             'description': description,
+            'parent_id': parentId,
         },
         success: function(data){
             console.log(data)
@@ -211,7 +205,7 @@ editForm.addEventListener('submit', event => {
 
 
 // حذف یک دسته
-function deleteCategory(button) {
+function deleteCategory(button, categoryId) {
     const row = button.closest('.category-row');
     const name = row.dataset.name;
 

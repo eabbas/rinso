@@ -172,7 +172,7 @@
                         @if (count($categories) > 0)
                             @foreach ($categories as $category)
                                 <tr class="category-row hover:bg-[#FAFBFD] transition" data-name="{{ $category->title }}" data-slug="{{ $category->slug }}"
-                                    data-description="{{ $category->description }}">
+                                    data-description="{{ $category->description }}" data-parent-id="{{ $category->parent_id }}">
 
                                     <td class="px-5 py-4">
                                         <input type="checkbox"
@@ -290,7 +290,7 @@
         class="hidden fixed inset-0 z-[100] items-center justify-center
             bg-[#00143A]/50 backdrop-blur-sm p-4">
 
-        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl max-h-[calc(100%-100px)] overflow-y-auto" onclick="event.stopPropagation()">
 
             <!-- Modal Header -->
             <div class="flex items-center justify-between px-6 py-5 border-b border-[#E7EBF2]">
@@ -339,6 +339,21 @@
                            border border-[#E7EBF2] outline-none text-sm
                            focus:border-[#FF8000] focus:bg-white transition"
                         placeholder="اسلاگ را وارد کنید">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-[#00143A] mb-2">
+                       دسته والد
+                    </label>
+
+                    <select id="editParentId"
+                        class="w-full h-12 px-4 rounded-xl bg-[#F5F7FC]
+                           border border-[#E7EBF2] outline-none text-sm
+                           focus:border-[#FF8000] focus:bg-white transition">
+                           <option value="0">بدون والد</option>
+                           @foreach ($categories as $category)
+                               <option value="{{ $category->id }}">{{ $category->title }}</option>
+                           @endforeach
+                    </select>
                 </div>
                 
                 <div>
