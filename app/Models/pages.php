@@ -9,6 +9,7 @@ class pages extends Model
   protected $fillable = [
     'logo_path',
     'user_id',
+    'category_id',
     'cover_path',
     'title',
     'subTitle',
@@ -75,8 +76,7 @@ class pages extends Model
     return $this->hasMany(page_contactus::class, 'page_id');
   }
 
-  public function categories()
-  {
-    return $this->belongsToMany(page_category::class, 'page_category_pages');
+  public function category(){
+    return $this->belongsTo(page_category::class, 'category_id');
   }
 }

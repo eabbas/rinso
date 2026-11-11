@@ -14,6 +14,6 @@ class page_category extends Model
     ];
 
     public function pages(){
-        return $this->belongsToMany(pages::class, 'page_category_pages', 'page_category_id', 'page_id');
+        return $this->hasMany(pages::class, 'category_id');
     }
 }
