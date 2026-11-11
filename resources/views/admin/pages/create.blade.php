@@ -109,14 +109,14 @@
 
                                     <div class="relative">
                                         <input id="user_name" type="text" name="user_name" placeholder="مثلاً: mohammad"
-                                            required dir="ltr"
+                                            required dir="ltr" value="{{ old('user_name') }}"
                                             class="w-full h-12 px-4 rounded-xl border-1 border-slate-200 bg-slate-50 text-sm font-semibold text-[#142033] placeholder:text-slate-400 outline-none transition focus:bg-white focus:border-[#142033] focus:ring-4 focus:ring-slate-100">
                                     </div>
-
-                                    <p class="hidden text-[11px] text-red-400" id="warningText">
-                                        استفاده از کاراکتر غیرمجاز
-                                    </p>
-
+                                    @error('user_name')
+                                        <p class="text-[11px] text-red-400">
+                                        {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
 
@@ -129,9 +129,13 @@
                                     </label>
 
                                     <input id="page_title" type="text" name="title"
-                                        placeholder="عنوان صفحه را وارد کنید" required
+                                        placeholder="عنوان صفحه را وارد کنید" required value="{{ old('title') }}"
                                         class="w-full h-12 px-4 rounded-xl border-1 border-slate-200 bg-slate-50 text-sm font-semibold text-[#142033] placeholder:text-slate-400 outline-none transition focus:bg-white focus:border-[#142033] focus:ring-4 focus:ring-slate-100">
-
+                                    @error('title')
+                                        <p class="text-[11px] text-red-400">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
 
@@ -146,22 +150,26 @@
                                     </label>
 
                                     <input id="page_subtitle" type="text" name="subTitle"
-                                        placeholder="یک جمله کوتاه برای معرفی صفحه"
+                                        placeholder="یک جمله کوتاه برای معرفی صفحه" value="{{ old('subTitle') }}"
                                         class="w-full h-12 px-4 rounded-xl border-1 border-slate-200 bg-slate-50 text-sm font-semibold text-[#142033] placeholder:text-slate-400 outline-none transition focus:bg-white focus:border-[#142033] focus:ring-4 focus:ring-slate-100">
-
+                                    @error('subTitle')
+                                        <p class="text-[11px] text-red-400">
+                                        {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
 
 
                                 {{-- Page Category --}}
                                 <div class="flex flex-col gap-2">
 
-                                    <label for="page_category_id" class="text-sm font-semibold text-slate-700">
+                                    <label for="category_id" class="text-sm font-semibold text-slate-700">
                                         دسته‌بندی صفحه
                                     </label>
 
                                     <select
-                                        name="page_category_id"
-                                        id="page_category_id"
+                                        name="category_id"
+                                        id="category_id"
                                         class="w-full h-12 px-4 rounded-xl border-1 border-slate-200 bg-slate-50 text-sm font-semibold text-[#142033] outline-none transition focus:bg-white focus:border-[#142033] focus:ring-4 focus:ring-slate-100 cursor-pointer">
 
                                         <option value="" selected disabled>
@@ -169,12 +177,17 @@
                                         </option>
 
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}" {{ old('page_category_id') == $category->id ? 'selected' : '' }}>
+                                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                                 {{ $category->title }}
                                             </option>
                                         @endforeach
 
                                     </select>
+                                    @error('category_id')
+                                        <p class="text-[11px] text-red-400">
+                                        {{ $message }}
+                                        </p>
+                                    @enderror
 
                                     <p class="text-[11px] text-slate-400">
                                         مشخص کنید این صفحه در کدام دسته‌بندی قرار بگیرد.
@@ -258,6 +271,11 @@
                                             title="لوگو" class="hidden">
 
                                     </label>
+                                    @error('logo_path')
+                                        <p class="text-[11px] text-red-400">
+                                        {{ $message }}
+                                        </p>
+                                    @enderror
 
                                 </div>
 
@@ -304,6 +322,11 @@
                                             title="کاور" class="hidden">
 
                                     </label>
+                                    @error('cover_path')
+                                        <p class="text-[11px] text-red-400">
+                                        {{ $message }}
+                                        </p>
+                                    @enderror
 
                                 </div>
 
@@ -330,11 +353,16 @@
 
                                 <textarea id="page_description" name="description" rows="5"
                                     placeholder="درباره خودتان، کسب‌وکار یا خدماتی که ارائه می‌دهید بنویسید..."
-                                    class="w-full p-4 rounded-xl border-1 border-slate-200 bg-slate-50 text-sm font-medium text-[#142033] placeholder:text-slate-400 outline-none resize-y transition focus:bg-white focus:border-[#142033] focus:ring-4 focus:ring-slate-100"></textarea>
+                                    class="w-full p-4 rounded-xl border-1 border-slate-200 bg-slate-50 text-sm font-medium text-[#142033] placeholder:text-slate-400 outline-none resize-y transition focus:bg-white focus:border-[#142033] focus:ring-4 focus:ring-slate-100">{{ old('description') }}</textarea>
 
                                 <p class="text-[11px] text-slate-400">
                                     توضیحاتی بنویسید که به بازدیدکنندگان کمک کند شما را بهتر بشناسند.
                                 </p>
+                                @error('description')
+                                        <p class="text-[11px] text-red-400">
+                                        {{ $message }}
+                                        </p>
+                                    @enderror
 
                             </div>
 
@@ -375,7 +403,7 @@
                                             </p>
                                         </div>
 
-                                        <input type="checkbox" name="active[]"
+                                        <input type="checkbox" name="active" value="1"
                                             class="w-5 h-5 accent-[#FF9018] cursor-pointer shrink-0">
 
                                     </label>
@@ -395,7 +423,7 @@
                                             </p>
                                         </div>
 
-                                        <input type="checkbox" name="show_in_home[]"
+                                        <input type="checkbox" name="show_in_home" value="1"
                                             class="w-5 h-5 accent-[#FF9018] cursor-pointer shrink-0">
 
                                     </label>

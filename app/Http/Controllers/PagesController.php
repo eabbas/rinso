@@ -20,6 +20,34 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class pagesController extends Controller
 {
+    public function validator(){
+        return [
+            'user_name' => ['required', 'string', 'max:191'],
+            'title' => ['required', 'string', 'max:191'],
+            'subTitle' => ['nullable', 'string', 'max:191'],
+            'category_id' => ['required', 'integer', 'exists:page_categories,id'],
+            'description' => ['nullable', 'string'],
+            'active' => ['nullable', 'boolean'],
+            'show_in_home' => ['nullable', 'boolean'],
+            'logo_path' => ['nullable', 'image', 'max:2048'],
+            'cover_path' => ['nullable', 'image', 'max:2048'],
+        ];
+    }
+    public function messages(){
+        return [
+            'user_name.required'=> 'نام کاربری الزامی است',
+            'user_name.string'=> 'استفاده از کاراکتر غیرمجاز',
+            'user_name.max'=> 'تعداد کاراکتر ها باید کمتر از 191 عدد باشد',
+            'title.required'=> 'عنوان الزامی است',
+            'title.string'=> 'استفاده از کاراکتر غیرمجاز',
+            'title.max'=> 'تعداد کاراکتر ها باید کمتر از 191 عدد باشد',
+            'description.string'=> 'استفاده از کاراکتر غیرمجاز',
+            'logo_path.image'=> 'لوگو باید تصویر باشد',
+            'logo_path.max'=> 'حجم تصویر نباید بیشتر از 2 مگابایت باشد',
+            'cover_path.image'=> 'کاور باید تصویر باشد',
+            'cover_path.max'=> 'حجم تصویر نباید بیشتر از 2 مگابایت باشد',
+        ];
+    }
     public function create()
     {
         $categories = page_category::all();
@@ -27,44 +55,29 @@ class pagesController extends Controller
     }
     public function store(Request $request)
     {
-        dd($request->all());
+        $validated = $request->validate($this->validator(), $this->messages());
         $logoPath = null;
         $coverPath = null;
-        if (isset($request->logo_path)) {
-            $logoName = $request->file('logo_path')->getClientOriginalName();
-            $fullLogoName = time() . '_' . $logoName;
-            $logoPath = $request->file('logo_path')->storeAs('logo_page', $fullLogoName, 'public');
+        if (isset($validated['logo_path'])) {
+            $logoName = time() . '_' . $validated['logo_path']->getClientOriginalName();
+            $logoPath = $validated['logo_path']->storeAs('logo_page', $logoName, 'public');
         }
-        if (isset($request->cover_path)) {
-            $pageName = $request->file('cover_path')->getClientOriginalName();
-            $fullPageName = time() . '_' . $pageName;
-            $coverPath = $request->file('cover_path')->storeAs('logo_page', $fullPageName, 'public');
+        if (isset($validated['cover_path'])) {
+            $pageName = time() . '_' . $validated['cover_path']->getClientOriginalName();
+            $coverPath = $validated['cover_path']->storeAs('logo_page', $pageName, 'public');
         }
         $page_id = pages::insertGetId([
-            'user_name'=>$request->user_name,
-            'title' => $request->title,
-            'subTitle' => $request->subTitle ? $request->subTitle : null,
-            'description' => $request->description,
+            'user_name'=>$validated['user_name'],
+            'title' => $validated['title'],
+            'subTitle' => $validated['subTitle'] ? $validated['subTitle'] : null,
+            'description' => $validated['description'],
+            'category_id' => $validated['category_id'],
             'user_id' => Auth::id(),
             'logo_path' => $logoPath,
             'cover_path' => $coverPath,
-            'show_in_home'=> isset($request->show_in_home) ? 1 : 0,
-            'active'=> isset($request->active) ? 1 : 0
+            'show_in_home'=> isset($validated['show_in_home']) ? 1 : 0,
+            'active'=> isset($validated['active']) ? 1 : 0
         ]);
-
-
-        // $random = Str::random(10);
-        // $link = url('/')."/links/$page_id/" . $random;
-        // $qr_svg = QrCode::size(100)->generate($link);
-        // $fileName = 'qrcodes/' . $page_id . '_' . $random . '.svg';
-        // Storage::disk('public')->put($fileName, $qr_svg);
-        // social_qr_codes::create([
-        //     'qr_path' => $fileName,
-        //     'page_id' => $page_id,
-        //     'page_path' => 'links/' . $page_id . '/' . $random,
-        //     'slug'=>$random
-        // ]);
-
 
         $page = pages::find($page_id);
         $link = url('/')."/" . $page->user_name;

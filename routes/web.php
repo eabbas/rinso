@@ -1,20 +1,13 @@
 <?php
 
-use App\Http\Controllers\CareerController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\MenuController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\SpecialUserController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\QRCodeController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\CareerCategoryController;
-use App\Http\Controllers\PagesController;
+use App\Http\Controllers\CareerController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckListController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\CustomCategoryController;
 use App\Http\Controllers\CustomProductController;
 use App\Http\Controllers\CustomProductMaterialController;
@@ -23,55 +16,215 @@ use App\Http\Controllers\EcommCategoryController;
 use App\Http\Controllers\EcommController;
 use App\Http\Controllers\EcommProductController;
 use App\Http\Controllers\EcommQrCodeController;
+use App\Http\Controllers\FAQController;
 use App\Http\Controllers\favoriteCareerController;
-use App\Http\Controllers\pageBlocksController;
+use App\Http\Controllers\FavoriteCategoriesController;
+use App\Http\Controllers\favoritesController;
+use App\Http\Controllers\GeneralQrCodesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IntroCategoryController;
+use App\Http\Controllers\IntroProductController;
 use App\Http\Controllers\MenuCategoryController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MenuItemController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\pageBlocksController;
+use App\Http\Controllers\PageContactusController;
+use App\Http\Controllers\PageDescriptionController;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvinceCityController;
+use App\Http\Controllers\QRCodeController;
+use App\Http\Controllers\SamplesController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SiteLinkController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SocialAddressController;
 use App\Http\Controllers\SocialMediaController;
-use App\Http\Controllers\favoritesController;
-use App\Http\Controllers\FavoriteCategoriesController;
-use App\Http\Controllers\ContactUsController;
-use App\Http\Middleware\LoginMiddleware;
-use App\Http\Controllers\FAQController;
-use App\Http\Controllers\IntroCategoryController;
-use App\Http\Controllers\IntroProductController;
-use App\Http\Controllers\SamplesController;
-use App\Http\Middleware\UserMiddleware;
+use App\Http\Controllers\SpecialUserController;
 use App\Http\Controllers\SuggestionController;
-use App\Http\Controllers\GeneralQrCodesController;
-use App\Http\Controllers\PageContactusController;
-use App\Http\Controllers\PageDescriptionController;
-use App\Http\Controllers\CheckListController;
-//use App\Http\Middleware\checkListAdmin;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\LoginMiddleware;
+use App\Http\Middleware\UserMiddleware;
+use Illuminate\Support\Facades\Route;
+// use App\Http\Middleware\checkListAdmin;
+use App\Http\Controllers\ClassAttachmentController;
+use App\Http\Controllers\ClassCommentController;
 use App\Http\Controllers\FieldController;
 use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\InstituteRequestController;
 use App\Http\Controllers\LessonClassController;
 use App\Http\Controllers\LessonController;
-use App\Http\Controllers\ClassCommentController;
-use App\Http\Controllers\ClassAttachmentController;
-use App\Http\Controllers\SearchController;
-use App\Http\Middleware\savePreviousUrl;
-
 use App\Http\Controllers\PageCategoryController;
+use App\Http\Controllers\SearchController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\savePreviousUrl;
+use App\Models\page_category;
+use App\Models\pages;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+Route::get('/test', function () {
+    Schema::table('pages', function (BluePrint $table) {
+        $table->longText('description')->nullable()->change();
+        $table->integer('category_id')->default(0)->after('description');
+    });
+    $allCats = [
+        [
+            'title' => 'عمومی',
+            'slug' => 'General',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'هنرمند',
+            'slug' => 'Artist',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'موزیسین / بند',
+            'slug' => 'Musician / band',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'بلاگر',
+            'slug' => 'Blogger',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'پوشاک (برند)',
+            'slug' => 'Clothing (brand)',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'انجمن',
+            'slug' => 'Community',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'سازنده دیجیتال',
+            'slug' => 'Digital Creator',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'آموزش',
+            'slug' => 'Education',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'کارآفرین',
+            'slug' => 'Entrepreneur',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'سلامتی / زیبایی',
+            'slug' => 'Health / Beauty',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'ویرایشگر',
+            'slug' => 'Editor',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'نویسنده',
+            'slug' => 'Writer',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'وبلاگ شخصی',
+            'slug' => 'Personal blog',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'محصول / خدمات',
+            'slug' => 'Product / service',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'گیمر',
+            'slug' => 'gamer',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'رستوران',
+            'slug' => 'Restaurant',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'زیبایی، آرایشی و بهداشت شخصی',
+            'slug' => 'Beauty, cosmetic & personal care',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'خواربار فروشی',
+            'slug' => 'Grocery Store',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'عکاس',
+            'slug' => 'Photographer',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'فروش و خرده فروشی',
+            'slug' => 'Shopping & retail',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'طراح سایت',
+            'slug' => 'Web developer',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'برنامه نویس',
+            'slug' => 'Programmer',
+            'parent_id' => 0,
+            'description' => null
+        ],
+        [
+            'title' => 'متفرقه',
+            'slug' => 'Sundry',
+            'parent_id' => 0,
+            'description' => null
+        ],
+    ];
+    page_category::insert($allCats);
+    $cat = page_category::where('slug', 'general')->first();
+    pages::on('mysql')->update(['category_id' => $cat->id]);
+    return "compeleted";
+});
 
 Route::group([
-    'prefix'=>'page-category',
-    'controller'=>PageCategoryController::class,
-    'middleware'=>[UserMiddleware::class, AdminMiddleware::class],
-    'as'=>'pageCategory.'
-], function(){
+    'prefix' => 'page-category',
+    'controller' => PageCategoryController::class,
+    'middleware' => [UserMiddleware::class, AdminMiddleware::class],
+    'as' => 'pageCategory.'
+], function () {
     Route::get('/create', 'create')->name('create');
     Route::post('/store', 'store')->name('store');
     Route::get('/list', 'list')->name('list');
 });
-
 
 Route::get('/roadmap', function () {
     return view('guys.nasiri.roadmap');
@@ -88,7 +241,7 @@ Route::get('rinform', function () {
     return view('newhome');
 });
 
-Route::get("ringaa/mahdi", function () {
+Route::get('ringaa/mahdi', function () {
     return view('ringaa');
 });
 
@@ -96,7 +249,7 @@ Route::get('/robot', function () {
     return view('abbasScratch.index');
 });
 
-Route::get('/set-ref-code', [UserController::class, "setRefCode"]);
+Route::get('/set-ref-code', [UserController::class, 'setRefCode']);
 
 Route::group([
     'prefix' => 'special-user',
@@ -123,7 +276,7 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => "intro-cat",
+    'prefix' => 'intro-cat',
     'controller' => IntroCategoryController::class,
     'middleware' => [UserMiddleware::class],
     'as' => 'introCat.'
@@ -141,7 +294,7 @@ Route::group([
     Route::post('/deleteAll', 'deleteAll')->name('deleteAll');
 });
 Route::group([
-    'prefix' => "intro-pro",
+    'prefix' => 'intro-pro',
     'controller' => IntroProductController::class,
     'middleware' => [UserMiddleware::class],
     'as' => 'introPro.'
@@ -181,10 +334,10 @@ Route::post('/loginWithActivationCode', [UserController::class, 'loginWithActiva
 Route::post('/check-activation-code', [UserController::class, 'checkActivationCode'])->name('checkActivationCode');
 
 Route::group([
-    'prefix'=>'search',
-    'controller'=>SearchController::class,
-    'as'=>'search.'
-], function(){
+    'prefix' => 'search',
+    'controller' => SearchController::class,
+    'as' => 'search.'
+], function () {
     Route::get('/', 'search')->name('search');
 });
 
@@ -226,7 +379,6 @@ Route::group([
     Route::post('/editProfile', 'editProfile')->name('editProfile');
 });
 
-
 Route::group([
     'prefix' => 'province',
     'controller' => ProvinceCityController::class,
@@ -236,7 +388,7 @@ Route::group([
     Route::post('/city', 'city')->name('city');
 });
 
-///// FAQ
+// /// FAQ
 Route::group([
     'prefix' => 'FAQ',
     'controller' => FAQController::class,
@@ -251,7 +403,7 @@ Route::group([
     Route::post('/delete', 'delete')->name('delete');
     Route::post('/add-question', 'addQuestion')->name('addQuestion');
 });
-///pageBlocks
+// /pageBlocks
 Route::group([
     'prefix' => 'pageBlocks',
     'controller' => pageBlocksController::class,
@@ -268,8 +420,8 @@ Route::group([
     'controller' => ClientController::class,
     'as' => 'client.'
 ], function () {
-    Route::get('/allPages', "allPages")->name('allPages');
-//    Route::get('/{pages:user_name}', 'loadLink')->name('loadLink');
+    Route::get('/allPages', 'allPages')->name('allPages');
+    //    Route::get('/{pages:user_name}', 'loadLink')->name('loadLink');
     Route::get('/{page:user_name}', 'loadPage')->name('loadPage');
     Route::get('/menu/{career}/{slug?}', 'show_menu')->name('menu');
 });
@@ -373,7 +525,6 @@ Route::group([
     });
 });
 
-
 // aboutUs
 Route::group([
     'prefix' => 'aboutUs',
@@ -387,8 +538,6 @@ Route::group([
     Route::get('/delete/{aboutUs}', 'delete')->name('delete');
     Route::get('/clientList', 'clientList')->name('clientList')->withoutMiddleware([UserMiddleware::class]);
 });
-
-
 
 // socialMedia
 Route::group([
@@ -435,7 +584,6 @@ Route::group([
 });
 // ////pages
 
-
 Route::group([
     'prefix' => 'page',
     'controller' => PagesController::class,
@@ -460,7 +608,7 @@ Route::group([
     Route::post('/saveAll', 'saveAll')->name('saveAll');
 });
 
-///contactUs
+// /contactUs
 Route::group([
     'prefix' => 'contactUs',
     'controller' => contactUsController::class,
@@ -520,8 +668,6 @@ Route::group([
     Route::get('/delete/{generalQrCodes}', 'delete')->name('delete');
 });
 
-
-
 Route::group([
     'prefix' => 'request',
     'controller' => InstituteRequestController::class,
@@ -534,7 +680,6 @@ Route::group([
     Route::get('/request_approve/{userId}/{instituteId}', 'approveRequest')->name('request_approve');
     Route::get('/userDelete/{user}/{institute}', 'userDelete')->name('userDelete');
 });
-
 
 Route::fallback(function () {
     return view('404');
