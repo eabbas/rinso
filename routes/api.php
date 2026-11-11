@@ -43,6 +43,8 @@ Route::post('/checkUserName', [PagesController::class, 'checkUserName']);
 Route::post('/checkUserNameFromEdit', [PagesController::class, 'checkUserNameFromEdit']);
 
 Route::post('/updatePageCategory/{category}', [PageCategoryController::class, 'update']);
+Route::get('/deletePageCategory/{category}', [PageCategoryController::class, 'delete']);
+Route::post('/deleteAllPageCategory', [PageCategoryController::class, 'deleteAll']);
 
 Route::post('/store-log', [ClientController::class, 'storeLog'])->name('store.log');
 Route::post('/user/checkFromMenu', [UserController::class, 'checkFromMenu'])->withoutMiddleware([UserMiddleware::class]);

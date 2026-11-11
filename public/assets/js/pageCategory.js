@@ -206,62 +206,94 @@ editForm.addEventListener('submit', event => {
 
 // حذف یک دسته
 function deleteCategory(button, categoryId) {
-    const row = button.closest('.category-row');
-    const name = row.dataset.name;
+    const row = button.closest('.category-row')
+    const name = row.dataset.name
 
     if (!confirm(`آیا از حذف دسته «${name}» مطمئن هستید؟`)) {
-        return;
+        return
     }
+    loader('open')
+    $.ajax({
+        url: api+'deletePageCategory/'+categoryId,
+        type: "GET",
+        success: function(data){
+            loader('close')
+            row.remove()
 
-    row.remove();
+            updateSelection()
 
-    updateSelection();
+            document.getElementById('emptyState').classList.toggle(
+                'hidden',
+                getVisibleRows().length !== 0
+            )
+        },
+        error: function(){
+            console.log('error')
+            loader('close')
+        }
 
-    document.getElementById('emptyState').classList.toggle(
-        'hidden',
-        getVisibleRows().length !== 0
-    );
+    })
+
+    
 }
 
 
 // حذف دسته‌های انتخاب‌شده
 deleteAllButton.addEventListener('click', () => {
     const selectedRows = getSelectedRows();
-
     if (selectedRows.length === 0) return;
-
     if (!confirm(`آیا از حذف ${selectedRows.length} دسته انتخاب‌شده مطمئن هستید؟`)) {
         return;
     }
+    loader('open')
+    let ids = []
+    selectedRows.forEach(row => {
+        ids.push(row.dataset.id)
+    })
+    $.ajax({
+        url: api+'deleteAllPageCategory',
+        type: "POST",
+        dataType: "json",
+        data: {
+            'categoryIds': ids
+        },
+        success: function(data){
+            console.log(data)
+            loader('close')
+            selectedRows.forEach(row => row.remove())
 
-    selectedRows.forEach(row => row.remove());
+            masterCheckbox.checked = false
 
-    masterCheckbox.checked = false;
+            updateSelection()
 
-    updateSelection();
-
-    document.getElementById('emptyState').classList.toggle(
-        'hidden',
-        getVisibleRows().length !== 0
-    );
-});
+            document.getElementById('emptyState').classList.toggle(
+                'hidden',
+                getVisibleRows().length !== 0
+            )
+        },
+        error: function(){
+            console.log('error')
+            loader('close')
+        }
+    })
+})
 
 
 // بستن پاپ‌آپ با کلیک روی فضای بیرونی
 editModal.addEventListener('click', event => {
     if (event.target === editModal) {
-        closeEditModal();
+        closeEditModal()
     }
-});
+})
 
 
 // بستن پاپ‌آپ با کلید Escape
 document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && !editModal.classList.contains('hidden')) {
-        closeEditModal();
+        closeEditModal()
     }
-});
+})
 
 
 // مقداردهی اولیه
-updateSelection();
+updateSelection()

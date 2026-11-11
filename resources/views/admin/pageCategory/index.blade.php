@@ -172,7 +172,7 @@
                         @if (count($categories) > 0)
                             @foreach ($categories as $category)
                                 <tr class="category-row hover:bg-[#FAFBFD] transition" data-name="{{ $category->title }}" data-slug="{{ $category->slug }}"
-                                    data-description="{{ $category->description }}" data-parent-id="{{ $category->parent_id }}">
+                                    data-description="{{ $category->description }}" data-parent-id="{{ $category->parent_id }}" data-id="{{ $category->id }}">
 
                                     <td class="px-5 py-4">
                                         <input type="checkbox"

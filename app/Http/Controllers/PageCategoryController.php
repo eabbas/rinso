@@ -44,11 +44,6 @@ class PageCategoryController extends Controller
         return redirect()->back()->with('message', 'دسته با موفقیت ایجاد شد');
     }
 
-    public function edit(page_category $category)
-    {
-        return $category;
-    }
-
     public function update(Request $request, page_category $category)
     {
         $request->merge([
@@ -65,7 +60,8 @@ class PageCategoryController extends Controller
 
     public function delete(page_category $category)
     {
-        return $category;
+        $category->delete();
+        return response()->json('deleted');
     }
 
     public function list()
@@ -74,8 +70,8 @@ class PageCategoryController extends Controller
         return view('admin.pageCategory.index', ['categories'=>$categories]);
     }
 
-    public function single(page_category $category)
-    {
-        return $category;
+    public function deleteAll(Request $request){
+        page_category::whereIn('id', $request->categoryIds)->delete();
+        return response()->json('deleted');
     }
 }
