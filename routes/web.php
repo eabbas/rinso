@@ -595,9 +595,9 @@ Route::group([
     //    Route::get('/store-with-click', 'storeWithClick')->name('storeWithClick')->withoutMiddleware([UserMiddleware::class]);
     Route::get('/my-pages', 'social_list')->name('social_list');
     Route::get('/list', 'index')->name('list');
-    Route::get('/edit/{pages}', 'edit')->name('edit');
-    Route::post('/update', 'update')->name('update');
-    Route::get('/delete/{pages}', 'delete')->name('delete');
+    Route::get('/edit/{page}', 'edit')->name('edit');
+    Route::post('/update/{page}', 'update')->name('update');
+    Route::get('/delete/{page}', 'delete')->name('delete');
     Route::get('/{pages:user_name}', 'single')->name('single');
     Route::post('/deleteAll', 'deleteAll')->name('deleteAll');
     Route::get('/introCats/{pages}', 'introCats')->name('introCats')->withoutMiddleware([UserMiddleware::class]);

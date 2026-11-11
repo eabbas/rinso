@@ -108,53 +108,52 @@ class pagesController extends Controller
         $pages = pages::all();
         return view('admin.pages.index', ['pages' => $pages]);
     }
-    public function edit(pages $pages)
+    public function edit(pages $page)
     {
-        return view('admin.pages.edit', ['pages' => $pages]);
+        $categories = page_category::all();
+        return view('admin.pages.edit', ['page' => $page, 'categories'=>$categories]);
     }
-    public function update(Request $request)
+    public function update(Request $request, pages $page)
     {
-        $pages = pages::find($request->id);
-        if (isset($request->logo_path)) {
-            if ($pages->logo_path) {
-                Storage::disk('public')->delete($pages->logo_path);
+        $validated = $request->validate($this->validator(), $this->messages());
+        if (isset($validated['logo_path'])) {
+            if ($page->logo_path) {
+                Storage::disk('public')->delete($page->logo_path);
             }
-            $logoName = $request->logo_path->getClientOriginalName();
-            $fullLogoName = time()."_".$logoName;
-            $logoPath = $request->logo_path->storeAs('logo_page', $fullLogoName, 'public');
-            $pages->logo_path = $logoPath;
+            $logoName = time()."_".$validated['logo_path']->getClientOriginalName();
+            $logoPath = $validated['logo_path']->storeAs('logo_page', $logoName, 'public');
+            $page->logo_path = $logoPath;
         }
-        if (isset($request->cover_path)) {
-            if ($pages->cover_path) {
-                Storage::disk('public')->delete($pages->cover_path);
+        if (isset($validated['cover_path'])) {
+            if ($page->cover_path) {
+                Storage::disk('public')->delete($page->cover_path);
             }
-            $pageName = $request->cover_path->getClientOriginalName();
-            $fullCoverName = time()."_".$pageName;
-            $coverPath = $request->cover_path->storeAs('logo_page', $fullCoverName, 'public');
-            $pages->cover_path = $coverPath;
+            $pageName = time()."_".$validated['cover_path']->getClientOriginalName();
+            $coverPath = $validated['cover_path']->storeAs('logo_page', $pageName, 'public');
+            $page->cover_path = $coverPath;
         }
-        $pages->user_name = $request->user_name;
-        $pages->title = $request->title;
-        $pages->subTitle = $request->subTitle;
-        $pages->description = $request->description;
-        $pages->show_in_home = $request->show_in_home ? 1 : 0;
-        $pages->active= $request->active ? 1 : 0;
-        $pages->save();
+        $page->user_name = $validated['user_name'];
+        $page->title = $validated['title'];
+        $page->subTitle = $validated['subTitle'];
+        $page->description = $validated['description'];
+        $page->show_in_home = $validated['show_in_home'] ? 1 : 0;
+        $page->active = $validated['active'] ? 1 : 0;
+        $page->category_id = $validated['category_id'];
+        $page->save();
         if (Auth::user()->role[0]->title == 'admin') {
             return to_route('pages.list');
         }
         return to_route('pages.social_list');
     }
-    public function delete(pages $pages)
+    public function delete(pages $page)
     {
-        $socialAddresses = social_address::where('page_id', $pages->id)->get();
-        $site_links = site_link::where('page_id', $pages->id)->get();
-        $faqs = FAQ::where('page_id', $pages->id)->get();
-        $page_blocks = page_blocks::where('page_id', $pages->id)->get();
-        $page_contactuses = page_contactus::where('page_id', $pages->id)->get();
-        $introCats = intro_category::where('page_id', $pages->id)->get();
-        $introPros = intro_product::where('page_id', $pages->id)->get();
-        //   dd($introPros);
+        $socialAddresses = social_address::where('page_id', $page->id)->get();
+        $site_links = site_link::where('page_id', $page->id)->get();
+        $faqs = FAQ::where('page_id', $page->id)->get();
+        $page_blocks = page_blocks::where('page_id', $page->id)->get();
+        $page_contactuses = page_contactus::where('page_id', $page->id)->get();
+        $introCats = intro_category::where('page_id', $page->id)->get();
+        $introPros = intro_product::where('page_id', $page->id)->get();
         foreach ($socialAddresses as $address) {
             $address->delete();
         }
@@ -183,21 +182,17 @@ class pagesController extends Controller
                 $introPro->delete();
             }
         // dd($pages->social_qr_codes);
-        if($pages->social_qr_codes){
-        $pages->social_qr_codes->delete();
+        if($page->social_qr_codes){
+        $page->social_qr_codes->delete();
         }
-         if ($pages->logo_path) {
-                    Storage::disk('public')->delete($pages->logo_path);
+         if ($page->logo_path) {
+                    Storage::disk('public')->delete($page->logo_path);
                     }
-      if ($pages->cover_path) {
-      Storage::disk('public')->delete($pages->cover_path);
+      if ($page->cover_path) {
+      Storage::disk('public')->delete($page->cover_path);
         }
-        $pages->delete();
+        $page->delete();
         return redirect()->back();
-//        if (Auth::user()->role[0]->title == 'admin') {
-//            return to_route('pages.list');
-//        }
-//        return to_route('pages.social_list');
     }
     public function single(pages $pages)
     {
