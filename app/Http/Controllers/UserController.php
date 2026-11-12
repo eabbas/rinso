@@ -73,6 +73,8 @@ class UserController extends Controller
                 'phoneNumber' => $request->phoneNumber,
                 'password' => $password,
                 'ref_code' => $ref_code,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
             role_user::create(['role_id' => 2, 'user_id' => $user_id]);
             if (isset($request->ref_code)) {
@@ -482,6 +484,8 @@ class UserController extends Controller
             'main_image' => $path,
             'password' => $password,
             'ref_code' => $ref_code,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         if (isset($request->ref_code)) {
             $ref_user = User::where('ref_code', $request->ref_code)->first();
