@@ -15,14 +15,25 @@ class ContactUsController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        $userId = null;
+        if(Auth::check()){
+            $userId = Auth::id();
+        } else {
+            $user = User::where('phoneNumber', $request->phoneNumber)->first();
+            if($user){
+                $userId = $user->id;
+            }
+        }
         contactUs::create([
-            'user_id'=>Auth::id(),
+            'user_id'=>$userId,
             'title' => $request->title,
             'description' => $request->description,
             'phoneNumber' => $request->phoneNumber
         ]);
-        return to_route('contactUs.myMessage');
+        if(Auth::check()){
+            return to_route('contactUs.myMessage');
+        }
+        return to_route('home')->with('message', 'نظر شما با موفقیت به ادمین ارسال شد.');
     }
 
     public function index()

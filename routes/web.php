@@ -64,11 +64,11 @@ use App\Models\pages;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-Route::get('/fttest', function(){
-    Schema::table('contact_us', function(Blueprint $table){
-        $table->dropColumn('user_id');
-    });
-});
+// Route::get('/fttest', function(){
+//     Schema::table('contact_us', function(Blueprint $table){
+//         $table->integer('user_id')->nullable()->after('phoneNumber');
+//     });
+// });
 
 Route::get('/test', function () {
     Schema::table('pages', function (BluePrint $table) {
