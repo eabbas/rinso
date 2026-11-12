@@ -215,15 +215,17 @@
 
                                 <a href="{{ route('user.profile') }}"
                                     class="flex items-center gap-3 p-3 mt-2
-                                        rounded-xl text-sm text-slate-600
+                                    @if(Route::is('user.profile')) bg-orange-50 text-[#FF9018] @else text-slate-600 @endif
+                                        rounded-xl text-sm
                                         hover:bg-orange-50 hover:text-[#FF9018]
                                         transition-colors">
                                     پروفایل من
                                 </a>
 
                                 <a href="{{ route('user.setting') }}"
-                                    class="flex items-center gap-3 p-3
-                                        rounded-xl text-sm text-slate-600
+                                    class="flex items-center gap-3 p-3 mt-2
+                                    @if(Route::is('user.setting')) bg-orange-50 text-[#FF9018] @else text-slate-600 @endif
+                                        rounded-xl text-sm
                                         hover:bg-orange-50 hover:text-[#FF9018]
                                         transition-colors">
                                     تنظیمات حساب
