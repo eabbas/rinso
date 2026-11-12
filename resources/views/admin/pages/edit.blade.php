@@ -1,4 +1,3 @@
-
 @extends('admin.app.panel')
 
 @section('title')
@@ -6,7 +5,6 @@
 @endsection
 
 @section('content')
-
     @php
         $ids = [];
 
@@ -116,7 +114,7 @@
                                     </div>
                                     @error('user_name')
                                         <p class="text-[11px] text-red-400">
-                                        {{ $message }}
+                                            {{ $message }}
                                         </p>
                                     @enderror
                                 </div>
@@ -131,7 +129,8 @@
                                     </label>
 
                                     <input id="page_title" type="text" name="title"
-                                        placeholder="عنوان صفحه را وارد کنید" required value="{{ old('title', $page->title) }}"
+                                        placeholder="عنوان صفحه را وارد کنید" required
+                                        value="{{ old('title', $page->title) }}"
                                         class="w-full h-12 px-4 rounded-xl border-1 border-slate-200 bg-slate-50 text-sm font-semibold text-[#142033] placeholder:text-slate-400 outline-none transition focus:bg-white focus:border-[#142033] focus:ring-4 focus:ring-slate-100">
                                     @error('title')
                                         <p class="text-[11px] text-red-400">
@@ -152,11 +151,12 @@
                                     </label>
 
                                     <input id="page_subtitle" type="text" name="subTitle"
-                                        placeholder="یک جمله کوتاه برای معرفی صفحه" value="{{ old('subTitle', $page->subTitle) }}"
+                                        placeholder="یک جمله کوتاه برای معرفی صفحه"
+                                        value="{{ old('subTitle', $page->subTitle) }}"
                                         class="w-full h-12 px-4 rounded-xl border-1 border-slate-200 bg-slate-50 text-sm font-semibold text-[#142033] placeholder:text-slate-400 outline-none transition focus:bg-white focus:border-[#142033] focus:ring-4 focus:ring-slate-100">
                                     @error('subTitle')
                                         <p class="text-[11px] text-red-400">
-                                        {{ $message }}
+                                            {{ $message }}
                                         </p>
                                     @enderror
                                 </div>
@@ -169,9 +169,7 @@
                                         دسته‌بندی صفحه
                                     </label>
 
-                                    <select
-                                        name="category_id"
-                                        id="category_id"
+                                    <select name="category_id" id="category_id"
                                         class="w-full h-12 px-4 rounded-xl border-1 border-slate-200 bg-slate-50 text-sm font-semibold text-[#142033] outline-none transition focus:bg-white focus:border-[#142033] focus:ring-4 focus:ring-slate-100 cursor-pointer">
 
                                         <option value="" selected disabled>
@@ -179,7 +177,8 @@
                                         </option>
 
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}" {{ old('category_id', $page->category_id) == $category->id ? 'selected' : '' }}>
+                                            <option value="{{ $category->id }}"
+                                                {{ old('category_id', $page->category_id) == $category->id ? 'selected' : '' }}>
                                                 {{ $category->title }}
                                             </option>
                                         @endforeach
@@ -255,11 +254,10 @@
                                         </div>
 
                                         {{-- Preview --}}
-                                        <img id="logoPreview" class="w-20 h-20 object-contain rounded-lg" src="{{ asset('storage/'.$page->logo_path) }}"
-                                            alt="پیش‌نمایش لوگو">
+                                        <img id="logoPreview" class="w-20 h-20 object-contain rounded-lg"
+                                            src="{{ asset('storage/' . $page->logo_path) }}" alt="پیش‌نمایش لوگو">
 
-                                        <span id="logoChangeText"
-                                            class="text-xs font-semibold text-[#142033] mt-2">
+                                        <span id="logoChangeText" class="text-xs font-semibold text-[#142033] mt-2">
                                             تغییر تصویر لوگو
                                         </span>
 
@@ -269,7 +267,7 @@
                                     </label>
                                     @error('logo_path')
                                         <p class="text-[11px] text-red-400">
-                                        {{ $message }}
+                                            {{ $message }}
                                         </p>
                                     @enderror
 
@@ -306,11 +304,10 @@
                                         </div>
 
                                         {{-- Preview --}}
-                                        <img id="coverPreview" class="w-full h-28 object-cover rounded-lg" src="{{ asset('storage/'.$page->cover_path) }}"
-                                            alt="پیش‌نمایش کاور">
+                                        <img id="coverPreview" class="w-full h-28 object-cover rounded-lg"
+                                            src="{{ asset('storage/' . $page->cover_path) }}" alt="پیش‌نمایش کاور">
 
-                                        <span id="coverChangeText"
-                                            class="text-xs font-semibold text-[#142033] mt-2">
+                                        <span id="coverChangeText" class="text-xs font-semibold text-[#142033] mt-2">
                                             تغییر تصویر کاور
                                         </span>
 
@@ -320,7 +317,7 @@
                                     </label>
                                     @error('cover_path')
                                         <p class="text-[11px] text-red-400">
-                                        {{ $message }}
+                                            {{ $message }}
                                         </p>
                                     @enderror
 
@@ -355,14 +352,33 @@
                                     توضیحاتی بنویسید که به بازدیدکنندگان کمک کند شما را بهتر بشناسند.
                                 </p>
                                 @error('description')
-                                        <p class="text-[11px] text-red-400">
+                                    <p class="text-[11px] text-red-400">
                                         {{ $message }}
-                                        </p>
-                                    @enderror
+                                    </p>
+                                @enderror
 
                             </div>
 
                         </div>
+
+                        {{-- Private Page --}}
+                        <label
+                            class="flex items-center justify-between gap-4 p-4 rounded-xl border-1 mt-3 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition cursor-pointer">
+
+                            <div>
+                                <p class="text-sm font-semibold text-[#142033]">
+                                    صفحه خصوصی
+                                </p>
+
+                                <p class="text-xs text-slate-400 mt-1">
+                                    فقط افراد مجاز بتوانند به محتوای صفحه دسترسی داشته باشند.
+                                </p>
+                            </div>
+
+                            <input type="checkbox" name="is_private" value="1" @if($page->is_private) checked @endif
+                                class="w-5 h-5 accent-[#FF9018] cursor-pointer shrink-0">
+
+                        </label>
 
 
                         {{-- Admin Settings --}}
@@ -399,7 +415,8 @@
                                             </p>
                                         </div>
 
-                                        <input type="checkbox" name="active" value="1" @if($page->active) checked @endif
+                                        <input type="checkbox" name="active" value="1"
+                                            @if ($page->active) checked @endif
                                             class="w-5 h-5 accent-[#FF9018] cursor-pointer shrink-0">
 
                                     </label>
@@ -419,7 +436,8 @@
                                             </p>
                                         </div>
 
-                                        <input type="checkbox" name="show_in_home" value="1" @if ($page->show_in_home) checked @endif
+                                        <input type="checkbox" name="show_in_home" value="1"
+                                            @if ($page->show_in_home) checked @endif
                                             class="w-5 h-5 accent-[#FF9018] cursor-pointer shrink-0">
 
                                     </label>
@@ -605,5 +623,4 @@
 
         });
     </script>
-
 @endsection

@@ -2,7 +2,7 @@
 
 {{-- Notification --}}
 <div id="message"
-     class="fixed top-0 right-1/2 -translate-y-full translate-x-1/2 opacity-0 invisible z-[150] w-11/12 sm:w-2/3 lg:w-1/3 bg-white rounded-2xl shadow-2xl border border-slate-200 transition-all duration-500">
+     class="fixed top-0 right-1/2 -translate-y-full translate-x-1/2 opacity-0 invisible z-[150] w-11/12 sm:w-2/3 lg:w-1/3 bg-white rounded-2xl shadow-2xl border-1 border-slate-200 transition-all duration-500">
 
     <div class="flex items-center gap-3 p-4">
 
@@ -60,9 +60,9 @@
                 {{-- Illustration --}}
                 <div class="relative mb-12">
 
-                    <div class="size-48 lg:size-60 rounded-[3rem] bg-white/[0.04] border border-white/10 backdrop-blur-xl flex items-center justify-center rotate-6">
+                    <div class="size-48 lg:size-60 rounded-[3rem] bg-white/[0.04] border-1 border-white/10 backdrop-blur-xl flex items-center justify-center rotate-6">
 
-                        <div class="size-36 lg:size-44 rounded-[2.5rem] bg-gradient-to-br from-[#243b68] to-[#172744] border border-white/10 shadow-2xl shadow-black/20 -rotate-6 flex items-center justify-center">
+                        <div class="size-36 lg:size-44 rounded-[2.5rem] bg-gradient-to-br from-[#243b68] to-[#172744] border-1 border-white/10 shadow-2xl shadow-black/20 -rotate-6 flex items-center justify-center">
 
                             <svg class="size-20 lg:size-24" fill="none" stroke="white" viewBox="0 0 24 24">
                                 <rect x="3" y="3" width="18" height="18" rx="4" stroke-width="1.3"/>
@@ -84,7 +84,7 @@
 
                     </div>
 
-                    <div class="absolute -top-5 -right-7 size-12 rounded-2xl bg-[#24385f] border border-white/10 flex items-center justify-center shadow-xl">
+                    <div class="absolute -top-5 -right-7 size-12 rounded-2xl bg-[#24385f] border-1 border-white/10 flex items-center justify-center shadow-xl">
 
                         <svg class="size-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
@@ -105,7 +105,7 @@
                 </p>
 
 
-                <div class="flex items-center gap-3 mt-10 px-5 py-3 rounded-full bg-white/[0.06] border border-white/10">
+                <div class="flex items-center gap-3 mt-10 px-5 py-3 rounded-full bg-white/[0.06] border-1 border-white/10">
 
                     <span class="size-2 rounded-full bg-[#ff9418] shadow-[0_0_12px_#ff9418]"></span>
 
@@ -134,7 +134,7 @@
             {{-- Heading --}}
             <div class="mb-9">
 
-                <div class="inline-flex items-center gap-2 bg-orange-50 text-[#d97706] px-3 py-2 rounded-lg text-xs font-bold mb-5 border border-orange-100">
+                <div class="inline-flex items-center gap-2 bg-orange-50 text-[#d97706] px-3 py-2 rounded-lg text-xs font-bold mb-5 border-1 border-orange-100">
 
                     <span class="size-2 rounded-full bg-[#ff9418]"></span>
 
@@ -155,7 +155,7 @@
 
             {{-- Server Message --}}
             @if ($message)
-                <div class="mb-5 bg-red-50 border border-red-100 text-red-600 rounded-xl py-3 px-4 text-sm text-center font-bold">
+                <div class="mb-5 bg-red-50 border-1 border-red-100 text-red-600 rounded-xl py-3 px-4 text-sm text-center font-bold">
                     {{ $message }}
                 </div>
             @endif
@@ -189,7 +189,7 @@
                         </span>
 
                         <input type="number"
-                               class="w-full h-13 pr-12 pl-4 rounded-xl border border-slate-200 bg-white text-sm text-[#243653] placeholder:text-slate-300 outline-none transition-all focus:border-[#ff9418] focus:ring-4 focus:ring-orange-500/10"
+                               class="w-full h-13 pr-12 pl-4 rounded-xl border-1 border-slate-200 bg-white text-sm text-[#243653] placeholder:text-slate-300 outline-none transition-all focus:border-[#ff9418] focus:ring-4 focus:ring-orange-500/10"
                                name="phoneNumber"
                                id="phoneNumber"
                                placeholder="مثلاً 09123456789"
@@ -213,7 +213,7 @@
                         <div class="w-full flex items-center gap-2">
 
                             <input type="number"
-                                   class="w-7/12 h-13 px-4 rounded-xl border border-slate-200 bg-white text-sm text-[#243653] placeholder:text-slate-300 outline-none transition-all focus:border-[#ff9418] focus:ring-4 focus:ring-orange-500/10"
+                                   class="w-7/12 h-13 px-4 rounded-xl border-1 border-slate-200 bg-white text-sm text-[#243653] placeholder:text-slate-300 outline-none transition-all focus:border-[#ff9418] focus:ring-4 focus:ring-orange-500/10"
                                    name="code"
                                    placeholder="کد پیامک شده"
                                    required
@@ -573,7 +573,7 @@
 
         login.innerHTML = `
             <input type="password"
-                   class="w-full h-13 px-4 rounded-xl border border-slate-200 bg-white text-sm text-[#243653] placeholder:text-slate-300 outline-none transition-all focus:border-[#ff9418] focus:ring-4 focus:ring-orange-500/10"
+                   class="w-full h-13 px-4 rounded-xl border-1 border-slate-200 bg-white text-sm text-[#243653] placeholder:text-slate-300 outline-none transition-all focus:border-[#ff9418] focus:ring-4 focus:ring-orange-500/10"
                    name="password"
                    placeholder="کلمه عبور خود را وارد کنید"
                    required>
@@ -606,7 +606,7 @@
             <div class="w-full flex items-center gap-2">
 
                 <input type="number"
-                       class="w-7/12 h-13 px-4 rounded-xl border border-slate-200 bg-white text-sm text-[#243653] placeholder:text-slate-300 outline-none transition-all focus:border-[#ff9418] focus:ring-4 focus:ring-orange-500/10"
+                       class="w-7/12 h-13 px-4 rounded-xl border-1 border-slate-200 bg-white text-sm text-[#243653] placeholder:text-slate-300 outline-none transition-all focus:border-[#ff9418] focus:ring-4 focus:ring-orange-500/10"
                        name="code"
                        placeholder="کد پیامک شده"
                        required

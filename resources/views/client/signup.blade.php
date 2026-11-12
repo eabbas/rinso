@@ -2,7 +2,7 @@
 
 {{-- Notification --}}
 <div id="message"
-     class="fixed top-0 right-1/2 translate-x-1/2 -translate-y-full opacity-0 invisible z-[100] w-11/12 sm:w-2/3 lg:w-1/3 bg-white rounded-2xl shadow-2xl border border-slate-200 transition-all duration-500">
+     class="fixed top-0 right-1/2 translate-x-1/2 -translate-y-full opacity-0 invisible z-[100] w-11/12 sm:w-2/3 lg:w-1/3 bg-white rounded-2xl shadow-2xl border-1 border-slate-200 transition-all duration-500">
 
     <div class="flex items-center gap-3 p-4">
         <div class="size-9 shrink-0 rounded-xl bg-orange-50 text-[#E9820D] flex items-center justify-center">
@@ -53,7 +53,7 @@
                 {{-- Illustration --}}
                 <div class="relative mb-12">
 
-                    <div class="size-48 lg:size-60 rounded-[3rem] bg-white/[0.04] border border-white/10 backdrop-blur-xl flex items-center justify-center rotate-6">
+                    <div class="size-48 lg:size-60 rounded-[3rem] bg-white/[0.04] border-1 border-white/10 backdrop-blur-xl flex items-center justify-center rotate-6">
 
                         <div class="size-36 lg:size-44 rounded-[2.5rem] bg-gradient-to-br from-[#FD9619] to-[#E9820D] shadow-2xl shadow-orange-500/20 -rotate-6 flex items-center justify-center">
 
@@ -66,14 +66,14 @@
                         </div>
                     </div>
 
-                    <div class="absolute -bottom-5 -left-7 size-14 rounded-2xl bg-[#1B2D49] border border-white/10 backdrop-blur-lg flex items-center justify-center shadow-xl">
+                    <div class="absolute -bottom-5 -left-7 size-14 rounded-2xl bg-[#1B2D49] border-1 border-white/10 backdrop-blur-lg flex items-center justify-center shadow-xl">
                         <svg class="size-7 text-[#FD9619]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
                                   d="M12 3v18m9-9H3"/>
                         </svg>
                     </div>
 
-                    <div class="absolute -top-5 -right-7 size-12 rounded-2xl bg-[#1B2D49] border border-white/10 flex items-center justify-center shadow-xl">
+                    <div class="absolute -top-5 -right-7 size-12 rounded-2xl bg-[#1B2D49] border-1 border-white/10 flex items-center justify-center shadow-xl">
                         <svg class="size-6 text-[#FD9619]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
                                   d="M4 12h16M12 4v16"/>
@@ -90,7 +90,7 @@
                     با رینسو یک صفحه اختصاصی داشته باش، شبکه‌های اجتماعی، لینک‌ها و راه‌های ارتباطی خودت رو در یک مکان جمع کن و راحت‌تر با مخاطبات ارتباط بگیر.
                 </p>
 
-                <div class="flex items-center gap-3 mt-10 px-5 py-3 rounded-full bg-white/[0.06] border border-white/10">
+                <div class="flex items-center gap-3 mt-10 px-5 py-3 rounded-full bg-white/[0.06] border-1 border-white/10">
 
                     <span class="size-2 rounded-full bg-[#FD9619] shadow-[0_0_12px_#FD9619]"></span>
                     <span class="text-xs text-slate-300">یک لینک، تمام راه‌های ارتباطی تو</span>
@@ -115,7 +115,7 @@
             {{-- Heading --}}
             <div class="mb-8">
 
-                <div class="inline-flex items-center gap-2 bg-[#FFF4E7] text-[#B9680B] px-3 py-2 rounded-lg text-xs font-bold mb-5 border border-[#FAD7AE]">
+                <div class="inline-flex items-center gap-2 bg-[#FFF4E7] text-[#B9680B] px-3 py-2 rounded-lg text-xs font-bold mb-5 border-1 border-[#FAD7AE]">
                     <span class="size-2 rounded-full bg-[#FD9619]"></span>
                     شروع مسیر شما در رینسو
                 </div>
@@ -159,7 +159,7 @@
                                id="phoneNumber"
                                placeholder="مثلاً 09123456789"
                                required
-                               class="w-full h-13 pr-12 pl-4 rounded-xl border border-slate-200 bg-white text-sm text-[#24344C] placeholder:text-slate-300 outline-none transition-all focus:border-[#FD9619] focus:ring-4 focus:ring-[#FD9619]/15">
+                               class="w-full h-13 pr-12 pl-4 rounded-xl border-1 border-slate-200 bg-white text-sm text-[#24344C] placeholder:text-slate-300 outline-none transition-all focus:border-[#FD9619] focus:ring-4 focus:ring-[#FD9619]/15">
 
                     </div>
                 </div>
@@ -186,7 +186,7 @@
                                id="password"
                                placeholder="کلمه عبور خود را وارد کنید"
                                required
-                               class="w-full h-13 pr-12 pl-4 rounded-xl border border-slate-200 bg-white text-sm text-[#24344C] placeholder:text-slate-300 outline-none transition-all focus:border-[#FD9619] focus:ring-4 focus:ring-[#FD9619]/15">
+                               class="w-full h-13 pr-12 pl-4 rounded-xl border-1 border-slate-200 bg-white text-sm text-[#24344C] placeholder:text-slate-300 outline-none transition-all focus:border-[#FD9619] focus:ring-4 focus:ring-[#FD9619]/15">
 
                     </div>
                 </div>
@@ -206,7 +206,7 @@
                            placeholder="کد معرف خود را وارد کنید"
                            value="{{ isset($slug) ? $slug : '' }}"
                            @if(isset($slug)) readonly @endif
-                           class="w-full h-13 px-4 rounded-xl border border-slate-200 bg-white text-sm text-[#24344C] placeholder:text-slate-300 outline-none transition-all focus:border-[#FD9619] focus:ring-4 focus:ring-[#FD9619]/15 @if(isset($slug)) opacity-70 @endif">
+                           class="w-full h-13 px-4 rounded-xl border-1 border-slate-200 bg-white text-sm text-[#24344C] placeholder:text-slate-300 outline-none transition-all focus:border-[#FD9619] focus:ring-4 focus:ring-[#FD9619]/15 @if(isset($slug)) opacity-70 @endif">
 
                 </div>
 
@@ -225,7 +225,7 @@
                                id="code"
                                placeholder="کد پیامک شده"
                                required
-                               class="w-7/12 h-13 px-4 rounded-xl border border-slate-200 bg-white text-sm text-[#24344C] placeholder:text-slate-300 outline-none transition-all focus:border-[#FD9619] focus:ring-4 focus:ring-[#FD9619]/15">
+                               class="w-7/12 h-13 px-4 rounded-xl border-1 border-slate-200 bg-white text-sm text-[#24344C] placeholder:text-slate-300 outline-none transition-all focus:border-[#FD9619] focus:ring-4 focus:ring-[#FD9619]/15">
 
                         <button type="button"
                                 onclick="sendCode()"

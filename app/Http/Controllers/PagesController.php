@@ -29,6 +29,7 @@ class pagesController extends Controller
             'description' => ['nullable', 'string'],
             'active' => ['nullable', 'boolean'],
             'show_in_home' => ['nullable', 'boolean'],
+            'is_private' => ['nullable', 'boolean'],
             'logo_path' => ['nullable', 'image', 'max:2048'],
             'cover_path' => ['nullable', 'image', 'max:2048'],
         ];
@@ -75,6 +76,7 @@ class pagesController extends Controller
             'user_id' => Auth::id(),
             'logo_path' => $logoPath,
             'cover_path' => $coverPath,
+            'is_private'=> isset($validated['is_private']) ? 1 : 0,
             'show_in_home'=> isset($validated['show_in_home']) ? 1 : 0,
             'active'=> isset($validated['active']) ? 1 : 0
         ]);
@@ -138,6 +140,7 @@ class pagesController extends Controller
         $page->description = $validated['description'];
         $page->show_in_home = $validated['show_in_home'] ? 1 : 0;
         $page->active = $validated['active'] ? 1 : 0;
+        $page->is_private = $validated['is_private'] ? 1 : 0;
         $page->category_id = $validated['category_id'];
         $page->save();
         if (Auth::user()->role[0]->title == 'admin') {

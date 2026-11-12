@@ -1,4 +1,3 @@
-
 @extends('admin.app.panel')
 
 @section('title', 'ایجاد صفحه معرفی')
@@ -114,7 +113,7 @@
                                     </div>
                                     @error('user_name')
                                         <p class="text-[11px] text-red-400">
-                                        {{ $message }}
+                                            {{ $message }}
                                         </p>
                                     @enderror
                                 </div>
@@ -154,7 +153,7 @@
                                         class="w-full h-12 px-4 rounded-xl border-1 border-slate-200 bg-slate-50 text-sm font-semibold text-[#142033] placeholder:text-slate-400 outline-none transition focus:bg-white focus:border-[#142033] focus:ring-4 focus:ring-slate-100">
                                     @error('subTitle')
                                         <p class="text-[11px] text-red-400">
-                                        {{ $message }}
+                                            {{ $message }}
                                         </p>
                                     @enderror
                                 </div>
@@ -167,9 +166,7 @@
                                         دسته‌بندی صفحه
                                     </label>
 
-                                    <select
-                                        name="category_id"
-                                        id="category_id"
+                                    <select name="category_id" id="category_id"
                                         class="w-full h-12 px-4 rounded-xl border-1 border-slate-200 bg-slate-50 text-sm font-semibold text-[#142033] outline-none transition focus:bg-white focus:border-[#142033] focus:ring-4 focus:ring-slate-100 cursor-pointer">
 
                                         <option value="" selected disabled>
@@ -177,7 +174,8 @@
                                         </option>
 
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                            <option value="{{ $category->id }}"
+                                                {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                                 {{ $category->title }}
                                             </option>
                                         @endforeach
@@ -185,7 +183,7 @@
                                     </select>
                                     @error('category_id')
                                         <p class="text-[11px] text-red-400">
-                                        {{ $message }}
+                                            {{ $message }}
                                         </p>
                                     @enderror
 
@@ -273,7 +271,7 @@
                                     </label>
                                     @error('logo_path')
                                         <p class="text-[11px] text-red-400">
-                                        {{ $message }}
+                                            {{ $message }}
                                         </p>
                                     @enderror
 
@@ -324,7 +322,7 @@
                                     </label>
                                     @error('cover_path')
                                         <p class="text-[11px] text-red-400">
-                                        {{ $message }}
+                                            {{ $message }}
                                         </p>
                                     @enderror
 
@@ -359,14 +357,33 @@
                                     توضیحاتی بنویسید که به بازدیدکنندگان کمک کند شما را بهتر بشناسند.
                                 </p>
                                 @error('description')
-                                        <p class="text-[11px] text-red-400">
+                                    <p class="text-[11px] text-red-400">
                                         {{ $message }}
-                                        </p>
-                                    @enderror
+                                    </p>
+                                @enderror
 
                             </div>
 
                         </div>
+
+                        {{-- Private Page --}}
+                        <label
+                            class="flex items-center justify-between gap-4 p-4 rounded-xl border-1 mt-3 border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition cursor-pointer">
+
+                            <div>
+                                <p class="text-sm font-semibold text-[#142033]">
+                                    صفحه خصوصی
+                                </p>
+
+                                <p class="text-xs text-slate-400 mt-1">
+                                    فقط افراد مجاز بتوانند به محتوای صفحه دسترسی داشته باشند.
+                                </p>
+                            </div>
+
+                            <input type="checkbox" name="is_private" value="1"
+                                class="w-5 h-5 accent-[#FF9018] cursor-pointer shrink-0">
+
+                        </label>
 
 
                         {{-- Admin Settings --}}
