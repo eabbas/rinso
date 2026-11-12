@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('user_id');
             $table->string('title');
             $table->string('subTitle')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
+            $table->integer('category_id')->default(1);
             $table->string('qr_code')->nullable();
             $table->timestamps();
         });

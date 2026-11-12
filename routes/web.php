@@ -64,6 +64,12 @@ use App\Models\pages;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+Route::get('/fttest', function(){
+    Schema::table('contact_us', function(Blueprint $table){
+        $table->dropColumn('user_id');
+    });
+});
+
 Route::get('/test', function () {
     Schema::table('pages', function (BluePrint $table) {
         $table->longText('description')->nullable()->change();
@@ -615,8 +621,8 @@ Route::group([
     'as' => 'contactUs.',
     'middleware' => [UserMiddleware::class]
 ], function () {
-    Route::get('/create', 'create')->name('create');
-    Route::post('/store', 'store')->name('store');
+    Route::get('/create', 'create')->name('create')->withoutMiddleware([UserMiddleware::class]);
+    Route::post('/store', 'store')->name('store')->withoutMiddleware([UserMiddleware::class]);
     Route::get('/myMessage', 'myMessage')->name('myMessage');
     Route::get('/contactUs', 'index')->name('list');
     Route::get('/single/{contactUs}', 'single')->name('single');

@@ -19,7 +19,7 @@
             </p>
             <div class="mx-auto mt-5 h-1 w-16 rounded-full bg-[#FB9413]"></div>
         </div>
-        @if (count(Auth::user()->contactUs))
+        @if (Auth::check() && count(Auth::user()->contactUs))
             <div class="mb-5 flex justify-center md:justify-start">
                 <a href="{{ route('contactUs.myMessage') }}"
                    class="inline-flex items-center gap-2 rounded-lg border border-[#101827]/15 bg-white px-5 py-3 text-sm font-bold text-[#101827] transition hover:border-[#FB9413] hover:text-[#FB9413]">
