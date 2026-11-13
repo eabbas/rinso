@@ -102,7 +102,7 @@
                     <div class="flex justify-end mt-8 pt-6 border-t border-gray-100">
                         <button
                             type="submit"
-                            class="px-8 py-3 rounded-xl bg-[#101827] text-white text-sm font-semibold transition-all duration-200 hover:bg-[#FB9413] hover:shadow-lg hover:shadow-orange-500/20"
+                            class="px-8 py-3 cursor-pointer rounded-xl bg-[#101827] text-white text-sm font-semibold transition-all duration-200 hover:bg-[#FB9413] hover:shadow-lg hover:shadow-orange-500/20"
                         >
                             ثبت کیوآر کد
                         </button>

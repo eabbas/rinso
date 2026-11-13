@@ -836,66 +836,67 @@
 
 
                 {{-- About Us --}}
-                <details class="group rounded-xl overflow-hidden"
-                    @if(Route::is('aboutUs.*')) open @endif>
+                @if($isAdmin)
+                    <details class="group rounded-xl overflow-hidden"
+                        @if(Route::is('aboutUs.*')) open @endif>
 
-                    <summary class="list-none cursor-pointer
-                        flex items-center justify-between
-                        px-4 py-3.5 rounded-xl transition-all
-                        {{ Route::is('aboutUs.*')
-                            ? 'bg-white text-[#142033] font-bold'
-                            : 'text-slate-600 hover:bg-white' }}">
+                        <summary class="list-none cursor-pointer
+                            flex items-center justify-between
+                            px-4 py-3.5 rounded-xl transition-all
+                            {{ Route::is('aboutUs.*')
+                                ? 'bg-white text-[#142033] font-bold'
+                                : 'text-slate-600 hover:bg-white' }}">
 
-                        <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-3">
+
+                                <svg viewBox="0 0 24 24"
+                                    class="size-5 shrink-0 text-[#FF9018]"
+                                    fill="none" stroke="currentColor"
+                                    stroke-width="1.8">
+                                    <circle cx="12" cy="12" r="9"/>
+                                    <path d="M12 11v5m0-8h.01"/>
+                                </svg>
+
+                                <span class="text-sm">درباره ما</span>
+
+                            </div>
 
                             <svg viewBox="0 0 24 24"
-                                 class="size-5 shrink-0 text-[#FF9018]"
-                                 fill="none" stroke="currentColor"
-                                 stroke-width="1.8">
-                                <circle cx="12" cy="12" r="9"/>
-                                <path d="M12 11v5m0-8h.01"/>
+                                class="size-4 text-slate-400
+                                        transition-transform group-open:rotate-180"
+                                fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="m6 9 6 6 6-6"/>
                             </svg>
 
-                            <span class="text-sm">درباره ما</span>
+                        </summary>
+
+                        <div class="mr-6 ml-2 mt-1 pr-4
+                                    border-r-2 border-slate-200
+                                    flex flex-col gap-1">
+
+                            @if(in_array(1, $ids))
+                                <a href="{{ route('aboutUs.create_edit') }}"
+                                class="px-4 py-3 rounded-lg text-sm transition
+                                {{ Route::is('aboutUs.create_edit')
+                                        ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                        : 'text-slate-500 hover:bg-white' }}">
+                                    ایجاد درباره ما
+                                </a>
+                            @endif
+
+                            <a href="{{ route('aboutUs.list') }}"
+                            class="px-4 py-3 rounded-lg text-sm transition
+                            {{ Route::is('aboutUs.list')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                درباره ما
+                            </a>
 
                         </div>
 
-                        <svg viewBox="0 0 24 24"
-                             class="size-4 text-slate-400
-                                    transition-transform group-open:rotate-180"
-                             fill="none" stroke="currentColor"
-                             stroke-width="2">
-                            <path d="m6 9 6 6 6-6"/>
-                        </svg>
-
-                    </summary>
-
-                    <div class="mr-6 ml-2 mt-1 pr-4
-                                border-r-2 border-slate-200
-                                flex flex-col gap-1">
-
-                        @if(in_array(1, $ids))
-                            <a href="{{ route('aboutUs.create_edit') }}"
-                               class="px-4 py-3 rounded-lg text-sm transition
-                               {{ Route::is('aboutUs.create_edit')
-                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
-                                    : 'text-slate-500 hover:bg-white' }}">
-                                ایجاد درباره ما
-                            </a>
-                        @endif
-
-                        <a href="{{ route('aboutUs.list') }}"
-                           class="px-4 py-3 rounded-lg text-sm transition
-                           {{ Route::is('aboutUs.list')
-                                ? 'bg-orange-50 text-[#FF9018] font-bold'
-                                : 'text-slate-500 hover:bg-white' }}">
-                            درباره ما
-                        </a>
-
-                    </div>
-
-                </details>
-
+                    </details>
+                @endif
 
                 {{-- QR Codes --}}
                 <details class="group rounded-xl overflow-hidden"

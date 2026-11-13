@@ -27,6 +27,22 @@
             </a>
         </div>
 
+        @if($qrCodes->isEmpty())
+            <div class="col-span-full flex flex-col items-center justify-center py-16 px-5 bg-white rounded-2xl border border-dashed border-gray-300">
+                <h3 class="text-base font-bold text-[#101827] mb-2">
+                    هنوز هیچ کیوآر کدی ایجاد نکردید!
+                </h3>
+
+                <p class="text-sm text-gray-500 mb-5">
+                    برای شروع، اولین کیوآر کد خود را ایجاد کنید.
+                </p>
+
+                <a href="{{ route('generalQrCodes.create') }}"
+                class="px-5 py-3 rounded-xl bg-[#101827] hover:bg-[#FB9413] text-white text-sm font-semibold transition-all">
+                    ایجاد QR Code جدید
+                </a>
+            </div>
+        @endif
         <!-- لیست QR کدها -->
         @php
             $i = 0;

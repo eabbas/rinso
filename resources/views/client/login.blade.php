@@ -220,7 +220,7 @@
                                    id="code">
 
                             <button type="button"
-                                    class="flex-1 h-13 cursor-pointer rounded-xl bg-[#101d3b] hover:bg-[#1c3158] text-white text-xs sm:text-sm font-bold transition-all shadow-lg shadow-slate-900/10"
+                                    class="flex-1 h-13 cursor-pointer rounded-xl bg-[#101d3b] hover:bg-[#1c3158] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#101d3b] text-white text-xs sm:text-sm font-bold transition-all shadow-lg shadow-slate-900/10"
                                     onclick="sendCode()"
                                     id="countDown">
 
@@ -406,7 +406,7 @@
     function sendCode() {
 
         const countDown = document.getElementById('countDown');
-
+        if (countDown.disabled) return;
         if (!phoneNumber.value.trim()) {
 
             notify('<span class="text-red-500">لطفاً شماره موبایل خود را وارد کنید.</span>');
@@ -428,6 +428,7 @@
         }
 
         countDown.disabled = true;
+        countDown.classList.add('opacity-50', 'cursor-not-allowed');
         countDown.innerText = 'در حال ارسال...';
 
         $.ajaxSetup({
@@ -447,7 +448,7 @@
             },
 
             success: function(data) {
-
+                
                 if (!data) {
 
                     notify('<span class="text-green-600">کد ورود با موفقیت ارسال شد.</span>');
@@ -457,6 +458,7 @@
                 } else {
 
                     countDown.disabled = false;
+                    countDown.classList.remove('opacity-50', 'cursor-not-allowed');
                     countDown.innerText = 'ارسال کد';
 
                     notify('<span class="text-red-500">ابتدا در رینسو ثبت‌نام کنید.</span>');
@@ -466,8 +468,8 @@
             },
 
             error: function() {
-
                 countDown.disabled = false;
+                countDown.classList.remove('opacity-50', 'cursor-not-allowed');
                 countDown.innerText = 'ارسال کد';
 
                 notify('<span class="text-red-500">خطا در ارسال کد ورود!</span>');
