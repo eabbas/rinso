@@ -118,6 +118,25 @@
                     <span class="size-1.5 rounded-full bg-white mr-auto"></span>
                 @endif
             </a>
+            <a href="{{ route('user.profile') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all
+               {{ Route::is('user.profile') ? 'bg-[#FB9413] text-white shadow-lg shadow-[#FB9413]/20' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
+
+                <svg viewBox="0 0 24 24" class="size-5 shrink-0"
+                        fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="8" r="4"/>
+                    <path d="M5 21v-2a7 7 0 0 1 14 0v2"/>
+                </svg>
+
+                <span class="text-sm font-semibold">پروفایل من</span>
+
+                @if(Route::is('user.profile'))
+                    <span class="size-1.5 rounded-full bg-white mr-auto"></span>
+                @endif
+            </a>
+         
+
 
             <p class="px-4 pt-5 mb-3 text-[10px] font-bold text-slate-500 tracking-widest">
                 مدیریت محتوا
@@ -323,44 +342,46 @@
             @endif
 
             {{-- درباره ما --}}
-            <details class="group rounded-xl overflow-hidden"
-                @if(Route::is('aboutUs.create_edit') || Route::is('aboutUs.list')) open @endif>
+            @if($isAdmin)
+                <details class="group rounded-xl overflow-hidden"
+                    @if(Route::is('aboutUs.create_edit') || Route::is('aboutUs.list')) open @endif>
 
-                <summary class="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer list-none transition-all
-                    {{ Route::is('aboutUs.create_edit') || Route::is('aboutUs.list') ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
+                    <summary class="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer list-none transition-all
+                        {{ Route::is('aboutUs.create_edit') || Route::is('aboutUs.list') ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
 
-                    <svg viewBox="0 0 24 24" class="size-5 shrink-0"
-                         fill="none" stroke="currentColor" stroke-width="1.8"
-                         stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="8" r="4"/>
-                        <path d="M5 21v-2a7 7 0 0 1 14 0v2"/>
-                    </svg>
+                        <svg viewBox="0 0 24 24" class="size-5 shrink-0"
+                            fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="4"/>
+                            <path d="M5 21v-2a7 7 0 0 1 14 0v2"/>
+                        </svg>
 
-                    <span class="text-sm font-medium">درباره ما</span>
+                        <span class="text-sm font-medium">درباره ما</span>
 
-                    <svg viewBox="0 0 24 24"
-                         class="size-4 mr-auto transition-transform group-open:rotate-180"
-                         fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="m6 9 6 6 6-6"/>
-                    </svg>
-                </summary>
+                        <svg viewBox="0 0 24 24"
+                            class="size-4 mr-auto transition-transform group-open:rotate-180"
+                            fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </summary>
 
-                <div class="pr-5 pt-1 pb-2 space-y-1">
-                    @if($isAdmin)
-                        <a href="{{ route('aboutUs.create_edit') }}"
-                           class="block px-4 py-2.5 rounded-lg text-xs transition-all
-                           {{ Route::is('aboutUs.create_edit') ? 'text-[#FB9413] bg-[#FB9413]/10' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
-                            ایجاد درباره ما
+                    <div class="pr-5 pt-1 pb-2 space-y-1">
+                        @if($isAdmin)
+                            <a href="{{ route('aboutUs.create_edit') }}"
+                            class="block px-4 py-2.5 rounded-lg text-xs transition-all
+                            {{ Route::is('aboutUs.create_edit') ? 'text-[#FB9413] bg-[#FB9413]/10' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
+                                ایجاد درباره ما
+                            </a>
+                        @endif
+
+                        <a href="{{ route('aboutUs.list') }}"
+                        class="block px-4 py-2.5 rounded-lg text-xs transition-all
+                        {{ Route::is('aboutUs.list') ? 'text-[#FB9413] bg-[#FB9413]/10' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
+                             درباره ما
                         </a>
-                    @endif
-
-                    <a href="{{ route('aboutUs.list') }}"
-                       class="block px-4 py-2.5 rounded-lg text-xs transition-all
-                       {{ Route::is('aboutUs.list') ? 'text-[#FB9413] bg-[#FB9413]/10' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
-                        لیست درباره ما
-                    </a>
-                </div>
-            </details>
+                    </div>
+                </details>
+            @endif
 
             {{-- QR Code --}}
             <details class="group rounded-xl overflow-hidden"

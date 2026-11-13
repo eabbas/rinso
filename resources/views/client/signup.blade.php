@@ -450,7 +450,9 @@
             return;
         }
 
+        if (countDown.disabled) return;
         countDown.disabled = true;
+        countDown.classList.add('opacity-60', 'cursor-not-allowed');
         countDown.innerText = 'در حال ارسال...';
 
         $.ajaxSetup({
@@ -468,20 +470,33 @@
             },
 
             success: function(data) {
-
-                if (!data.flag) {
-
-                    notify('<span class="text-green-600">کد تأیید با موفقیت ارسال شد.</span>');
-                    counter();
-
-                } else {
+                if (data.flag) {
 
                     countDown.disabled = false;
+                    countDown.classList.remove('opacity-60', 'cursor-not-allowed');
                     countDown.innerText = 'ارسال کد';
 
                     notify('<span class="text-red-500">این شماره قبلاً ثبت‌نام کرده است.</span>');
 
+                } else {
+
+                    notify('<span class="text-green-600">کد تأیید با موفقیت ارسال شد.</span>');
+                    counter();
+
                 }
+                // if (!data.flag) {
+
+                //     notify('<span class="text-green-600">کد تأیید با موفقیت ارسال شد.</span>');
+                //     counter();
+
+                // } else {
+
+                //     countDown.disabled = false;
+                //     countDown.innerText = 'ارسال کد';
+
+                //     notify('<span class="text-red-500">این شماره قبلاً ثبت‌نام کرده است.</span>');
+
+                // }
 
             },
 

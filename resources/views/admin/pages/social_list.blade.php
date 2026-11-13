@@ -152,11 +152,17 @@
                                     </div>
 
                                 </div>
-
-                                <span class="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1.5 rounded-full">
-                                    <span class="size-1.5 rounded-full bg-emerald-500"></span>
-                                    فعال
-                                </span>
+                                @if($cover->active)
+                                    <span class="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1.5 rounded-full">
+                                        <span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                        فعال
+                                    </span>
+                                @else
+                                    <span class="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-red-600 bg-red-50 px-2.5 py-1.5 rounded-full">
+                                        <span class="size-1.5 rounded-full bg-red-500"></span>
+                                        غیرفعال
+                                    </span>
+                                @endif
 
                             </div>
 
