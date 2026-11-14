@@ -174,7 +174,7 @@ function counter() {
 
             $.ajax({
 
-                url: "{{ route('removeActivationCode') }}",
+                url: api +'removeActivationCode',
                 type: "POST",
                 dataType: "json",
 
