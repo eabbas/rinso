@@ -11,6 +11,12 @@
     <link rel="shortcut icon" href="{{ asset('logo/faveIcon.png#t=0.1') }}" type="image/png">
     <script src="{{ asset('assets/js/html5-qrcode.min.js#t=0.1') }}"></script>
     <title>@yield('title')</title>
+    <script>
+        let url = "{{ url('/') }}/"
+        let api = "{{ url('api/') }}/"
+        let storage = "{{ url('storage/') }}/"
+        let asset = "{{ asset('/') }}/"
+    </script>
 
 </head>
 @php

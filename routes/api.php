@@ -48,3 +48,6 @@ Route::post('/deleteAllPageCategory', [PageCategoryController::class, 'deleteAll
 
 Route::post('/store-log', [ClientController::class, 'storeLog'])->name('store.log');
 Route::post('/user/checkFromMenu', [UserController::class, 'checkFromMenu'])->withoutMiddleware([UserMiddleware::class]);
+
+Route::post('/loginWithActivationCode', [UserController::class, 'loginWithActivationCode']);
+Route::post('/removeActivationCode', [UserController::class, 'removeActivationCode']);
