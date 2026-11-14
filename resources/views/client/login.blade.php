@@ -258,7 +258,7 @@
 
                 {{-- Submit --}}
                 <button type="submit"
-                        class="w-full h-13 rounded-xl bg-[#ff9418] hover:bg-[#e98108] text-white text-sm font-bold transition-all shadow-lg shadow-orange-500/20">
+                        class="w-full h-13 rounded-xl bg-[#ff9418] hover:bg-[#e98108] text-white text-sm font-bold transition-all shadow-lg shadow-orange-500/20 cursor-pointer">
 
                     ورود به حساب کاربری
 
@@ -290,32 +290,6 @@
 </div>
 
 
-{{-- QR Modal --}}
-<div id="popupQr"
-     class="fixed inset-0 z-[120] bg-[#101d3b]/70 backdrop-blur-sm flex justify-center items-center invisible opacity-0 transition-all duration-300">
-
-    <div class="relative w-11/12 max-w-md min-h-64 bg-white rounded-2xl p-5 flex justify-center items-center scale-95 transition-all duration-300">
-
-        <div id="loading"
-             class="absolute inset-0 bg-white rounded-2xl flex justify-center items-center invisible opacity-0 z-10">
-        </div>
-
-        <button type="button"
-                onclick="scanQr('close')"
-                class="absolute top-3 left-3 size-9 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center z-20 hover:bg-orange-100 transition">
-
-            <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-width="2" stroke-linecap="round" d="m18 6-12 12M6 6l12 12"/>
-            </svg>
-
-        </button>
-
-        <div id="reader" class="w-full h-full"></div>
-
-    </div>
-
-</div>
-
 
 <style>
     #reader {
@@ -335,10 +309,10 @@
 <script>
     // Login Elements
 
-    const phoneNumber = document.getElementById('phoneNumber');
-    const message = document.getElementById('message');
-    const login = document.getElementById('login');
-    const loginWay = document.getElementById('loginWay');
+    const phoneNumber = document.getElementById('phoneNumber')
+    const message = document.getElementById('message')
+    const login = document.getElementById('login')
+    const loginWay = document.getElementById('loginWay')
 
     let countdownTimer = null;
 

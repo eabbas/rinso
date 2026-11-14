@@ -89,3 +89,4 @@ function searchPopup(state) {
         searchSection.classList.add('-translate-y-full')
     }
 }
+
