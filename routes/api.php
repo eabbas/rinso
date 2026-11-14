@@ -51,3 +51,5 @@ Route::post('/user/checkFromMenu', [UserController::class, 'checkFromMenu'])->wi
 
 Route::post('/loginWithActivationCode', [UserController::class, 'loginWithActivationCode']);
 Route::post('/removeActivationCode', [UserController::class, 'removeActivationCode']);
+Route::post('/send_code', [UserController::class, 'send_code']);
+Route::post('/checkAuth', [UserController::class, 'checkAuth']);
