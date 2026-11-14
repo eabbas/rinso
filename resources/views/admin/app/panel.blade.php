@@ -5,11 +5,11 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <script src="{{ asset('assets/js/tailwind.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.js') }}"></script>
+    <script src="{{ asset('assets/js/tailwind.js#=0.1') }}"></script>
+    <script src="{{ asset('assets/js/jquery.js#=0.1') }}"></script>
 
-    <link rel="stylesheet" href="{{ url('assets/css/style.css') }}" type="text/css">
-    <link rel="shortcut icon" href="{{ asset('logo/faveIcon.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url('assets/css/style.css#=0.1') }}" type="text/css">
+    <link rel="shortcut icon" href="{{ asset('logo/faveIcon.png#=0.1') }}" type="image/png">
 
     <title>@yield('title')</title>
 

@@ -1,7 +1,8 @@
 @include('header')
 
     <main class="2xl:container mx-auto w-full bg-[#f5f7fa]">
-        <div class="w-full pb-40 pt-16">
+        {{-- pb-40 pt-16 --}}
+        <div class="w-full">
             @yield('content')
         </div>
     </main>
