@@ -1,5 +1,9 @@
-@include('header')
 
+
+@extends('client.document')
+@section('title', 'رینسو | ورود')
+@section('content')
+    
 {{-- Notification --}}
 <div id="message"
      class="fixed top-0 right-1/2 -translate-y-full translate-x-1/2 opacity-0 invisible z-[150] w-11/12 sm:w-2/3 lg:w-1/3 bg-white rounded-2xl shadow-2xl border-1 border-slate-200 transition-all duration-500">
@@ -766,9 +770,4 @@
     }
 
 </script>
-
-
-@include('footer')
-
-</body>
-</html>
+@endsection
