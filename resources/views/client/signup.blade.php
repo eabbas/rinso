@@ -1,8 +1,10 @@
-@include('header')
+@extends('client.document')
+@section('title', 'رینسو | ثبت نام')
+@section('content')
 
 {{-- Notification --}}
 <div id="message"
-     class="fixed top-0 right-1/2 translate-x-1/2 -translate-y-full opacity-0 invisible z-[100] w-11/12 sm:w-2/3 lg:w-1/3 bg-white rounded-2xl shadow-2xl border-1 border-slate-200 transition-all duration-500">
+     class="fixed top-0 right-1/2 translate-x-1/2 -translate-y-full opacity-0 invisible z-99999 w-11/12 sm:w-2/3 lg:w-1/3 bg-white rounded-2xl shadow-2xl border-1 border-slate-200 transition-all duration-500">
 
     <div class="flex items-center gap-3 p-4">
         <div class="size-9 shrink-0 rounded-xl bg-orange-50 text-[#E9820D] flex items-center justify-center">
@@ -114,11 +116,6 @@
 
             {{-- Heading --}}
             <div class="mb-8">
-
-                <div class="inline-flex items-center gap-2 bg-[#FFF4E7] text-[#B9680B] px-3 py-2 rounded-lg text-xs font-bold mb-5 border-1 border-[#FAD7AE]">
-                    <span class="size-2 rounded-full bg-[#FD9619]"></span>
-                    شروع مسیر شما در رینسو
-                </div>
 
                 <h2 class="text-2xl sm:text-3xl font-black text-[#0E1D35]">
                     ساخت حساب کاربری
@@ -415,11 +412,11 @@
 
         if (state === 'open') {
             message.classList.remove('top-0', '-translate-y-full', 'opacity-0', 'invisible');
-            message.classList.add('top-4', 'opacity-100', 'visible');
+            message.classList.add('top-20', 'opacity-100', 'visible');
         }
 
         if (state === 'close') {
-            message.classList.remove('top-4', 'opacity-100', 'visible');
+            message.classList.remove('top-20', 'opacity-100', 'visible');
             message.classList.add('top-0', '-translate-y-full', 'opacity-0', 'invisible');
         }
 
@@ -755,10 +752,5 @@
 
 </script>
 
-
-@include('footer')
-
 <script src="{{ asset('assets/js/rules.js') }}"></script>
-
-</body>
-</html>
+@endsection
