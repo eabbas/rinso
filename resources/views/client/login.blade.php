@@ -6,7 +6,7 @@
     
 {{-- Notification --}}
 <div id="message"
-     class="fixed top-0 right-1/2 -translate-y-full translate-x-1/2 opacity-0 invisible z-[150] w-11/12 sm:w-2/3 lg:w-1/3 bg-white rounded-2xl shadow-2xl border-1 border-slate-200 transition-all duration-500">
+     class="fixed top-0 right-1/2 -translate-y-full translate-x-1/2 opacity-0 invisible z-999 w-11/12 sm:w-2/3 lg:w-1/3 bg-white rounded-2xl shadow-2xl border-1 border-slate-200 transition-all duration-500">
 
     <div class="flex items-center gap-3 p-4">
 
@@ -357,7 +357,7 @@
             );
 
             message.classList.add(
-                'top-4',
+                'top-20',
                 'opacity-100',
                 'visible'
             );
@@ -367,7 +367,7 @@
         if (state === 'close') {
 
             message.classList.remove(
-                'top-4',
+                'top-20',
                 'opacity-100',
                 'visible'
             );
@@ -574,8 +574,7 @@
                    class="w-full h-13 px-4 rounded-xl border-1 border-slate-200 bg-white text-sm text-[#243653] placeholder:text-slate-300 outline-none transition-all focus:border-[#ff9418] focus:ring-4 focus:ring-orange-500/10"
                    name="password"
                    placeholder="کلمه عبور خود را وارد کنید"
-                   required>
-        `;
+                   required>`
 
         el.remove();
 
