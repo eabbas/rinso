@@ -133,18 +133,10 @@
     {{-- Login Form --}}
     <div class="w-full md:w-7/12 lg:w-1/2 flex justify-center items-center px-5 py-12 sm:px-10 lg:px-16">
 
-        <div class="w-full max-w-md">
+        <div class="w-full max-w-md lg:-translate-y-1/6">
 
             {{-- Heading --}}
             <div class="mb-9">
-
-                <div class="inline-flex items-center gap-2 bg-orange-50 text-[#d97706] px-3 py-2 rounded-lg text-xs font-bold mb-5 border-1 border-orange-100">
-
-                    <span class="size-2 rounded-full bg-[#ff9418]"></span>
-
-                    خوش برگشتی!
-
-                </div>
 
                 <h2 class="text-2xl sm:text-3xl font-black text-[#101d3b]">
                     ورود به حساب کاربری
