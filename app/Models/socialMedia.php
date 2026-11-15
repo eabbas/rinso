@@ -22,4 +22,13 @@ class socialMedia extends Model
   {
     return $this->hasMany(social_address::class, 'socialMedia_id');
   }
+  public function pages()
+  {
+    return $this->belongsToMany(
+      pages::class,
+      'social_addresses',
+      'socialMedia_id',
+      'page_id'
+    );
+  }
 }

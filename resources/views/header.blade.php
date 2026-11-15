@@ -8,16 +8,20 @@
     <script src="{{ asset('assets/js/tailwind.js#t=0.1') }}"></script>
     <script src="{{ asset('assets/js/jquery.js#t=0.1') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css#t=0.1') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('assets/css/jalaliDatePicker.css#t=0.1') }}" type="text/css">
     <link rel="shortcut icon" href="{{ asset('logo/faveIcon.png#t=0.1') }}" type="image/png">
     <script src="{{ asset('assets/js/html5-qrcode.min.js#t=0.1') }}"></script>
+    <script src="{{ asset('assets/js/jalaliDatePicker.js#t=0.1') }}"></script>
+    
     <title>@yield('title')</title>
     <script>
         let url = "{{ url('/') }}/"
         let api = "{{ url('api/') }}/"
         let storage = "{{ url('storage/') }}/"
         let asset = "{{ asset('/') }}/"
+        let now = "{{ implode('/', explode('-', explode(' ', verta())[0])) }}"
     </script>
-
+    <script src="{{ asset('assets/js/filters.js#t=0.1') }}"></script>
 </head>
 @php
     $isLoggedIn = Auth::check();

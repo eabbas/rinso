@@ -78,7 +78,10 @@ class pagesController extends Controller
             'cover_path' => $coverPath,
             'is_private'=> isset($validated['is_private']) ? 1 : 0,
             'show_in_home'=> isset($validated['show_in_home']) ? 1 : 0,
-            'active'=> isset($validated['active']) ? 1 : 0
+            'active'=> isset($validated['active']) ? 1 : 0,
+            'created_at'=>now(),
+            'updated_at'=>now(),
+            'date' => implode('/', explode('-', explode(' ', verta())[0])),
         ]);
 
         $page = pages::find($page_id);

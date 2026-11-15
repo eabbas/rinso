@@ -21,6 +21,8 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->integer('category_id')->default(1);
             $table->string('qr_code')->nullable();
+            $table->tinyInteger('is_private')->default(0);
+            $table->string('date')->nullable();
             $table->timestamps();
         });
     }

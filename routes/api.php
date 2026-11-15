@@ -7,6 +7,7 @@ use App\Http\Controllers\PageCategoryController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\MahdiTestController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\MenuController;
 use App\Http\Middleware\UserMiddleware;
 use Illuminate\Http\Request;
@@ -51,3 +52,5 @@ Route::post('/user/checkFromMenu', [UserController::class, 'checkFromMenu'])->wi
 
 Route::post('/loginWithActivationCode', [UserController::class, 'loginWithActivationCode']);
 Route::post('/removeActivationCode', [UserController::class, 'removeActivationCode']);
+
+Route::post('/getFilters', [SearchController::class, 'getFilters']);
