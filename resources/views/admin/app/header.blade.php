@@ -754,6 +754,16 @@
                                 ایجاد کاربر جدید
                             </a>
 
+                            {{-- @if(in_array(1, $ids) || in_array(4, $ids))
+                                <a href="{{ route('user.requestList') }}"
+                                   class="px-4 py-3 rounded-lg text-sm transition
+                                   {{ Route::is('user.requestList')
+                                        ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                        : 'text-slate-500 hover:bg-white' }}">
+                                    لیست درخواست‌ها
+                                </a>
+                            @endif --}}
+
                         </div>
 
                     </details>

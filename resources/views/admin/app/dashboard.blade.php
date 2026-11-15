@@ -29,7 +29,7 @@
     </div>
 
     {{-- درخواست نمایندگی --}}
-    @if (!isset(Auth::user()->request) && !in_array(1, Auth::user()->role->pluck('id')->toArray()))
+    {{-- @if (!isset(Auth::user()->request) && !in_array(1, Auth::user()->role->pluck('id')->toArray()))
         <a href="{{ route('user.request', [Auth::user()]) }}" onclick="setRequest(event)"
             class="mb-5 flex items-center justify-between gap-3 p-4 rounded-2xl border border-blue-100 bg-blue-50/70 hover:bg-blue-50 transition-all group">
 
@@ -91,7 +91,7 @@
                 }
             }
         </script>
-    @endif
+    @endif --}}
 
     {{-- کارت صفحه‌های من --}}
     <div
