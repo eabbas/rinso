@@ -64,11 +64,16 @@ use App\Models\pages;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-// Route::get('/fttest', function(){
-//     Schema::table('contact_us', function(Blueprint $table){
-//         $table->integer('user_id')->nullable()->after('phoneNumber');
-//     });
-// });
+Route::get('/fttest', function(){
+    Schema::table('pages', function(Blueprint $table){
+        $table->string('date')->nullable()->after('is_private');
+    });
+    $pages = pages::all();
+    foreach($pages as $page){
+        $date = implode('/', explode('-', explode(' ', verta())[0]));
+        $page->update(['date'=>$date]);
+    }
+});
 
 Route::get('/test', function () {
     Schema::table('pages', function (BluePrint $table) {
