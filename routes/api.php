@@ -53,3 +53,4 @@ Route::post('/loginWithActivationCode', [UserController::class, 'loginWithActiva
 Route::post('/removeActivationCode', [UserController::class, 'removeActivationCode']);
 Route::post('/send_code', [UserController::class, 'send_code']);
 Route::post('/checkAuth', [UserController::class, 'checkAuth']);
+Route::post('/editInfo', [UserController::class, 'editInfo']);
