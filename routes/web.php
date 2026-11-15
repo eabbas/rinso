@@ -431,8 +431,6 @@ Route::group([
     Route::get('/{page:user_name}', 'loadPage')->name('loadPage');
     Route::get('/menu/{career}/{slug?}', 'show_menu')->name('menu');
 });
-Route::get('/career/{career}', [ClientController::class, 'show_career'])->name('show_career');
-// Route::get('/socialPage/{pages}', [ClientController::class, 'show_socialPage'])->name('show_socialPage');
 
 Route::group([
     'prefix' => 'settings',

@@ -202,11 +202,6 @@ class pagesController extends Controller
         $socialMedias = socialMedia::all();
         $introCats = $pages->introCats()->where('title', '!=', 'بدون دسته بندی')->get();
         $introPros = $pages->introPros;
-        // dd($introCats);
-//        $data = intro_category::find(13);
-//        $data->with('products')->get();
-//        dd($data);
-        
         return view('admin.pages.single', ['page' => $pages, 'socialMedias' => $socialMedias, 'introCats' => $introCats, 'introPros' => $introPros]);
     }
     public function deleteAll(Request $request)

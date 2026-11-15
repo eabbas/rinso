@@ -40,7 +40,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-xs text-gray-400">تعداد صفحات</p>
-                        <p class="text-2xl font-black text-slate-800 mt-2">
+                        <p class="text-2xl font-black text-slate-800 mt-2 in-fa">
                             {{ count(Auth::user()->pages) }}
                         </p>
                     </div>
@@ -49,23 +49,6 @@
                         <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <rect x="4" y="4" width="16" height="16" rx="3" stroke-width="1.8"/>
                             <path d="M8 9h8M8 13h5" stroke-width="1.8" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white border border-gray-100 rounded-2xl p-4 sm:p-5">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs text-gray-400">وضعیت حساب</p>
-                        <p class="text-sm font-bold text-emerald-600 mt-3">
-                            فعال و آماده استفاده
-                        </p>
-                    </div>
-
-                    <div class="size-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                        <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path d="m5 12 4 4L19 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
                 </div>
@@ -129,27 +112,29 @@
 
                                     <div class="size-14 shrink-0 rounded-2xl bg-slate-50 border border-gray-100 overflow-hidden flex items-center justify-center">
 
-                                        @if($cover->logo_path)
-                                            <img class="w-full h-full object-cover"
-                                                 src="{{ asset('storage/' . $cover->logo_path) }}"
-                                                 alt="{{ $cover->title }}">
-                                        @else
-                                            <img class="w-9 h-9 object-contain"
-                                                 src="{{ asset('assets/img/user.png') }}"
-                                                 alt="User">
-                                        @endif
+                                        <a href="{{ route('client.loadPage', $cover->user_name) }}">
+                                            @if($cover->logo_path)
+                                                <img class="w-full h-full object-cover"
+                                                    src="{{ asset('storage/' . $cover->logo_path) }}"
+                                                    alt="{{ $cover->title }}">
+                                            
+                                            @else
+                                                <img class="w-9 h-9 object-contain"
+                                                    src="{{ asset('assets/img/user.png') }}"
+                                                    alt="User">
+                                            @endif
+                                        </a>
 
                                     </div>
 
-                                    <div class="min-w-0">
+                                    <a href="{{ route('client.loadPage', $cover->user_name) }}" class="min-w-0">
                                         <h3 class="text-sm font-black text-slate-800 truncate">
                                             {{ $cover->title }}
                                         </h3>
-
                                         <p class="text-xs text-gray-400 mt-2">
-                                            صفحه اختصاصی من
+                                            {{ $cover->subTitle }}
                                         </p>
-                                    </div>
+                                    </a>
 
                                 </div>
                                 @if($cover->active)

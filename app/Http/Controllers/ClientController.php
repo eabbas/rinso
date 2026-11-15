@@ -68,7 +68,6 @@ class ClientController extends Controller
         
     public function loadLink(pages $pages)
     {
-        Log::info('pages');
         $pages->count += 1;
         $pages->save();
         $user = $pages->user;
