@@ -331,12 +331,6 @@
                            {{ Route::is('contactUs.list') ? 'text-[#FB9413] bg-[#FB9413]/10' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
                             لیست تیکت‌ها
                         </a>
-
-                        <a href="{{ route('contactUs.create') }}"
-                           class="block px-4 py-2.5 rounded-lg text-xs transition-all
-                           {{ Route::is('contactUs.create') ? 'text-[#FB9413] bg-[#FB9413]/10' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
-                            فرم ارتباط با ما
-                        </a>
                     </div>
                 </details>
             @endif
