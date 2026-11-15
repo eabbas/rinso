@@ -463,6 +463,13 @@ class UserController extends Controller
     public function create_user()
     {
         $roles = role::all();
+        foreach($roles as $role){
+            if($role->title == 'admin'){
+                $role->title = 'ادمین';
+            } elseif($role->title == 'general'){
+                $role->title = 'کاربر عمومی';
+            }
+        }
         return view('admin.user.create', ['roles' => $roles]);
     }
 

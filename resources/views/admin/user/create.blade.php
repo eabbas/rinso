@@ -7,14 +7,11 @@
 
 @section('content')
 <div class="w-full py-4" dir="rtl">
-
     <form action="{{ route('user.store_user') }}"
           method="post"
           enctype="multipart/form-data"
           class="mx-auto w-full rounded-2xl border border-[#E6E9EF] bg-white p-5 shadow-sm sm:p-7">
-
         @csrf
-
         {{-- عنوان فرم --}}
         <div class="mb-7 flex items-center gap-3 border-b border-[#E6E9EF] pb-5">
             <div class="flex size-11 items-center justify-center rounded-xl bg-[#101827] text-white">
