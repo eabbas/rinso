@@ -54,3 +54,4 @@ Route::post('/removeActivationCode', [UserController::class, 'removeActivationCo
 Route::post('/send_code', [UserController::class, 'send_code']);
 Route::post('/checkAuth', [UserController::class, 'checkAuth']);
 Route::post('/editInfo', [UserController::class, 'editInfo']);
+Route::post('/user/search', [UserController::class, 'search']);
