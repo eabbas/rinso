@@ -147,34 +147,31 @@
                                            value="{{ $page->id }}">
 
                                     <div class="size-14 shrink-0 rounded-2xl bg-slate-50 border border-gray-100 overflow-hidden flex items-center justify-center">
-
-                                        @if($page->logo_path)
-
-                                            <img class="w-full h-full object-cover"
-                                                 src="{{ asset('storage/' . $page->logo_path) }}"
-                                                 alt="{{ $page->title }}">
-
-                                        @else
-
-                                            <img class="w-9 h-9 object-contain"
-                                                 src="{{ asset('assets/img/user.png') }}"
-                                                 alt="User">
-
-                                        @endif
+                                        <a href="{{ route('client.loadPage', $page->user_name) }}">
+                                            @if($page->logo_path)
+                                                <img class="w-full h-full object-cover"
+                                                     src="{{ asset('storage/' . $page->logo_path) }}"
+                                                     alt="{{ $page->title }}">
+                                            @else
+                                                <img class="w-9 h-9 object-contain"
+                                                     src="{{ asset('assets/img/user.png') }}"
+                                                     alt="User">
+                                            @endif
+                                        </a>
 
                                     </div>
 
-                                    <div class="min-w-0">
+                                    <a href="{{ route('client.loadPage', $page->user_name) }}" class="min-w-0">
 
                                         <h3 class="text-sm font-black text-slate-800 truncate">
                                             {{ $page->title }}
                                         </h3>
 
                                         <p class="text-xs text-gray-400 mt-2">
-                                            شناسه صفحه: #{{ $page->id }}
+                                           {{ $page->subTitle }}
                                         </p>
 
-                                    </div>
+                                    </a>
 
                                 </div>
 

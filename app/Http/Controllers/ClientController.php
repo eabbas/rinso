@@ -78,12 +78,19 @@ class ClientController extends Controller
         // return view('client.link.single', ['page' => $pages, 'slug' => $slug, 'introCats' => $introCats, 'introPros' => $introPros]);
         // return view('client.link.single', ['page' => $pages, 'slug' => $slug]);
         // dd($pages);
+        
         return to_route('client.loadPage', [$pages->user_name]);
     }
 
     public function loadPage(pages $page){
     
-        return view('client.link.single', ['page' => $page]);
+        $roleIds = [];
+        if(Auth::check()){
+            $roleIds = Auth::user()->role->pluck('id')->toArray();
+        }
+        $isAdmin = false;
+        in_array(1, $roleIds) ? $isAdmin = true : $isAdmin = false;
+        return view('client.link.single', ['page' => $page, 'isAdmin'=>$isAdmin]);
     }
 
     public function show_career(career $career)
