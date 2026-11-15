@@ -115,7 +115,7 @@
                         @if($aboutUs?->image)
                             <img
                                 id="imagePreview"
-                                src="{{ asset($aboutUs->image) }}"
+                                src="{{ asset('storage/'.$aboutUs->image) }}"
                                 class="mt-4 w-full max-w-md h-52 object-cover rounded-xl"
                                 alt="تصویر درباره ما"
                             >

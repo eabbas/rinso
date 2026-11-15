@@ -19,17 +19,7 @@
                 همه صفحه‌ها
             </h2>
 
-            <p class="text-sm text-gray-400 mt-2">
-                مدیریت و نظارت بر تمام صفحات ایجاد شده در رینسو.
-            </p>
-        </div>
-
-        <div class="flex items-center gap-2 text-xs font-bold text-blue-600 bg-blue-50 px-4 py-3 rounded-xl w-fit">
-            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 3v18m9-9H3"/>
-            </svg>
-            مدیریت صفحات کاربران
+            
         </div>
 
     </div>
@@ -46,7 +36,7 @@
                     <div>
                         <p class="text-xs text-gray-400">کل صفحات</p>
 
-                        <p class="text-2xl font-black text-slate-800 mt-2">
+                        <p class="text-2xl font-black text-slate-800 mt-2 in-fa">
                             {{ count($pages) }}
                         </p>
                     </div>
@@ -62,26 +52,7 @@
             </div>
 
 
-            <div class="bg-white border border-gray-100 rounded-2xl p-4 sm:p-5">
-                <div class="flex items-center justify-between gap-2">
-
-                    <div>
-                        <p class="text-xs text-gray-400">وضعیت اطلاعات</p>
-
-                        <p class="text-sm font-bold text-emerald-600 mt-3">
-                            اطلاعات در دسترس
-                        </p>
-                    </div>
-
-                    <div class="size-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                        <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path d="m5 12 4 4L19 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-
-                </div>
-            </div>
-
+            
         </div>
 
 
@@ -147,45 +118,40 @@
                                            value="{{ $page->id }}">
 
                                     <div class="size-14 shrink-0 rounded-2xl bg-slate-50 border border-gray-100 overflow-hidden flex items-center justify-center">
-
-                                        @if($page->logo_path)
-
-                                            <img class="w-full h-full object-cover"
-                                                 src="{{ asset('storage/' . $page->logo_path) }}"
-                                                 alt="{{ $page->title }}">
-
-                                        @else
-
-                                            <img class="w-9 h-9 object-contain"
-                                                 src="{{ asset('assets/img/user.png') }}"
-                                                 alt="User">
-
-                                        @endif
-
+                                        <a href="{{ route('client.loadPage', $page->user_name) }}">
+                                            @if($page->logo_path)
+                                                <img class="w-full h-full object-cover"
+                                                     src="{{ asset('storage/' . $page->logo_path) }}"
+                                                     alt="{{ $page->title }}">
+                                            @else
+                                                <img class="w-9 h-9 object-contain"
+                                                     src="{{ asset('assets/img/user.png') }}"
+                                                     alt="User">
+                                            @endif
+                                        </a>
                                     </div>
-
-                                    <div class="min-w-0">
+                                    <a href="{{ route('client.loadPage', $page->user_name) }}" class="min-w-0">
 
                                         <h3 class="text-sm font-black text-slate-800 truncate">
                                             {{ $page->title }}
                                         </h3>
 
                                         <p class="text-xs text-gray-400 mt-2">
-                                            شناسه صفحه: #{{ $page->id }}
+                                           {{ $page->subTitle }}
                                         </p>
-
-                                    </div>
-
+                                    </a>
                                 </div>
-
-
-                                <span class="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1.5 rounded-full">
-
-                                    <span class="size-1.5 rounded-full bg-emerald-500"></span>
-
-                                    صفحه ثبت شده
-
-                                </span>
+                                @if ($page->active)
+                                    <span class="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1.5 rounded-full">
+                                        <span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                    فعال
+                                    </span>
+                                @else
+                                    <span class="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-red-600 bg-red-50 px-2.5 py-1.5 rounded-full">
+                                        <span class="size-1.5 rounded-full bg-red-500"></span>
+                                    غیر فعال
+                                    </span>
+                                @endif
 
                             </div>
 

@@ -4,279 +4,568 @@
 @section('title', 'ویرایش کاربر')
 
 @section('content')
-<div class="w-full pb-6" dir="rtl">
 
-    {{-- عنوان صفحه --}}
-    <div class="mb-5">
-        <h1 class="text-lg md:text-xl font-bold text-[#101827]">
-            ویرایش کاربر {{ $user->name }} {{ $user->family }}
-        </h1>
+@php
+    $selectedRoles = old('roles', $userRoles ?? []);
+    $roleTitles = [
+        'admin' => 'مدیر کل',
+        'admin2' => 'مدیر سیستم',
+        'general' => 'کاربر عادی',
+    ];
+@endphp
 
-        <div class="mt-2 flex items-center gap-2 text-xs text-[#99A1B7]">
-            <a href="{{ route('user.profile') }}" class="transition hover:text-[#FB9413]">
-                داشبورد
-            </a>
-            <span>/</span>
-            <span>اطلاعات کاربر</span>
-        </div>
-    </div>
+<div class="w-full space-y-6 pb-8 text-[#263449]" dir="rtl">
 
-    {{-- کارت اطلاعات کاربر --}}
-    <div class="rounded-2xl border border-[#E6E9EF] bg-white p-5 md:p-7 shadow-sm">
+    {{-- هدر صفحه --}}
+    <section class="relative overflow-hidden rounded-3xl bg-[#101827] p-5 text-white shadow-lg md:p-7">
+        <div class="absolute -left-16 -top-20 h-64 w-64 rounded-full bg-[#FB9413]/10 blur-3xl"></div>
+        <div class="absolute -bottom-24 right-1/3 h-56 w-56 rounded-full bg-white/5 blur-3xl"></div>
 
-        <div class="flex flex-col gap-6 lg:flex-row lg:items-start">
+        <div class="relative flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
+            <div>
+                <div class="mb-3 flex items-center gap-2 text-xs text-white/50">
+                    <a href="{{ route('user.profile') }}" class="transition hover:text-[#FB9413]">
+                        داشبورد
+                    </a>
+                    <span>/</span>
+                    <span>مدیریت کاربران</span>
+                    <span>/</span>
+                    <span class="text-[#FB9413]">ویرایش کاربر</span>
+                </div>
 
-            {{-- تصویر و مشخصات --}}
-            <div class="flex flex-col items-center gap-4 md:flex-row md:items-start md:gap-5 lg:flex-1">
-
-                @if (!$user->main_image)
-                    <img
-                        class="h-24 w-24 rounded-2xl border border-[#E6E9EF] object-cover"
-                        src="{{ asset('assets/img/user.png') }}"
-                        alt="user__avatar">
-                @else
-                    <img
-                        class="h-24 w-24 rounded-2xl border border-[#E6E9EF] object-cover"
-                        src="{{ asset('storage/' . $user->main_image) }}"
-                        alt="user__picture">
-                @endif
-
-                <div class="flex w-full flex-col items-center gap-4 text-center md:items-start md:text-right">
-
-                    <div>
-                        <h2 class="text-lg font-bold text-[#101827]">
-                            {{ $user->name }} {{ $user->family }}
-                        </h2>
-                        <p class="mt-1 text-xs text-gray-400">اطلاعات حساب کاربری</p>
+                <div class="flex items-center gap-3">
+                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FB9413]/15 text-[#FB9413]">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2m12-13a4 4 0 11-8 0 4 4 0 018 0zm5 5v6m-3-3h6"/>
+                        </svg>
                     </div>
 
-                    @if($user->email)
-                        <div class="flex flex-col items-center gap-3 text-xs text-gray-500 md:items-start">
+                    <div>
+                        <h1 class="text-lg font-bold md:text-xl">
+                            ویرایش اطلاعات کاربر
+                        </h1>
+                       
+                    </div>
+                </div>
+            </div>
 
-                            <span class="flex items-center gap-2">
-                                <svg class="h-4 w-4 text-[#FB9413]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" fill="currentColor">
-                                    <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
+            <div class="flex items-center gap-2 self-start in-fa rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/70 sm:self-center">
+                <span class="h-2 w-2 rounded-full bg-[#FB9413]"></span>
+                شناسه کاربر: {{ $user->id }}
+            </div>
+        </div>
+    </section>
+
+
+    {{-- کارت خلاصه پروفایل --}}
+    <section class="overflow-hidden rounded-3xl border border-[#E8EBF0] bg-white shadow-sm">
+        <div class="p-5 md:p-6">
+            <div class="flex flex-col gap-5 sm:flex-row sm:items-center">
+
+                <div class="relative mx-auto shrink-0 sm:mx-0">
+                    <img
+                        id="profile-header-image"
+                        src="{{ $user->main_image ? asset('storage/' . $user->main_image) : asset('assets/img/user.png') }}"
+                        alt="تصویر پروفایل"
+                        class="h-24 w-24 rounded-3xl border-4 border-[#F5F6F8] object-cover shadow-sm"
+                    >
+                    <span class="absolute -bottom-1 -left-1 flex h-7 w-7 items-center justify-center rounded-xl border-2 border-white bg-[#FB9413] text-white">
+                        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.67a4.5 4.5 0 01-1.897 1.13L6 18.5l.7-2.685a4.5 4.5 0 011.13-1.897L16.862 4.487z"/>
+                        </svg>
+                    </span>
+                </div>
+
+                <div class="min-w-0 flex-1 text-center sm:text-right">
+                    <h2 class="text-lg font-bold text-[#101827]">
+                        {{ $user->name && $user->family ? $user->name .' '. $user->family : 'بدون نام' }}
+                    </h2>
+                   
+
+                    <div class="mt-4 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+                        @if($user->email)
+                            <span class="inline-flex max-w-full items-center gap-2 rounded-xl bg-[#F8F9FB] px-3 py-2 text-xs text-[#526075]">
+                                <svg class="h-4 w-4 shrink-0 text-[#FB9413]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9 6 9-6M5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/>
                                 </svg>
-                                {{ $user->email }}
+                                <span class="break-all">{{ $user->email }}</span>
                             </span>
+                        @endif
 
-                            <span class="flex items-center gap-2">
-                                <svg class="h-4 w-4 text-[#FB9413]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+                        @if($user->phoneNumber)
+                            <span class="inline-flex in-fa items-center gap-2 rounded-xl bg-[#F8F9FB] px-3 py-2 text-xs text-[#526075]" dir="ltr">
+                                <svg class="h-4 w-4 text-[#FB9413]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.95.68l1.2 3.6a1 1 0 01-.5 1.2l-2.1 1.05a11 11 0 005.2 5.2l1.05-2.1a1 1 0 011.2-.5l3.6 1.2a1 1 0 01.68.95V18a2 2 0 01-2 2h-1C9.27 20 4 14.73 4 8V5z"/>
                                 </svg>
                                 {{ $user->phoneNumber }}
                             </span>
-
-                        </div>
-                    @endif
-                </div>
-            </div>
-
-            {{-- آمار کاربر --}}
-            <div class="grid w-full grid-cols-1 gap-3 sm:grid-cols-3 lg:w-auto lg:min-w-[420px]">
-
-                <div class="flex items-center justify-between rounded-xl border border-[#E6E9EF] bg-[#F8F9FB] p-4 sm:flex-col sm:items-start sm:gap-3">
-                    <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-green-50 text-green-600">
-                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor">
-                            <path d="M209.4 39.4C204.8 34.7 198.6 32 192 32s-12.8 2.7-17.4 7.4l-168 176c-9.2 9.6-8.8 24.8 .8 33.9s24.8 8.8 33.9-.8L168 115.9V456c0 13.3 10.7 24 24 24s24-10.7 24-24V115.9L342.6 248.6c9.2 9.6 24.3 9.9 33.9 .8s9.9-24.3 .8-33.9l-168-176z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="text-lg font-bold text-[#101827]">$12.600</div>
-                        <span class="text-xs text-gray-400">درآمد</span>
+                        @endif
                     </div>
                 </div>
 
-                <div class="flex items-center justify-between rounded-xl border border-[#E6E9EF] bg-[#F8F9FB] p-4 sm:flex-col sm:items-start sm:gap-3">
-                    <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-red-50 text-red-500">
-                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor">
-                            <path d="M174.6 472.6c4.5 4.7 10.8 7.4 17.4 7.4s12.8-2.7 17.4-7.4l168-176c9.2-9.6 8.8-24.8-.8-33.9s-24.8-8.8-33.9 .8L216 396.1 216 56c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 340.1L41.4 263.4c-9.2-9.6-24.3-9.9-33.9-.8s-9.9 24.3-.8 33.9l168 176z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="text-lg font-bold text-[#101827]">80</div>
-                        <span class="text-xs text-gray-400">پروژه‌ها</span>
+                <div class="hidden h-16 w-px bg-[#EEF0F3] sm:block"></div>
+
+                <div class="hidden shrink-0 text-center sm:block">
+                    <p class="text-[11px] text-[#98A1B2]">وضعیت حساب</p>
+                    <div class="mt-2 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-2 text-xs font-medium text-emerald-600">
+                        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                        ثبت‌شده
                     </div>
                 </div>
-
-                <div class="flex items-center justify-between rounded-xl border border-[#E6E9EF] bg-[#F8F9FB] p-4 sm:flex-col sm:items-start sm:gap-3">
-                    <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-green-50 text-green-600">
-                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="currentColor">
-                            <path d="M209.4 39.4C204.8 34.7 198.6 32 192 32s-12.8 2.7-17.4 7.4l-168 176c-9.2 9.6-8.8 24.8 .8 33.9s24.8 8.8 33.9-.8L168 115.9V456c0 13.3 10.7 24 24 24s24-10.7 24-24V115.9L342.6 248.6c9.2 9.6 24.3 9.9 33.9 .8s9.9-24.3 .8-33.9l-168-176z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="text-lg font-bold text-[#101827]">%25</div>
-                        <span class="text-xs text-gray-400">سود خالص</span>
-                    </div>
-                </div>
-
             </div>
         </div>
-    </div>
+    </section>
+
+
+    {{-- پیام خطا --}}
+    @if ($errors->any())
+        <div class="rounded-2xl border border-red-100 bg-red-50 p-4">
+            <div class="flex items-start gap-3">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 4h.01M10.3 3.86L1.82 18.5A2 2 0 003.55 21h16.9a2 2 0 001.73-2.5L13.7 3.86a2 2 0 00-3.4 0z"/>
+                </svg>
+                <div>
+                    <p class="text-sm font-bold text-red-700">لطفاً موارد زیر را بررسی کنید</p>
+                    <ul class="mt-2 list-inside list-disc space-y-1 text-xs text-red-600">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    @endif
+
 
     {{-- فرم ویرایش --}}
-    <div class="mt-5 overflow-hidden rounded-2xl border border-[#E6E9EF] bg-white shadow-sm">
+    <form
+        action="{{ route('user.update', [$user->id]) }}"
+        method="post"
+        enctype="multipart/form-data"
+        id="user-edit-form"
+        class="space-y-5"
+    >
+        @csrf
+        <input type="hidden" name="user_id" value="{{ $user->id }}">
 
-        <div class="flex items-center gap-3 border-b border-[#EEF0F3] px-5 py-5 md:px-7">
-            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#101827] text-[#FB9413]">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.67a4.5 4.5 0 01-1.897 1.13L6 18.5l.7-2.685a4.5 4.5 0 011.13-1.897L16.862 4.487z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 7.125L16.875 4.5M12 20.25H5.25A2.25 2.25 0 013 18V5.25A2.25 2.25 0 015.25 3h9"/>
-                </svg>
+        {{-- اطلاعات شخصی --}}
+        <section class="overflow-hidden rounded-3xl border border-[#E8EBF0] bg-white shadow-sm">
+
+            <div class="flex items-center gap-3 border-b border-[#EEF0F3] px-5 py-5 md:px-7">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#101827] text-[#FB9413]">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M20 21a8 8 0 00-16 0m12-13a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="font-bold text-[#101827]">اطلاعات شخصی</h2>
+                    <p class="mt-1 text-[11px] text-[#98A1B2]">مشخصات اصلی حساب کاربری</p>
+                </div>
             </div>
-            <div>
-                <h2 class="font-bold text-[#101827]">جزئیات پروفایل</h2>
-                <p class="mt-1 text-xs text-gray-400">اطلاعات حساب کاربری را ویرایش کنید</p>
-            </div>
-        </div>
 
-        <form action="{{ route('user.update', [$user->id]) }}" method="post"
-              class="p-5 md:p-7" enctype="multipart/form-data">
-            @csrf
+            <div class="space-y-6 p-5 md:p-7">
 
-            <input type="hidden" name="user_id" value="{{ $user->id }}">
-
-            <div class="space-y-6">
-
-                {{-- تصویر --}}
-                <div class="flex flex-col gap-3 border-b border-[#EEF0F3] pb-6 lg:flex-row">
-                    <div class="w-full text-sm font-medium text-[#263449] lg:w-2/12 lg:pt-3">
-                        تصویر پروفایل
+                {{-- تصویر پروفایل --}}
+                <div class="grid gap-4 border-b border-[#EEF0F3] pb-6 md:grid-cols-12">
+                    <div class="md:col-span-3">
+                        <label class="text-sm font-semibold text-[#263449]">تصویر پروفایل</label>
+                        <p class="mt-1 text-[11px] leading-6 text-[#98A1B2]">تصویر اصلی کاربر را انتخاب کنید</p>
                     </div>
 
-                    <div class="relative flex w-full items-center gap-4 lg:w-10/12">
-                        @if ($user->main_image)
-                            <img class="h-24 w-24 rounded-2xl border border-[#E6E9EF] object-cover shadow-sm"
-                                 src="{{ asset('storage/' . $user->main_image) }}" alt="user imag">
-                        @else
-                            <img class="h-24 w-24 rounded-2xl border border-[#E6E9EF] object-cover shadow-sm"
-                                 src="{{ asset('assets/img/user.png') }}" alt="user imag">
-                        @endif
+                    <div class="md:col-span-9">
+                        <div class="flex flex-col gap-4 rounded-2xl border border-dashed border-[#DDE2EA] bg-[#F8F9FB] p-4 sm:flex-row sm:items-center">
+
+                            <img
+                                id="profile-preview"
+                                src="{{ $user->main_image ? asset('storage/' . $user->main_image) : asset('assets/img/user.png') }}"
+                                alt="پیش‌نمایش تصویر"
+                                class="h-24 w-24 shrink-0 rounded-2xl border border-[#E5E8EE] bg-white object-cover"
+                            >
+
+                            <div class="min-w-0 flex-1">
+                                <label
+                                    for="file-input"
+                                    class="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-[#101827] px-4 py-3 text-xs font-semibold text-white transition hover:bg-[#263449]"
+                                >
+                                    <svg class="h-4 w-4 text-[#FB9413]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16V4m0 0L7 9m5-5l5 5M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/>
+                                    </svg>
+                                    انتخاب تصویر جدید
+                                </label>
+
+                                <input
+                                    type="file"
+                                    id="file-input"
+                                    name="main_image"
+                                    class="hidden"
+                                    accept="image/jpeg,image/png,image/webp"
+                                >
+
+                                <p id="image-file-name" class="mt-3 text-xs text-[#526075]">
+                                    تصویری انتخاب نشده است
+                                </p>
+                                <p class="mt-1 text-[10px] text-[#98A1B2]">
+                                    فرمت‌های مجاز: JPG، PNG و WEBP
+                                </p>
+
+                                <button
+                                    type="button"
+                                    id="remove-new-image"
+                                    class="mt-2 hidden text-xs font-medium text-red-500 transition hover:text-red-700"
+                                >
+                                    لغو انتخاب تصویر جدید
+                                </button>
+                            </div>
+                        </div>
+                        @error('main_image')
+                            <p class="mt-2 text-xs text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+
+                {{-- نام و نام خانوادگی --}}
+                <div class="grid gap-4 border-b border-[#EEF0F3] pb-6 md:grid-cols-12">
+                    <div class="md:col-span-3">
+                        <label class="text-sm font-semibold text-[#263449]">نام و نام خانوادگی</label>
+                        <p class="mt-1 text-[11px] leading-6 text-[#98A1B2]">نام نمایشی کاربر در سامانه</p>
+                    </div>
+
+                    <div class="grid gap-3 sm:grid-cols-2 md:col-span-9">
+                        <div>
+                            <label for="name" class="mb-2 block text-xs font-medium text-[#526075]">نام</label>
+                            <input
+                                id="name"
+                                type="text"
+                                name="name"
+                                value="{{ old('name', $user->name) }}"
+                                placeholder="مثلاً محمد"
+                                class="w-full rounded-xl border border-[#E1E5EB] bg-[#F8F9FB] px-4 py-3 text-sm text-[#263449] outline-none transition placeholder:text-[#AAB1BE] focus:border-[#FB9413] focus:bg-white focus:ring-4 focus:ring-[#FB9413]/10"
+                            >
+                            @error('name')
+                                <p class="mt-2 text-xs text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
 
                         <div>
-                            <label for="file-input"
-                                   class="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-[#E1E5EB] bg-[#F8F9FB] px-4 py-2.5 text-xs font-medium text-[#263449] transition hover:border-[#FB9413] hover:text-[#FB9413]">
-                                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
-                                    <path d="M395.8 39.6c9.4-9.4 24.6-9.4 33.9 0l42.6 42.6c9.4 9.4 9.4 24.6 0 33.9L417.6 171 341 94.4l54.8-54.8zM318.4 117L395 193.6 159.6 428.9c-7.6 7.6-16.9 13.1-27.2 16.1L39.6 472.4l27.3-92.8c3-10.3 8.6-19.6 16.1-27.2L318.4 117zM452.4 17c-21.9-21.9-57.3-21.9-79.2 0L60.4 329.7c-11.4 11.4-19.7 25.4-24.2 40.8L.7 491.5c-1.7 5.6-.1 11.7 4 15.8s10.2 5.7 15.8 4l121-35.6c15.4-4.5 29.4-12.9 40.8-24.2L495 138.8c21.9-21.9 21.9-57.3 0-79.2L452.4 17z"/>
-                                </svg>
-                                تغییر تصویر
-                            </label>
-
-                            <input type="file" id="file-input" name="main_image"
-                                   class="hidden" placeholder="jj">
-
-                            <p class="mt-2 text-[11px] text-gray-400">برای تغییر تصویر پروفایل کلیک کنید</p>
+                            <label for="family" class="mb-2 block text-xs font-medium text-[#526075]">نام خانوادگی</label>
+                            <input
+                                id="family"
+                                type="text"
+                                name="family"
+                                value="{{ old('family', $user->family) }}"
+                                placeholder="مثلاً افتخاری"
+                                class="w-full rounded-xl border border-[#E1E5EB] bg-[#F8F9FB] px-4 py-3 text-sm text-[#263449] outline-none transition placeholder:text-[#AAB1BE] focus:border-[#FB9413] focus:bg-white focus:ring-4 focus:ring-[#FB9413]/10"
+                            >
+                            @error('family')
+                                <p class="mt-2 text-xs text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                 </div>
 
-                {{-- نام و نام خانوادگی --}}
-                <div class="flex flex-col gap-3 border-b border-[#EEF0F3] pb-6 lg:flex-row">
-                    <label class="w-full text-sm font-medium text-[#263449] lg:w-2/12 lg:pt-3">
-                        نام و نام خانوادگی
-                    </label>
-
-                    <div class="flex w-full flex-col gap-3 sm:flex-row lg:w-10/12">
-                        <input
-                            class="w-full rounded-xl border border-[#E1E5EB] bg-[#F5F6F8] px-4 py-3 text-sm text-[#263449] outline-none transition placeholder:text-gray-400 focus:border-[#FB9413] focus:bg-white focus:ring-2 focus:ring-[#FB9413]/10"
-                            type="text" value="{{ $user->name }}" name="name" placeholder="نام">
-
-                        <input
-                            class="w-full rounded-xl border border-[#E1E5EB] bg-[#F5F6F8] px-4 py-3 text-sm text-[#263449] outline-none transition placeholder:text-gray-400 focus:border-[#FB9413] focus:bg-white focus:ring-2 focus:ring-[#FB9413]/10"
-                            type="text" value="{{ $user->family }}" name="family" placeholder="نام خانوادگی">
-                    </div>
-                </div>
 
                 {{-- شماره تلفن --}}
-                <div class="flex flex-col gap-3 border-b border-[#EEF0F3] pb-6 lg:flex-row">
-                    <label class="w-full text-sm font-medium text-[#263449] lg:w-2/12 lg:pt-3">
-                        شماره تلفن
-                    </label>
+                <div class="grid gap-4 border-b border-[#EEF0F3] pb-6 md:grid-cols-12">
+                    <div class="md:col-span-3">
+                        <label for="phoneNumber" class="text-sm font-semibold text-[#263449]">شماره تلفن</label>
+                        <p class="mt-1 text-[11px] leading-6 text-[#98A1B2]">شماره تماس کاربر</p>
+                    </div>
 
-                    <div class="w-full lg:w-10/12">
-                        <input
-                            class="w-full rounded-xl border border-[#E1E5EB] bg-[#F5F6F8] px-4 py-3 text-sm text-[#263449] outline-none transition placeholder:text-gray-400 focus:border-[#FB9413] focus:bg-white focus:ring-2 focus:ring-[#FB9413]/10 lg:w-1/2"
-                            type="number" name="phoneNumber" value="{{ $user->phoneNumber }}"
-                            placeholder="شماره تلفن" required>
+                    <div class="md:col-span-9">
+                        <div class="relative md:max-w-md">
+                            <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#98A1B2]">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.95.68l1.2 3.6a1 1 0 01-.5 1.2l-2.1 1.05a11 11 0 005.2 5.2l1.05-2.1a1 1 0 011.2-.5l3.6 1.2a1 1 0 01.68.95V18a2 2 0 01-2 2h-1C9.27 20 4 14.73 4 8V5z"/>
+                                </svg>
+                            </span>
+
+                            <input
+                                id="phoneNumber"
+                                type="tel"
+                                name="phoneNumber"
+                                value="{{ old('phoneNumber', $user->phoneNumber) }}"
+                                placeholder="09123456789"
+                                dir="ltr"
+                                required
+                                class="w-full rounded-xl border border-[#E1E5EB] bg-[#F8F9FB] py-3 pl-4 pr-12 text-left text-sm text-[#263449] outline-none transition placeholder:text-[#AAB1BE] focus:border-[#FB9413] focus:bg-white focus:ring-4 focus:ring-[#FB9413]/10"
+                            >
+                        </div>
+                        @error('phoneNumber')
+                            <p class="mt-2 text-xs text-red-500">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
+
 
                 {{-- ایمیل --}}
-                <div class="flex flex-col gap-3 border-b border-[#EEF0F3] pb-6 lg:flex-row">
-                    <label class="w-full text-sm font-medium text-[#263449] lg:w-2/12 lg:pt-3">
-                        ایمیل
-                    </label>
-
-                    <div class="w-full lg:w-10/12">
-                        <input
-                            class="w-full rounded-xl border border-[#E1E5EB] bg-[#F5F6F8] px-4 py-3 text-sm text-[#263449] outline-none transition placeholder:text-gray-400 focus:border-[#FB9413] focus:bg-white focus:ring-2 focus:ring-[#FB9413]/10"
-                            type="email" name="email" value="{{ $user->email ? $user->email : '' }}"
-                            placeholder="ایمیل">
+                <div class="grid gap-4 md:grid-cols-12">
+                    <div class="md:col-span-3">
+                        <label for="email" class="text-sm font-semibold text-[#263449]">آدرس ایمیل</label>
+                        <p class="mt-1 text-[11px] leading-6 text-[#98A1B2]">ایمیل ثبت‌شده در حساب کاربری</p>
                     </div>
-                </div>
 
-                {{-- رمز عبور --}}
-                <div class="flex flex-col gap-3 border-b border-[#EEF0F3] pb-6 lg:flex-row">
-                    <label class="w-full text-sm font-medium text-[#263449] lg:w-2/12 lg:pt-3">
-                        رمز عبور
-                    </label>
+                    <div class="md:col-span-9">
+                        <div class="relative md:max-w-md">
+                            <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#98A1B2]">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9 6 9-6M5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/>
+                                </svg>
+                            </span>
 
-                    <div class="w-full lg:w-10/12">
-                        <input
-                            class="w-full rounded-xl border border-[#E1E5EB] bg-[#F5F6F8] px-4 py-3 text-sm text-[#263449] outline-none transition placeholder:text-gray-400 focus:border-[#FB9413] focus:bg-white focus:ring-2 focus:ring-[#FB9413]/10"
-                            type="password" name="password" placeholder="رمز عبور جدید">
-                    </div>
-                </div>
-
-                {{-- نقش --}}
-                <div class="flex flex-col gap-3 lg:flex-row">
-                    <label class="w-full text-sm font-medium text-[#263449] lg:w-2/12 lg:pt-3">
-                        نقش کاربر
-                    </label>
-
-                    <div class="w-full lg:w-10/12">
-                        <select
-                            class="w-full rounded-xl border border-[#E1E5EB] bg-[#F5F6F8] px-4 py-3 text-sm text-[#263449] outline-none transition focus:border-[#FB9413] focus:bg-white focus:ring-2 focus:ring-[#FB9413]/10"
-                            name="roles[]" multiple size="1">
-                            @foreach ($roles as $role)
-                                <option value="{{ $role->id }}"
-                                    @if (in_array($role->id, $userRoles)) {{ 'selected' }} @endif>
-                                    @if($role->title == "admin")
-                                        ادمین
-                                    @elseif($role->title == 'admin2')
-                                        ادمین 2
-                                    @elseif($role->title == 'general')
-                                        کاربر عادی
-                                    @endif
-                                </option>
-                            @endforeach
-                        </select>
+                            <input
+                                id="email"
+                                type="email"
+                                name="email"
+                                value="{{ old('email', $user->email ?? '') }}"
+                                placeholder="example@email.com"
+                                dir="ltr"
+                                class="w-full rounded-xl border border-[#E1E5EB] bg-[#F8F9FB] py-3 pl-4 pr-12 text-left text-sm text-[#263449] outline-none transition placeholder:text-[#AAB1BE] focus:border-[#FB9413] focus:bg-white focus:ring-4 focus:ring-[#FB9413]/10"
+                            >
+                        </div>
+                        @error('email')
+                            <p class="mt-2 text-xs text-red-500">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
             </div>
+        </section>
 
-            {{-- دکمه‌ها --}}
-            <div class="mt-8 flex flex-col-reverse gap-3 border-t border-[#EEF0F3] pt-5 sm:flex-row sm:justify-end">
 
-                <button
-                    class="rounded-xl border border-[#E1E5EB] bg-[#F5F6F8] px-6 py-3 text-sm font-medium text-[#526075] transition hover:bg-[#EBEDF1]"
-                    type="reset">
-                    لغو تغییرات
-                </button>
+        {{-- امنیت حساب --}}
+        <section class="overflow-hidden rounded-3xl border border-[#E8EBF0] bg-white shadow-sm">
 
-                <button
-                    class="flex items-center justify-center gap-2 rounded-xl bg-[#101827] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#263449]"
-                    type="submit">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#FB9413]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            <div class="flex items-center gap-3 border-b border-[#EEF0F3] px-5 py-5 md:px-7">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#101827] text-[#FB9413]">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/>
                     </svg>
-                    ذخیره تغییرات
-                </button>
-
+                </div>
+                <div>
+                    <h2 class="font-bold text-[#101827]">امنیت حساب کاربری</h2>
+                    <p class="mt-1 text-[11px] text-[#98A1B2]">در صورت نیاز رمز عبور جدید تعریف کنید</p>
+                </div>
             </div>
-        </form>
-    </div>
+
+            <div class="p-5 md:p-7">
+                <div class="grid gap-4 md:grid-cols-12">
+                    <div class="md:col-span-3">
+                        <label for="password" class="text-sm font-semibold text-[#263449]">رمز عبور جدید</label>
+                        <p class="mt-1 text-[11px] leading-6 text-[#98A1B2]">اختیاری؛ برای حفظ رمز فعلی خالی بگذارید</p>
+                    </div>
+
+                    <div class="md:col-span-9">
+                        <div class="relative md:max-w-md">
+                            <input
+                                id="password"
+                                type="password"
+                                name="password"
+                                autocomplete="new-password"
+                                placeholder="رمز عبور جدید"
+                                class="w-full rounded-xl border border-[#E1E5EB] bg-[#F8F9FB] px-4 py-3 text-sm text-[#263449] outline-none transition placeholder:text-[#AAB1BE] focus:border-[#FB9413] focus:bg-white focus:ring-4 focus:ring-[#FB9413]/10"
+                            >
+                        </div>
+                        @error('password')
+                            <p class="mt-2 text-xs text-red-500">{{ $message }}</p>
+                        @enderror
+
+                        <div class="mt-3 flex items-start gap-2 rounded-xl bg-[#FFF8ED] p-3 text-[11px] leading-6 text-[#9A671E]">
+                            <svg class="mt-0.5 h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 4h.01M10.3 3.86L1.82 18.5A2 2 0 003.55 21h16.9a2 2 0 001.73-2.5L13.7 3.86a2 2 0 00-3.4 0z"/>
+                            </svg>
+                            با وارد کردن رمز جدید، رمز قبلی کاربر جایگزین خواهد شد.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        {{-- سطح دسترسی --}}
+        <section class="overflow-hidden rounded-3xl border border-[#E8EBF0] bg-white shadow-sm">
+
+            <div class="flex items-center gap-3 border-b border-[#EEF0F3] px-5 py-5 md:px-7">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#101827] text-[#FB9413]">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="font-bold text-[#101827]">نقش و سطح دسترسی</h2>
+                    <p class="mt-1 text-[11px] text-[#98A1B2]">مشخص کنید کاربر چه دسترسی‌هایی داشته باشد</p>
+                </div>
+            </div>
+
+            <div class="p-5 md:p-7">
+                <div class="mb-4">
+                    <p class="text-sm font-semibold text-[#263449]">نقش‌های کاربر</p>
+                    <p class="mt-1 text-xs text-[#98A1B2]">می‌توانید یک یا چند نقش را انتخاب کنید.</p>
+                </div>
+
+                <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    @foreach ($roles as $role)
+                        <label class="group relative flex cursor-pointer items-center gap-3 rounded-2xl border border-[#E6E9EF] bg-[#F8F9FB] p-4 transition hover:border-[#FB9413]/60 hover:bg-[#FFF9F1] has-[:checked]:border-[#FB9413] has-[:checked]:bg-[#FFF8ED]">
+
+                            <input
+                                type="checkbox"
+                                name="roles[]"
+                                value="{{ $role->id }}"
+                                class="peer h-4 w-4 shrink-0 cursor-pointer accent-[#FB9413]"
+                                {{ in_array($role->id, $selectedRoles) ? 'checked' : '' }}
+                            >
+
+                            <span class="flex min-w-0 flex-1 flex-col">
+                                <span class="text-sm font-semibold text-[#263449]">
+                                    {{ $roleTitles[$role->title] ?? $role->title }}
+                                </span>
+                                <span class="mt-1 text-[10px] text-[#98A1B2]">
+                                    {{ $role->title }}
+                                </span>
+                            </span>
+
+                            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white text-[#AAB1BE] transition group-has-[:checked]:bg-[#FB9413] group-has-[:checked]:text-white">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12l4 4L19 6"/>
+                                </svg>
+                            </span>
+                        </label>
+                    @endforeach
+                </div>
+
+                @error('roles')
+                    <p class="mt-3 text-xs text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+        </section>
+
+
+        {{-- دکمه‌های عملیات --}}
+        <section class="sticky bottom-3 z-20 rounded-2xl border border-[#E8EBF0] bg-white/95 p-3 shadow-lg shadow-[#101827]/5 backdrop-blur-md sm:p-4">
+            <div class="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+
+                <p class="hidden text-[11px] text-[#98A1B2] sm:block">
+                    <span class="text-[#FB9413]">●</span>
+                    پس از ذخیره، اطلاعات کاربر به‌روزرسانی می‌شود.
+                </p>
+
+                <div class="flex flex-col-reverse gap-2 sm:flex-row">
+                    <button
+                        type="reset"
+                        id="reset-form"
+                        class="inline-flex items-center justify-center gap-2 rounded-xl border border-[#E1E5EB] bg-white px-5 py-3 text-xs font-semibold text-[#526075] transition hover:border-[#CBD1DB] hover:bg-[#F8F9FB]"
+                    >
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h5M5 9a8 8 0 111 8"/>
+                        </svg>
+                        بازگردانی تغییرات
+                    </button>
+
+                    <button
+                        type="submit"
+                        id="submit-button"
+                        class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#101827] px-7 py-3 text-xs font-bold text-white shadow-md shadow-[#101827]/10 transition hover:bg-[#263449] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                        <svg class="h-4 w-4 text-[#FB9413]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        ذخیره تغییرات
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </form>
 </div>
+
+
+{{-- پیش‌نمایش تصویر و مدیریت فرم --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('user-edit-form');
+        const fileInput = document.getElementById('file-input');
+        const preview = document.getElementById('profile-preview');
+        const headerImage = document.getElementById('profile-header-image');
+        const fileName = document.getElementById('image-file-name');
+        const removeButton = document.getElementById('remove-new-image');
+        const submitButton = document.getElementById('submit-button');
+
+        const originalImage = @json(
+            $user->main_image
+                ? asset('storage/' . $user->main_image)
+                : asset('assets/img/user.png')
+        );
+
+        let temporaryImageUrl = null;
+
+        function revokeTemporaryUrl() {
+            if (temporaryImageUrl) {
+                URL.revokeObjectURL(temporaryImageUrl);
+                temporaryImageUrl = null;
+            }
+        }
+
+        fileInput.addEventListener('change', function () {
+            const file = this.files[0];
+
+            if (!file) return;
+
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+
+            if (!allowedTypes.includes(file.type)) {
+                alert('فرمت تصویر انتخاب‌شده معتبر نیست.');
+                this.value = '';
+                return;
+            }
+
+            revokeTemporaryUrl();
+
+            temporaryImageUrl = URL.createObjectURL(file);
+
+            preview.src = temporaryImageUrl;
+            headerImage.src = temporaryImageUrl;
+
+            fileName.textContent = file.name;
+            removeButton.classList.remove('hidden');
+        });
+
+        removeButton.addEventListener('click', function () {
+            fileInput.value = '';
+            revokeTemporaryUrl();
+
+            preview.src = originalImage;
+            headerImage.src = originalImage;
+
+            fileName.textContent = 'تصویری انتخاب نشده است';
+            removeButton.classList.add('hidden');
+        });
+
+        form.addEventListener('reset', function () {
+            setTimeout(function () {
+                revokeTemporaryUrl();
+
+                preview.src = originalImage;
+                headerImage.src = originalImage;
+
+                fileName.textContent = 'تصویری انتخاب نشده است';
+                removeButton.classList.add('hidden');
+            }, 0);
+        });
+
+        form.addEventListener('submit', function () {
+            submitButton.disabled = true;
+
+            submitButton.innerHTML = `
+                <svg class="h-4 w-4 animate-spin text-[#FB9413]" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                </svg>
+                در حال ذخیره اطلاعات...
+            `;
+        });
+    });
+</script>
+
 @endsection

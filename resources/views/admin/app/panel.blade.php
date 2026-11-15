@@ -142,7 +142,7 @@
                 مدیریت محتوا
             </p>
 
-            {{-- دسته بندی صفحات --}}
+            {{-- دسته بندی صفحه ها --}}
             @if($isAdmin)
                 <details class="group rounded-xl overflow-hidden"
                     @if(Route::is('pageCategory.*')) open @endif>
@@ -159,7 +159,7 @@
                             <rect x="3" y="13" width="8" height="8" rx="2"/>
                         </svg>
 
-                        <span class="text-sm font-medium">دسته‌بندی صفحات</span>
+                        <span class="text-sm font-medium">دسته‌بندی صفحه ها</span>
 
                         <svg viewBox="0 0 24 24"
                              class="size-4 mr-auto transition-transform group-open:rotate-180"
@@ -184,7 +184,7 @@
                 </details>
             @endif
 
-            {{-- صفحات و شبکه های اجتماعی --}}
+            {{-- صفحه ها و شبکه های اجتماعی --}}
             <details class="group rounded-xl overflow-hidden"
                 @if(Route::is('pages.*') || Route::is('socialMedia.create') || Route::is('socialMedia.list')) open @endif>
 
@@ -198,7 +198,7 @@
                         <path d="M8 8h8M8 12h8M8 16h5"/>
                     </svg>
 
-                    <span class="text-sm font-medium">صفحات</span>
+                    <span class="text-sm font-medium">صفحه ها</span>
 
                     <svg viewBox="0 0 24 24"
                          class="size-4 mr-auto transition-transform group-open:rotate-180"
@@ -225,7 +225,7 @@
                         <a href="{{ route('pages.list') }}"
                            class="block px-4 py-2.5 rounded-lg text-xs transition-all
                            {{ Route::is('pages.list') ? 'text-[#FB9413] bg-[#FB9413]/10' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
-                            لیست همه صفحات
+                            لیست همه صفحه ها
                         </a>
 
                         <div class="my-2 border-t border-white/5"></div>
@@ -331,12 +331,6 @@
                            {{ Route::is('contactUs.list') ? 'text-[#FB9413] bg-[#FB9413]/10' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
                             لیست تیکت‌ها
                         </a>
-
-                        <a href="{{ route('contactUs.create') }}"
-                           class="block px-4 py-2.5 rounded-lg text-xs transition-all
-                           {{ Route::is('contactUs.create') ? 'text-[#FB9413] bg-[#FB9413]/10' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
-                            فرم ارتباط با ما
-                        </a>
                     </div>
                 </details>
             @endif
@@ -440,7 +434,7 @@
 
                 <div>
                     <p class="text-xs font-bold text-white">پنل مدیریت رینسو</p>
-                    <p class="text-[10px] text-slate-500 mt-1">مدیریت هوشمند صفحات</p>
+                    <p class="text-[10px] text-slate-500 mt-1">مدیریت هوشمند صفحه ها</p>
                 </div>
             </div>
         </div>

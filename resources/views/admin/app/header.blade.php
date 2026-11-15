@@ -820,14 +820,6 @@
                                 لیست تیکت‌ها
                             </a>
 
-                            <a href="{{ route('contactUs.create') }}"
-                               class="px-4 py-3 rounded-lg text-sm transition
-                               {{ Route::is('contactUs.create')
-                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
-                                    : 'text-slate-500 hover:bg-white' }}">
-                                فرم ارتباط با ما
-                            </a>
-
                         </div>
 
                     </details>
