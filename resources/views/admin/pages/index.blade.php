@@ -158,9 +158,7 @@
                                                      alt="User">
                                             @endif
                                         </a>
-
                                     </div>
-
                                     <a href="{{ route('client.loadPage', $page->user_name) }}" class="min-w-0">
 
                                         <h3 class="text-sm font-black text-slate-800 truncate">
@@ -170,12 +168,8 @@
                                         <p class="text-xs text-gray-400 mt-2">
                                            {{ $page->subTitle }}
                                         </p>
-
                                     </a>
-
                                 </div>
-
-
                                 <span class="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1.5 rounded-full">
 
                                     <span class="size-1.5 rounded-full bg-emerald-500"></span>

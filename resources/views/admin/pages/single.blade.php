@@ -13,7 +13,7 @@
             overflow: hidden;
         }
     </style>
-    <div class="w-full lg:w-2/3 mx-auto relative z-333">
+    <div class="w-full lg:w-2/3 mx-auto relative">
         <div class="w-full mt-5 p-5 bg-white flex flex-col pb-40 relative rounded-lg">
             <div class="w-full flex flex-row justify-between items-center gap-3 pb-5">
                 <div>
