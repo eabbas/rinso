@@ -754,7 +754,7 @@
                                 ایجاد کاربر جدید
                             </a>
 
-                            @if(in_array(1, $ids) || in_array(4, $ids))
+                            {{-- @if(in_array(1, $ids) || in_array(4, $ids))
                                 <a href="{{ route('user.requestList') }}"
                                    class="px-4 py-3 rounded-lg text-sm transition
                                    {{ Route::is('user.requestList')
@@ -762,7 +762,7 @@
                                         : 'text-slate-500 hover:bg-white' }}">
                                     لیست درخواست‌ها
                                 </a>
-                            @endif
+                            @endif --}}
 
                         </div>
 

@@ -291,11 +291,11 @@
                             ایجاد کاربر جدید
                         </a>
 
-                        <a href="{{ route('user.requestList') }}"
+                        {{-- <a href="{{ route('user.requestList') }}"
                            class="block px-4 py-2.5 rounded-lg text-xs transition-all
                            {{ Route::is('user.requestList') ? 'text-[#FB9413] bg-[#FB9413]/10' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
                             لیست درخواست‌ها
-                        </a>
+                        </a> --}}
 
                     </div>
                 </details>
