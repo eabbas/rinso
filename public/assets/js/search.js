@@ -54,24 +54,34 @@ sortType.addEventListener('change' ,()=>{
     getFilters()
 })
 
-document.getElementById('clearFilters').addEventListener('click', ()=>{
-    categories.forEach(category=>{
+
+document.getElementById('clearFilters').addEventListener('click', () => {
+    categories.forEach(category => {
         category.querySelector('input[type=checkbox]').checked = false
     })
-    socialMedias.forEach(socialMedia=>{
-        socialMedia.querySelector('input[type=checkbox]').checked = false
+
+    socialMedias.forEach(socialMedia => {
+        socialMedia.checked = false
     })
-    searchInput.value = ""
+
+    searchInput.value = ''
+    fromDate.value = ''
+    toDate.value = ''
+
+    sortType.value = 'desc';
 
     filters = {
-        'keyword': null,
-        'category': ['all'],
-        'socialMedia': ['all'],
-        'sortType': 'desc',
-        'sortBy': 'created_at',
+        keyword: '',
+        category: ['all'],
+        socialMedia: ['all'],
+        fromDate: '',
+        toDate: '',
+        sortType: 'desc',
+        sortBy: 'created_at'
     }
     getFilters()
 })
+
 
 function getFilters(){
     $.ajax({
@@ -91,12 +101,12 @@ function getFilters(){
 }
 
 function loadDatas(datas) {
-    let pages = datas[0];
+    let pages = datas;
 
-    let profileGrid = document.getElementById('profileGrid');
-    let resultCount = document.getElementById('resultCount');
-    let emptyState = document.getElementById('emptyState');
-    let loadMore = document.getElementById('loadMore');
+    let profileGrid = document.getElementById('profileGrid')
+    let resultCount = document.getElementById('resultCount')
+    let emptyState = document.getElementById('emptyState')
+    let loadMore = document.getElementById('loadMore')
 
     profileGrid.innerHTML = '';
 
@@ -112,30 +122,43 @@ function loadDatas(datas) {
     loadMore.classList.remove('hidden');
 
     pages.forEach(data => {
-        profileGrid.innerHTML += `
-            <div class="bg-white border border-slate-200 rounded-2xl p-4 hover:border-[#ff9018] transition">
+        let a = document.createElement('a')
+        a.href = url+data.user_name
+        a.classList = `block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-[#ff9018] hover:shadow-md transition`
+        let html = `
+            <div class="h-28 relative bg-slate-100">
+                <img
+                    src="${ data.cover_path ? storage+data.cover_path : url+'assets/img/default-page.png' }"
+             
+                    alt="کاور {{ $data->title }}"
+                    class="w-full h-full object-cover"
+                >
+                <div class="absolute -bottom-7 right-4 w-16 h-16 rounded-2xl border-4 border-white bg-white overflow-hidden shadow-sm">
 
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center text-[#ff9018] font-bold">
-                       ${ data.title ?? '' }
-                    </div>
-
-                    <div class="min-w-0">
-                        <h3 class="font-bold text-[13px] text-[#142033] truncate">
-                            ${data.title ?? ''}
-                        </h3>
-
-                        <p class="text-[11px] text-slate-400 mt-1 truncate">
-                            ${data.subTitle ?? ''}
-                        </p>
-                    </div>
+                    <img
+                        src="${ data.logo_path ? storage+data.logo_path : url+'assets/img/default-page.png' }"
+                        alt="لوگوی ${ data.title }"
+                        class="w-full h-full object-cover"
+                    >
                 </div>
+            </div>
 
-                <p class="text-[11px] text-slate-500 leading-6 line-clamp-2">
-                    ${data.description ?? ''}
+            <div class="pt-9 px-4 pb-4">
+                <h3 class="font-bold text-[13px] text-[#142033] truncate">
+                    ${ data.title }
+                </h3>
+                <p class="text-[11px] text-slate-400 mt-1 truncate">
+                    ${ data.subTitle }
+                </p>
+                <p class="text-[11px] text-slate-500 leading-6 line-clamp-2 mt-3">
+                    ${ data.description }
                 </p>
 
             </div>
+
+                        
         `
+       a.innerHTML = html
+       profileGrid.appendChild(a)
     })
 }

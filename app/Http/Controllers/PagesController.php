@@ -86,7 +86,7 @@ class pagesController extends Controller
 
         $page = pages::find($page_id);
         $link = url('/')."/" . $page->user_name;
-        $qr_svg = QrCode::size(100)->generate($link);
+        $qr_svg = QrCode::size(100)->encoding('UTF-8')->generate($link);
         $fileName = 'qrcodes/' . $page->user_name . '.svg';
         Storage::disk('public')->put($fileName, $qr_svg);
         social_qr_codes::create([

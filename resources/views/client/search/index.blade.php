@@ -211,29 +211,57 @@
                     <div id="profileGrid"
                         class="profile-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
 
+                                        
                         @foreach ($datas['pages'] as $data)
-                            <div class="bg-white border border-slate-200 rounded-2xl p-4 hover:border-[#ff9018] transition">
-                                <div class="flex items-center gap-3 mb-4">
-                                   <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center text-[#ff9018] font-bold">
-                                        {{ mb_substr($data->title, 0, 1, 'UTF-8') }}
+
+                            <a href="{{ url('/' . $data->user_name) }}"
+                            class="block bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-[#ff9018] hover:shadow-md transition">
+
+                                {{-- کاور صفحه --}}
+                                <div class="h-28 relative bg-slate-100">
+
+                                    <img
+                                        src="{{ $data->cover_path ? asset('storage/' . $data->cover_path) : asset('assets/img/default-page.png') }}"
+                                        onerror="this.onerror=null;this.src='{{ asset('assets/img/default-page.png') }}'"
+                                        alt="کاور {{ $data->title }}"
+                                        class="w-full h-full object-cover"
+                                    >
+
+                                    {{-- لوگوی صفحه --}}
+                                    <div class="absolute -bottom-7 right-4 w-16 h-16 rounded-2xl border-4 border-white bg-white overflow-hidden shadow-sm">
+
+                                        <img
+                                            src="{{ $data->logo_path ? asset('storage/' . $data->logo_path) : asset('assets/img/default-page.png') }}"
+                                            onerror="this.onerror=null;this.src='{{ asset('assets/img/default-page.png') }}'"
+                                            alt="لوگوی {{ $data->title }}"
+                                            class="w-full h-full object-cover"
+                                        >
+
                                     </div>
 
-                                    <div class="min-w-0">
-                                        <h3 class="font-bold text-[13px] text-[#142033] truncate">
-                                            {{ $data->title }}
-                                        </h3>
-
-                                        <p class="text-[11px] text-slate-400 mt-1 truncate">
-                                            {{ $data->subTitle }}
-                                        </p>
-                                    </div>
                                 </div>
 
-                                <p class="text-[11px] text-slate-500 leading-6 line-clamp-2">
-                                    {{ $data->description }}
-                                </p>
-                            </div>
+                                {{-- اطلاعات صفحه --}}
+                                <div class="pt-9 px-4 pb-4">
+
+                                    <h3 class="font-bold text-[13px] text-[#142033] truncate">
+                                        {{ $data->title }}
+                                    </h3>
+
+                                    <p class="text-[11px] text-slate-400 mt-1 truncate">
+                                        {{ $data->subTitle }}
+                                    </p>
+
+                                    <p class="text-[11px] text-slate-500 leading-6 line-clamp-2 mt-3">
+                                        {{ $data->description }}
+                                    </p>
+
+                                </div>
+
+                            </a>
+
                         @endforeach
+
 
                     </div>
                     <div id="emptyState"
@@ -312,6 +340,7 @@
             arrow.classList.toggle('rotate-180', isOpen)
         })
     })
+    
 </script>
 
     <script src="{{ asset('assets/js/search.js') }}"></script>
