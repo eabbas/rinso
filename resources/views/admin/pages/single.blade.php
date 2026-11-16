@@ -4,7 +4,6 @@
     {{ $page->title }}
 @endsection
 @section('content')
-    <script src="{{ asset('assets/js/jquery.js') }}"></script>
     <style>
         .ellipsis-2 {
             display: -webkit-box;
@@ -12,9 +11,593 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-    </style>
-    <div class="w-full lg:w-2/3 mx-auto relative">
-        <div class="w-full mt-5 p-5 bg-white flex flex-col pb-40 relative rounded-lg">
+
+        /* =========================================================
+           RINSO — SaaS dashboard visual layer
+           Palette: deep navy + warm orange, inspired by the brand mark
+           ========================================================= */
+        .rinso-page {
+            --rinso-navy: #101d38;
+            --rinso-navy-deep: #091329;
+            --rinso-navy-soft: #e9edf5;
+            --rinso-orange: #ff9418;
+            --rinso-orange-soft: #fff2df;
+            --rinso-ink: #172238;
+            --rinso-muted: #7b8495;
+            --rinso-line: #e8ebf1;
+            --rinso-surface: #ffffff;
+            --rinso-canvas: #f4f6fa;
+            max-width: 1120px;
+            color: var(--rinso-ink);
+            direction: rtl;
+        }
+
+        .rinso-page, .rinso-page * {
+            box-sizing: border-box;
+        }
+
+        .rinso-shell {
+            padding: clamp(16px, 3vw, 30px) !important;
+            margin-top: 20px !important;
+            background: var(--rinso-canvas) !important;
+            border: 1px solid var(--rinso-line);
+            border-radius: 24px !important;
+            box-shadow: 0 18px 55px rgba(16, 29, 56, .07);
+            gap: 22px;
+        }
+
+        .rinso-page h2, .rinso-page h3 {
+            color: var(--rinso-ink);
+            letter-spacing: -.25px;
+        }
+
+        .rinso-page h3 {
+            font-size: 14px !important;
+            font-weight: 800 !important;
+            text-align: right !important;
+            margin: 0 0 12px;
+        }
+
+        /* Top actions */
+        .rinso-shell > .w-full.flex.flex-row.justify-between {
+            padding: 0 0 18px !important;
+            border-bottom: 1px solid var(--rinso-line);
+        }
+
+        .rinso-page [onclick*="qrCard"],
+        .rinso-page a[href*="pages.edit"],
+        .rinso-page a[href*="client.loadPage"] {
+            min-width: 42px;
+            min-height: 42px;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            color: var(--rinso-navy) !important;
+            background: #fff !important;
+            border: 1px solid var(--rinso-line);
+            border-radius: 13px !important;
+            box-shadow: 0 3px 10px rgba(16, 29, 56, .04);
+            transition: .2s ease;
+        }
+
+        .rinso-page [onclick*="qrCard"]:hover,
+        .rinso-page a[href*="pages.edit"]:hover,
+        .rinso-page a[href*="client.loadPage"]:hover {
+            color: var(--rinso-orange) !important;
+            border-color: rgba(255, 148, 24, .55);
+            transform: translateY(-2px);
+        }
+
+        .rinso-page svg {
+            transition: fill .2s ease, transform .2s ease;
+        }
+
+        /* Main sections */
+        .rinso-page #socialLinks,
+        .rinso-page #siteLinks,
+        .rinso-page #faq,
+        .rinso-page #pc,
+        .rinso-page #pd,
+        .rinso-page > .rinso-shell > .w-full.mt-5.lg\:mt-10 {
+            min-width: 0;
+        }
+
+        .rinso-page #socialLinks > div,
+        .rinso-page #siteLinks > div,
+        .rinso-page #faq > div,
+        .rinso-page #pc > div,
+        .rinso-page #pd > div {
+            padding: 17px !important;
+            margin: 0 0 12px;
+            background: var(--rinso-surface);
+            border: 1px solid var(--rinso-line);
+            border-radius: 18px;
+            box-shadow: 0 5px 18px rgba(16, 29, 56, .035);
+            transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+        }
+
+        .rinso-page #socialLinks > div:hover,
+        .rinso-page #siteLinks > div:hover,
+        .rinso-page #faq > div:hover,
+        .rinso-page #pc > div:hover {
+            border-color: #d8deea;
+            box-shadow: 0 10px 25px rgba(16, 29, 56, .07);
+        }
+
+        .rinso-page #socialLinks .editSocial,
+        .rinso-page #siteLinks .editLink {
+            min-height: 54px;
+            padding: 12px 18px !important;
+            border: 1px solid var(--rinso-line) !important;
+            border-radius: 14px !important;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
+        }
+
+        .rinso-page #socialLinks .editSocial span,
+        .rinso-page #siteLinks .editLink span {
+            font-size: 13px;
+            font-weight: 750 !important;
+        }
+
+        .rinso-page #siteLinks .editLink {
+            background: #f7f8fb !important;
+        }
+
+        .rinso-page #socialLinks .editSocial:hover,
+        .rinso-page #siteLinks .editLink:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 148, 24, .65) !important;
+        }
+
+        /* Small edit / delete actions */
+        .rinso-page [onclick*="editSocial"],
+        .rinso-page [onclick*="deleteMediaList"],
+        .rinso-page [onclick*="editLink"],
+        .rinso-page [onclick*="deleteLinkList"],
+        .rinso-page [onclick*="editTitle"],
+        .rinso-page [onclick*="deleteTitle"],
+        .rinso-page [onclick*="addQuestionToBlock"] {
+            transition: transform .18s ease, filter .18s ease;
+        }
+
+        .rinso-page [onclick*="editSocial"]:hover,
+        .rinso-page [onclick*="deleteMediaList"]:hover,
+        .rinso-page [onclick*="editLink"]:hover,
+        .rinso-page [onclick*="deleteLinkList"]:hover,
+        .rinso-page [onclick*="editTitle"]:hover,
+        .rinso-page [onclick*="deleteTitle"]:hover,
+        .rinso-page [onclick*="addQuestionToBlock"]:hover {
+            transform: translateY(-2px);
+            filter: brightness(.96);
+        }
+
+        .rinso-page .bg-green-500 { background-color: var(--rinso-navy) !important; }
+        .rinso-page .hover\:bg-green-600:hover { background-color: var(--rinso-navy-deep) !important; }
+        .rinso-page .bg-blue-500,
+        .rinso-page .bg-\[\#03A9F4\] { background-color: var(--rinso-orange) !important; }
+        .rinso-page .hover\:bg-blue-600:hover,
+        .rinso-page .hover\:bg-blue-700:hover { background-color: #e98208 !important; }
+
+        /* FAQ and contact cards */
+        .rinso-page .faqBox,
+        .rinso-page .contactusBox {
+            min-width: 0;
+        }
+
+        .rinso-page .faqBox > div:first-child,
+        .rinso-page .contactusBox > div:first-child {
+            border: 1px solid #e8eaf0 !important;
+            border-radius: 14px !important;
+            background: #f8f9fc !important;
+            padding: 13px 16px !important;
+        }
+
+        .rinso-page .faqBox .bg-fuchsia-100,
+        .rinso-page .contactusBox .bg-fuchsia-100,
+        .rinso-page .faqBox .bg-fuchsia-100 *,
+        .rinso-page .contactusBox .bg-fuchsia-100 * {
+            background-color: #f8f9fc;
+        }
+
+        .rinso-page .faqBox .max-h-0,
+        .rinso-page .contactusBox .max-h-0 {
+            border-radius: 0 0 14px 14px;
+        }
+
+        /* Floating add button */
+        .rinso-page [onclick="addBlock('open')"] {
+            width: 58px;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, var(--rinso-orange), #f58200) !important;
+            border: 4px solid #fff;
+            box-shadow: 0 10px 28px rgba(255, 148, 24, .35);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .rinso-page [onclick="addBlock('open')"]:hover {
+            transform: translateY(-4px) rotate(90deg);
+            box-shadow: 0 14px 32px rgba(255, 148, 24, .42);
+        }
+
+        /* Dialogs, drawers and forms */
+        .rinso-page #block,
+        .rinso-page #qrcode_card {
+            backdrop-filter: blur(7px);
+            background: rgba(9, 19, 41, .62) !important;
+        }
+
+        .rinso-page #group,
+        .rinso-page .form,
+        .rinso-page #socialMediaForm,
+        .rinso-page #siteLinkForm,
+        .rinso-page #FaqForm {
+            border: 1px solid rgba(232, 235, 241, .9);
+            border-radius: 22px !important;
+            box-shadow: 0 24px 80px rgba(5, 13, 30, .22);
+            overflow: hidden;
+        }
+
+        .rinso-page #group {
+            background: #fff !important;
+        }
+
+        .rinso-page #group > div {
+            min-height: 58px;
+            border-color: var(--rinso-line) !important;
+            transition: background .2s ease;
+        }
+
+        .rinso-page #group > div:hover {
+            background: var(--rinso-orange-soft);
+        }
+
+        .rinso-page .form {
+            background: #fff !important;
+            padding: 22px !important;
+        }
+
+        .rinso-page .form h2,
+        .rinso-page .form h3 {
+            color: var(--rinso-navy) !important;
+            font-size: 16px !important;
+            font-weight: 800 !important;
+        }
+
+        .rinso-page .form input:not([type="checkbox"]):not([type="radio"]),
+        .rinso-page .form textarea,
+        .rinso-page .form select,
+        .rinso-page #group input,
+        .rinso-page #group textarea,
+        .rinso-page #group select {
+            width: 100%;
+            min-height: 46px;
+            padding: 11px 14px !important;
+            color: var(--rinso-ink) !important;
+            background: #f7f8fb !important;
+            border: 1px solid #e5e8ef !important;
+            border-radius: 12px !important;
+            outline: none !important;
+            transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+        }
+
+        .rinso-page .form input:focus,
+        .rinso-page .form textarea:focus,
+        .rinso-page .form select:focus {
+            background: #fff !important;
+            border-color: var(--rinso-orange) !important;
+            box-shadow: 0 0 0 4px rgba(255, 148, 24, .13) !important;
+        }
+
+        .rinso-page .form button,
+        .rinso-page .form input[type="submit"],
+        .rinso-page #group button {
+            min-height: 44px;
+            padding: 10px 22px !important;
+            color: #fff !important;
+            background: var(--rinso-navy) !important;
+            border: 0 !important;
+            border-radius: 12px !important;
+            font-weight: 750;
+            cursor: pointer;
+            transition: transform .2s ease, background .2s ease;
+        }
+
+        .rinso-page .form button:hover,
+        .rinso-page .form input[type="submit"]:hover,
+        .rinso-page #group button:hover {
+            background: var(--rinso-navy-deep) !important;
+            transform: translateY(-1px);
+        }
+
+        .rinso-page .form button.bg-\[\#eb3153\],
+        .rinso-page .form .bg-\[\#eb3153\] {
+            background: var(--rinso-orange) !important;
+        }
+
+        .rinso-page #qrcode_card > div > div {
+            padding: 22px !important;
+            border-radius: 22px !important;
+            box-shadow: 0 24px 80px rgba(0,0,0,.25);
+        }
+
+        /* Product editor and rich content blocks */
+        .rinso-page #introProductEdit,
+        .rinso-page #siteLinkForm,
+        .rinso-page #FaqForm {
+            background: #fff !important;
+        }
+
+        .rinso-page .rounded-2xl.p-3,
+        .rinso-page .bg-white.rounded-2xl {
+            border: 1px solid var(--rinso-line);
+            border-radius: 16px !important;
+        }
+
+        .rinso-page .text-red-500 { color: #d94848 !important; }
+
+        /* Scrollbars */
+        .rinso-page *::-webkit-scrollbar { width: 6px; height: 6px; }
+        .rinso-page *::-webkit-scrollbar-thumb {
+            background: #cbd1dc;
+            border-radius: 20px;
+        }
+        .rinso-page *::-webkit-scrollbar-track { background: transparent; }
+
+        /* Responsive polish */
+        @media (max-width: 1023px) {
+            .rinso-page { width: 100% !important; }
+            .rinso-shell {
+                margin-top: 10px !important;
+                padding: 14px !important;
+                border-radius: 18px !important;
+            }
+            .rinso-page #socialLinks > div,
+            .rinso-page #siteLinks > div,
+            .rinso-page #faq > div,
+            .rinso-page #pc > div,
+            .rinso-page #pd > div {
+                padding: 13px !important;
+                border-radius: 15px;
+            }
+            .rinso-page [onclick="addBlock('open')"] {
+                width: 54px;
+                height: 54px;
+                bottom: 22px !important;
+                right: 18px !important;
+            }
+            .rinso-page .form {
+                max-height: calc(100dvh - 28px);
+                overflow-y: auto;
+                padding: 16px !important;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .rinso-page *, .rinso-page *::before, .rinso-page *::after {
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+                animation-duration: .01ms !important;
+            }
+        }
+
+        /* RINSO — Unified action buttons */
+
+        .rinso-page .rinso-action-btn {
+            width: 42px !important;
+            min-width: 42px !important;
+            height: 42px !important;
+            min-height: 42px !important;
+            padding: 0 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex: 0 0 42px !important;
+            border: 1px solid transparent !important;
+            border-radius: 13px !important;
+            cursor: pointer !important;
+            transition: .2s ease !important;
+            box-shadow: 0 3px 10px rgba(16,29,56,.08) !important;
+        }
+
+        .rinso-page .rinso-action-btn svg {
+            width: 17px !important;
+            height: 17px !important;
+            fill: currentColor !important;
+        }
+
+        .rinso-page .rinso-action-edit {
+            color: white !important;
+            background: #142342 !important;
+        }
+
+        .rinso-page .rinso-action-edit:hover {
+            color: #142342 !important;
+            background: #ffad43 !important;
+            transform: translateY(-2px);
+        }
+
+        .rinso-page .rinso-action-delete {
+            color: #c24135 !important;
+            background: #fff0ee !important;
+            border-color: #ffded9 !important;
+        }
+
+        .rinso-page .rinso-action-delete:hover {
+            color: white !important;
+            background: #d94b40 !important;
+            transform: translateY(-2px);
+        }
+
+        /* Modal design */
+
+        .rinso-page .form {
+            border: 1px solid #e8ebf1 !important;
+            box-shadow: 0 24px 80px rgba(9,19,41,.24) !important;
+            overflow: visible !important;
+        }
+
+        /* Close buttons */
+
+        .rinso-page .form > svg[onclick*="closeForm"],
+        .rinso-page .form > [onclick*="closeForm"] {
+            position: absolute !important;
+            top: 14px !important;
+            left: 14px !important;
+            right: auto !important;
+            z-index: 100 !important;
+            width: 38px !important;
+            height: 38px !important;
+            min-width: 38px !important;
+            min-height: 38px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 10px !important;
+            color: #142342 !important;
+            fill: #142342 !important;
+            background: #f1f3f7 !important;
+            border: 1px solid #e1e5ed !important;
+            border-radius: 12px !important;
+            cursor: pointer !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            box-shadow: 0 3px 12px rgba(16,29,56,.10) !important;
+        }
+
+        .rinso-page .form > svg[onclick*="closeForm"] path {
+            fill: currentColor !important;
+        }
+
+        .rinso-page .form > svg[onclick*="closeForm"]:hover,
+        .rinso-page .form > [onclick*="closeForm"]:hover {
+            color: white !important;
+            fill: white !important;
+            background: #d94b40 !important;
+            transform: rotate(90deg);
+        }
+
+        @media(max-width:640px) {
+            .rinso-page .form > svg[onclick*="closeForm"],
+            .rinso-page .form > [onclick*="closeForm"] {
+                top: 10px !important;
+                left: 10px !important;
+                width: 36px !important;
+                height: 36px !important;
+            }
+        }
+
+    
+
+        /* =========================================================
+           RINSO — compact and consistent item actions
+           Shared by social links and website links (RTL)
+           ========================================================= */
+        .rinso-page #socialLinks > div > .relative,
+        .rinso-page #siteLinks > div > .mt-3.relative {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            gap: 10px !important;
+            min-width: 0;
+        }
+
+        .rinso-page #socialLinks .editSocial,
+        .rinso-page #siteLinks .editLink {
+            flex: 1 1 auto !important;
+            width: auto !important;
+            min-width: 0;
+            min-height: 42px !important;
+            padding: 10px 14px !important;
+            border-radius: 12px !important;
+            justify-content: center !important;
+            box-shadow: none !important;
+        }
+
+        .rinso-page #socialLinks .absolute.-top-2.left-0,
+        .rinso-page #siteLinks .w-full.lg\:w-1\/9 {
+            position: static !important;
+            inset: auto !important;
+            width: auto !important;
+            min-width: max-content;
+            flex: 0 0 auto !important;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            gap: 6px !important;
+            margin: 0 !important;
+        }
+
+        .rinso-page #socialLinks .absolute.-top-2.left-0 > a,
+        .rinso-page #siteLinks .w-full.lg\:w-1\/9 > div {
+            width: 32px !important;
+            min-width: 32px !important;
+            height: 32px !important;
+            min-height: 32px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex: 0 0 32px !important;
+            border: 1px solid #e7eaf0 !important;
+            border-radius: 9px !important;
+            background: #f5f6f9 !important;
+            box-shadow: none !important;
+            cursor: pointer;
+            transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+        }
+
+        .rinso-page #socialLinks .absolute.-top-2.left-0 > a:first-child,
+        .rinso-page #siteLinks .w-full.lg\:w-1\/9 > div:first-child {
+            color: var(--rinso-navy) !important;
+        }
+
+        .rinso-page #socialLinks .absolute.-top-2.left-0 > a:last-child,
+        .rinso-page #siteLinks .w-full.lg\:w-1\/9 > div:last-child {
+            color: #c2413b !important;
+        }
+
+        .rinso-page #socialLinks .absolute.-top-2.left-0 > a:hover,
+        .rinso-page #siteLinks .w-full.lg\:w-1\/9 > div:hover {
+            background: var(--rinso-orange-soft) !important;
+            border-color: rgba(255, 148, 24, .55) !important;
+            transform: translateY(-1px);
+        }
+
+        .rinso-page #socialLinks .absolute.-top-2.left-0 svg,
+        .rinso-page #siteLinks .w-full.lg\:w-1\/9 svg {
+            width: 14px !important;
+            height: 14px !important;
+            fill: currentColor !important;
+        }
+
+        @media (max-width: 640px) {
+            .rinso-page #socialLinks > div > .relative,
+            .rinso-page #siteLinks > div > .mt-3.relative {
+                gap: 8px !important;
+            }
+            .rinso-page #socialLinks .editSocial,
+            .rinso-page #siteLinks .editLink {
+                min-height: 40px !important;
+                padding: 8px 10px !important;
+            }
+            .rinso-page #socialLinks .absolute.-top-2.left-0 > a,
+            .rinso-page #siteLinks .w-full.lg\:w-1\/9 > div {
+                width: 30px !important;
+                min-width: 30px !important;
+                height: 30px !important;
+                min-height: 30px !important;
+                flex-basis: 30px !important;
+            }
+        }
+
+</style>
+    <div class="rinso-page w-full lg:w-2/3 mx-auto relative">
+        <div class="rinso-shell w-full mt-5 p-5 bg-white flex flex-col pb-40 relative rounded-lg">
             <div class="w-full flex flex-row justify-between items-center gap-3 pb-5">
                 <div>
                     {{-- page qr code --}}
@@ -70,7 +653,7 @@
                     </a>
                 </div>
             </div>
-            <div class="p-3 lg:p-5 rounded-full bg-black bottom-21 right-3 lg:-right-10 fixed lg:absolute cursor-pointer z-444"
+            <div class="p-3 lg:p-5 rounded-full bg-black !bottom-21 right-3 lg:-right-10 fixed lg:absolute cursor-pointer z-444"
                  onclick="addBlock('open')">
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-6 lg:size-10" viewBox="0 0 448 512">
                     <path fill="white"
@@ -3719,5 +4302,5 @@
 
         </script>
     @endisset
-    <script src="{{ asset('assets/js/blocks.js') }}"></script>
+    <script src="{{ asset('assets/js/block.js') }}"></script>
 @endsection
