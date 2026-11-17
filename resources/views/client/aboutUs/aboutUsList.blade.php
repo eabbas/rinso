@@ -1,5 +1,5 @@
 @extends('client.document')
-@section('title', 'درباره ما')
+@section('title', 'رینسو | درباره ما')
 @section('content')
 
 @foreach ($aboutUs as $about)

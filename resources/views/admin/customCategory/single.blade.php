@@ -1,6 +1,6 @@
 @extends('admin.app.panel')
 @section('title')
-{{ $customCategory->title }}
+ رینسو | {{ $customCategory->title }}
 @endsection
 @section('content')
 <div class="w-full">

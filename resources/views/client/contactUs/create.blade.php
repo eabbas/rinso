@@ -1,5 +1,5 @@
 @extends('client.document')
-@section('title', 'ایجاد ارتباط با ما')
+@section('title', 'رینسو | ایجاد ارتباط با ما')
 @section('content')
 
 <div class="relative -mt-16 min-h-screen bg-white py-12 md:py-20" dir="rtl">

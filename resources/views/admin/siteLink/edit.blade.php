@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'ویرایش  لینک')
+@section('title', 'رینسو | ویرایش  لینک')
 @section('content')
             <div class="my-10">
                 <h1 class="lg:text-3xl md:text-2xl text-md font-bold text-center text-gray-700">ویرایش لینک</h1>

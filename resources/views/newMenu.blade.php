@@ -1,6 +1,6 @@
 @extends('client.document')
 @section('title')
-    رینگا | {{ $career->title }}
+    رینسو | {{ $career->title }}
 @endsection
 @section('content')
 
@@ -248,11 +248,17 @@
                 <input type="number"
                        class="placeholder-gray-400 focus:border-1 focus:border-(--primary-color) p-2 md:p-[9px] mb-1 rounded-[7px] border-1 border-[#DBDFE9] focus:outline-none w-full"
                        name="phoneNumber" id="phoneNumber" placeholder="شماره تلفن" required>
+                @error('phoneNumber')
+                    <p class="text-[11px] text-red-400">
+                        {{ $message }}
+                    </p>
+                @enderror
                 <div class="w-full" id="login">
                     <div class="w-full flex flex-row items-center gap-3">
                         <input type="number"
                                class="w-8/12 p-2 placeholder-gray-400 focus:border-(--primary-color) md:p-[9px] rounded-[7px] border-1 border-[#DBDFE9] outline-none"
                                name="code" placeholder="کد" required id="code">
+                               
                         <button type="button"
                                 class="w-4/12 text-xs lg:text-base h-full p-2 md:p-[9px] rounded-[7px] bg-(--primary-color) hover:bg-(--hover-primary-color) text-white cursor-pointer"
                                 onclick="sendCode()" id="countDown">ارسال کد

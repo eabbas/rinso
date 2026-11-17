@@ -1,6 +1,6 @@
 @extends('admin.app.panel')
 
-@section('title', 'ثبت محصول شخصی‌سازی شده')
+@section('title', 'رینسو | ثبت محصول شخصی‌سازی شده')
 
 @section('content')
     <div class="bg-white rounded-xl shadow-lg p-6 max-w-2xl mx-auto">

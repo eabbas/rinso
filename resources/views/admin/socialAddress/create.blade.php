@@ -4,7 +4,7 @@
         } 
     </style>
     @extends('admin.app.panel')
-    @section('title', 'آدرس شبکه اجتماعی'  )
+    @section('title', 'رینسو | آدرس شبکه اجتماعی')
     @section('content')
     <form action="{{ route('socialAddress.store') }}" method="post">
         @csrf

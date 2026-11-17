@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'ویرایش محصول ')
+@section('title', 'رینسو | ویرایش محصول')
 @section('content')
 <section class="2xl:container mx-auto">
     <div class="w-full mx-auto pb-5">

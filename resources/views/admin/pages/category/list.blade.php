@@ -1,7 +1,7 @@
 @extends('admin.app.panel')
 
 @section('title')
-    {{ $page->title }}  دسته
+    رینسو | دسته {{ $page->title }} 
 @endsection
 @section('content')
     <div class="w-full flex flex-col pb-4">

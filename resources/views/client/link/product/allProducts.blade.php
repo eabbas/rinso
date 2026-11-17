@@ -1,6 +1,6 @@
 @extends('client.document')
 @section('title')
-   محصولات {{ $page->title }}
+    رینسو | محصولات {{ $page->title }}
 @endsection
 @section('content')
     <style>

@@ -1,5 +1,5 @@
 @extends('client.document')
-@section('title', 'چاپخانه ها')
+@section('title', 'رینسو | چاپخانه ها')
 @section('content')
     <div class="px-5">
         <a href="#" class="inline-block text-sm font-bold px-3 py-1.5 rounded-sm bg-blue-500 hover:bg-blue-600 text-white">سفارش چاپ هوشمند</a>

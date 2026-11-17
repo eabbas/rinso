@@ -157,7 +157,11 @@
                                placeholder="مثلاً 09123456789"
                                required
                                class="w-full h-13 pr-12 pl-4 rounded-xl border-1 border-slate-200 bg-white text-sm text-[#24344C] placeholder:text-slate-300 outline-none transition-all focus:border-[#FD9619] focus:ring-4 focus:ring-[#FD9619]/15">
-
+                            @error('phoneNumber')
+                                        <p class="text-[11px] text-red-400">
+                                            {{ $message }}
+                                        </p>
+                            @enderror
                     </div>
                 </div>
 
@@ -184,7 +188,11 @@
                                placeholder="کلمه عبور خود را وارد کنید"
                                required
                                class="w-full h-13 pr-12 pl-4 rounded-xl border-1 border-slate-200 bg-white text-sm text-[#24344C] placeholder:text-slate-300 outline-none transition-all focus:border-[#FD9619] focus:ring-4 focus:ring-[#FD9619]/15">
-
+                        @error('password')
+                            <p class="text-[11px] text-red-400">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
                 </div>
 
@@ -204,7 +212,11 @@
                            value="{{ isset($slug) ? $slug : '' }}"
                            @if(isset($slug)) readonly @endif
                            class="w-full h-13 px-4 rounded-xl border-1 border-slate-200 bg-white text-sm text-[#24344C] placeholder:text-slate-300 outline-none transition-all focus:border-[#FD9619] focus:ring-4 focus:ring-[#FD9619]/15 @if(isset($slug)) opacity-70 @endif">
-
+                        @error('ref_code')
+                            <p class="text-[11px] text-red-400">
+                                {{ $message }}
+                            </p>
+                        @enderror
                 </div>
 
 

@@ -1,6 +1,6 @@
 @extends('admin.app.panel')
 
-@section('title', 'همه کاربران')
+@section('title', 'رینسو | همه کاربران')
 
 @section('content')
     <div class="w-full pb-6" dir="rtl">

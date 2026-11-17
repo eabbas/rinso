@@ -1,7 +1,7 @@
 
 @extends('admin.app.panel')
 
-@section('title', 'ویرایش کاربر')
+@section('title', 'رینسو | ویرایش کاربر')
 
 @section('content')
 
@@ -200,6 +200,11 @@
                                     class="hidden"
                                     accept="image/jpeg,image/png,image/webp"
                                 >
+                                @error('main_image')
+                                    <p class="text-[11px] text-red-400">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
 
                                 <p id="image-file-name" class="mt-3 text-xs text-[#526075]">
                                     تصویری انتخاب نشده است

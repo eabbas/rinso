@@ -1,6 +1,6 @@
 @extends('admin.app.panel')
 
-@section('title', 'تنظیمات اکانت')
+@section('title', 'رینسو | تنظیمات اکانت')
 
 @section('content')
 
@@ -179,7 +179,11 @@
                             id="main_image"
                             accept="image/*"
                             class="hidden">
-
+                        @error('main_image')
+                            <p class="text-[11px] text-red-400">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </label>
 
                 </div>
@@ -217,6 +221,11 @@
                             value="{{ Auth::user()->name }}"
                             placeholder="نام خود را وارد کنید"
                             class="w-full h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 text-sm text-[#243653] outline-none transition focus:bg-white focus:border-[#2454a6] focus:ring-4 focus:ring-blue-500/10">
+                        @error('name')
+                            <p class="text-[11px] text-red-400">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
 
                     <div class="w-full sm:w-1/2">
@@ -231,6 +240,11 @@
                             value="{{ Auth::user()->family }}"
                             placeholder="نام خانوادگی خود را وارد کنید"
                             class="w-full h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 text-sm text-[#243653] outline-none transition focus:bg-white focus:border-[#2454a6] focus:ring-4 focus:ring-blue-500/10">
+                        @error('family')
+                            <p class="text-[11px] text-red-400">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
 
                 </div>
@@ -263,7 +277,11 @@
                         value="{{ Auth::user()->phoneNumber }}"
                         placeholder="شماره تلفن"
                         class="w-full sm:w-1/2 h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 text-sm text-[#243653] outline-none transition focus:bg-white focus:border-[#2454a6] focus:ring-4 focus:ring-blue-500/10">
-
+                    @error('phoneNumber')
+                        <p class="text-[11px] text-red-400">
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
             </div>
@@ -294,7 +312,11 @@
                         value="{{ Auth::user()->email }}"
                         placeholder="example@email.com"
                         class="w-full h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 text-sm text-[#243653] outline-none transition focus:bg-white focus:border-[#2454a6] focus:ring-4 focus:ring-blue-500/10">
-
+                    @error('email')
+                        <p class="text-[11px] text-red-400">
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
             </div>
@@ -325,6 +347,11 @@
                         placeholder="رمز عبور جدید"
                         autocomplete="new-password"
                         class="w-full h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 text-sm text-[#243653] outline-none transition focus:bg-white focus:border-[#2454a6] focus:ring-4 focus:ring-blue-500/10">
+                    @error('password')
+                        <p class="text-[11px] text-red-400">
+                            {{ $message }}
+                        </p>
+                    @enderror
 
                     <p class="text-[11px] text-slate-400 mt-2">
                         اگر قصد تغییر رمز عبور را ندارید، این فیلد را خالی بگذارید.

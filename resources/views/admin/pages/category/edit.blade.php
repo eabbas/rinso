@@ -1,7 +1,7 @@
 @extends('admin.app.panel')
 
 @section('title')
-    ویرایش {{ $category->title }}
+    رینسو | ویرایش دسته {{ $category->title }} 
 @endsection
 @section('content')
     <div class="flex items-start justify-center">

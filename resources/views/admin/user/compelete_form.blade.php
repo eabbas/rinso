@@ -1,7 +1,7 @@
 
 @extends('admin.app.panel')
 
-@section('title', 'تکمیل پروفایل')
+@section('title', 'رینسو | تکمیل پروفایل')
 
 @section('content')
 <div class="w-full py-6" dir="rtl">

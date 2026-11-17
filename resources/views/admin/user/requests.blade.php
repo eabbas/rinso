@@ -1,7 +1,7 @@
 
 @extends('admin.app.panel')
 
-@section('title', 'لیست درخواست های کاربران')
+@section('title', 'رینسو | لیست درخواست های کاربران')
 
 @section('content')
 <div class="w-full pb-6" dir="rtl">

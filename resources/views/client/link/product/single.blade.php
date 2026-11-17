@@ -1,6 +1,6 @@
 @extends('client.document')
 @section('title')
-    مشاهده محصول {{ $product->title }}
+  رینسو |  مشاهده محصول  {{ $product->title }} 
 @endsection
 @section('content')
     <style>

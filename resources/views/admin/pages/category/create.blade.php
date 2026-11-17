@@ -1,7 +1,7 @@
 @extends('admin.app.panel')
 
 @section('title')
-    {{ $page->title }} ایجاد دسته
+  رینسو | ایجاد دسته  {{ $page->title }} 
 @endsection
 @section('content')
 

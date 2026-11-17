@@ -1,6 +1,6 @@
 @extends('admin.app.panel')
 
-@section('title', 'ارتباط با ما')
+@section('title', 'رینسو | ارتباط با ما')
 
 @section('content')
 

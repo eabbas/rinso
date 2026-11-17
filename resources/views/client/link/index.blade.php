@@ -1,5 +1,5 @@
 @extends('client.document')
-@section('title', 'فامنو | همه صفحات')
+@section('title', 'رینسو | همه صفحات')
 @section('content')
 
     <div class="w-11/12 mx-auto min-h-[calc(100vh-189px)] mt-5">

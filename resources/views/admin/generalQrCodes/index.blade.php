@@ -1,7 +1,7 @@
 
 @extends('admin.app.panel')
 
-@section('title', 'لیست کیوآر کد ها')
+@section('title', 'رینسو | لیست کیوآر کد ها')
 
 @section('content')
 

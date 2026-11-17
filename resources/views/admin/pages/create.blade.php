@@ -1,6 +1,6 @@
 @extends('admin.app.panel')
 
-@section('title', 'ایجاد صفحه معرفی')
+@section('title', 'رینسو | ایجاد صفحه معرفی')
 
 @section('content')
 

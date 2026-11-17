@@ -1,6 +1,6 @@
 @extends('client.document')
 @section('title')
-    رینگا | {{ $career->title }}
+    رینسو | {{ $career->title }}
 @endsection
 @section('content')
 

@@ -190,7 +190,11 @@
                                id="phoneNumber"
                                placeholder="مثلاً 09123456789"
                                required>
-
+                        @error('phoneNumber')
+                            <p class="text-[11px] text-red-400">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
 
                 </div>

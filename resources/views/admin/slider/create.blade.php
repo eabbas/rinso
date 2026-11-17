@@ -1,5 +1,5 @@
     @extends('admin.app.panel')
-    @section('title', 'ایجاد اسلایدر')
+    @section('title', 'رینسو | ایجاد اسلایدر')
     @section('content')
 
         <div class="text-center mb-4">

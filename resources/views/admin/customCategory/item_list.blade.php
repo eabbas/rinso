@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'لیست آیتم‌ها')
+@section('title', 'رینسو | لیست آیتم‌ها')
 @section('content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
@@ -222,7 +222,7 @@
                             <label for="price_per_unit_cpm" class="block text-sm font-medium mb-2">
                              قیمت بر اساس هر واحد 
                             </label>
-                            <input type="text" 
+                            <input type="number" 
                                 name="price_per_unit" 
                                 id="price_per_unit_cpm"
                                 required
@@ -250,7 +250,7 @@
                             <label for="max_unit_amount_cpm" class="block text-sm font-medium mb-2">
                                حداکثر  واحد 
                             </label>
-                            <input type="text" 
+                            <input type="number" 
                                 name="max_unit_amount" 
                                 id="max_unit_amount_cpm"
                                 value="{{ $material->max_unit_amount }}"

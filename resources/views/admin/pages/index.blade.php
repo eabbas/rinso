@@ -1,6 +1,6 @@
 @extends('admin.app.panel')
 
-@section('title', 'همه صفحه‌ها')
+@section('title', 'رینسو | همه صفحه‌ها')
 
 @section('content')
 

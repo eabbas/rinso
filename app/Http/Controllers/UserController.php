@@ -27,6 +27,44 @@ use Log;
 
 class UserController extends Controller
 {
+
+    public function validator()
+    {
+        return [
+            'name' => ['required', 'string', 'max:191'],
+            'family' => ['required', 'string', 'max:191'],
+            'phoneNumber' => ['required', 'string', 'regex:/^09[0-9]{9}$/'],
+            'email' => ['nullable', 'email', 'max:191'],
+            'password' => ['nullable', 'string', 'min:8'],
+            'main_image' => ['nullable', 'image', 'max:2048'],
+            'ref_code' => ['nullable', 'exists:users,ref_code'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'نام الزامی است',
+            'name.string' => 'استفاده از کاراکتر غیرمجاز',
+            'name.max' => 'تعداد کاراکترها باید کمتر از 191 عدد باشد',
+            'family.required' => 'نام خانوادگی الزامی است',
+            'family.string' => 'استفاده از کاراکتر غیرمجاز',
+            'family.max' => 'تعداد کاراکترها باید کمتر از 191 عدد باشد',
+            'phoneNumber.required' => 'شماره تلفن الزامی است',
+            'phoneNumber.string' => 'فرمت شماره تلفن صحیح نیست',
+            'phoneNumber.regex' => 'شماره تلفن باید با فرمت صحیح وارد شود',
+            'email.email' => 'فرمت ایمیل صحیح نیست',
+            'email.max' => 'تعداد کاراکترها باید کمتر از 191 عدد باشد',
+            'password.string' => 'رمز عبور باید متنی باشد',
+            'password.min' => 'رمز عبور باید حداقل 8 کاراکتر باشد',
+            'main_image.image' => 'تصویر پروفایل باید تصویر باشد',
+            'main_image.max' => 'حجم تصویر نباید بیشتر از 2 مگابایت باشد',
+            'ref_code.exists' => 'کد معرف وارد شده معتبر نیست',
+            'role.required' => 'انتخاب نقش کاربر الزامی است',
+            'role.exists' => 'نقش انتخاب شده معتبر نیست',
+        ];
+    }
+
     public function create($slug = null)
     {
         return view('client.signup', ['slug' => $slug]);
@@ -88,6 +126,7 @@ class UserController extends Controller
         }
         return to_route('signup');
     }
+
 
     public function check(Request $request)
     {
@@ -196,6 +235,7 @@ class UserController extends Controller
         return view('admin.user.adminUserEdit', ['user' => $user, 'roles' => $roles, 'userRoles' => $userRoles]);
     }
 
+   
     public function update(Request $request, User $user)
     {
         $user = User::find($request->user_id);
@@ -403,7 +443,7 @@ class UserController extends Controller
     {
         return view('admin.user.compelete_form');
     }
-
+ 
     public function save(Request $request)
     {
         $user = Auth::user();
@@ -472,7 +512,7 @@ class UserController extends Controller
         }
         return view('admin.user.create', ['roles' => $roles]);
     }
-
+ 
     public function store_user(Request $request)
     {
         $password = Hash::make($request->password);

@@ -1,7 +1,7 @@
 
 @extends('admin.app.panel')
 
-@section('title', 'باشگاه مشتریان من')
+@section('title', 'رینسو | باشگاه مشتریان من')
 
 @section('content')
 

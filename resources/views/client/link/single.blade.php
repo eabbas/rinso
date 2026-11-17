@@ -1,6 +1,6 @@
 @extends('client.document')
 @section('title')
-    {{ $page->title }}
+    رینسو | {{ $page->title }} 
 @endsection
 @section('content')
 

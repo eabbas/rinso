@@ -1,7 +1,7 @@
 
 @extends('admin.app.panel')
 
-@section('title', 'ایجاد شبکه اجتماعی')
+@section('title', 'رینسو | ایجاد شبکه اجتماعی')
 
 @section('content')
 

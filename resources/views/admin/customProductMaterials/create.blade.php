@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'ثبت انواع محصول شخصی سازی شده')
+@section('title', 'رینسو | ثبت انواع محصول شخصی سازی شده')
 @section('content')
 <div class="bg-white p-6 rounded-lg shadow">
     <h1 class="text-xl font-bold mb-6 text-gray-800">افزودن نوع محصول جدید</h1>

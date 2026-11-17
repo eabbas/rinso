@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'ویرایش مواد محصول ')
+@section('title', 'رینسو | ویرایش مواد محصول')
 @section('content')
 <section class="2xl:container mx-auto">
     <div class="w-full mx-auto pb-5">
@@ -35,7 +35,7 @@
                             for="price_per_unit">
                             <legend class="p-1 w-25 sm:bg-blue-400 sm:text-white rounded-full flex flex-row justify-center text-sm">
                                  قیمت بر اساس هر واحد </legend>
-                            <input type="text" name="price_per_unit" value="{{$cpm -> price_per_unit}}"
+                            <input type="number" name="price_per_unit" value="{{$cpm -> price_per_unit}}"
                                 class="w-full px-2 py-1 lg:px-2 outline-none text-gray-500">
                         </fieldset>
                     </div>
@@ -62,7 +62,7 @@
                             for="max_unit_amount">
                             <legend class="p-1 w-30 sm:bg-blue-400 sm:text-white rounded-full flex flex-row justify-center text-sm">
                                 حداکثر  واحد   </legend>
-                            <input type="text" name="max_unit_amount" value="{{$cpm -> max_unit_amount}}"
+                            <input type="number" name="max_unit_amount" value="{{$cpm -> max_unit_amount}}"
                                 class="w-full px-2 py-1 lg:px-2 outline-none text-gray-500">
                         </fieldset>
                     </div>
