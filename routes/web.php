@@ -75,6 +75,8 @@ Route::get('/fttest', function(){
     }
 });
 
+Route::view('/form', 'client.crm.form');
+
 // Route::get('/test', function () {
 //     Schema::table('pages', function (BluePrint $table) {
 //         $table->longText('description')->nullable()->change();
