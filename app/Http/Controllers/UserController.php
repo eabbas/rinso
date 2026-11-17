@@ -100,7 +100,6 @@ class UserController extends Controller
     {
 
         $validate = $request->validate($this->validator() , $this->messages());
-        dd($validate , $request->all());
         if ($request->rules) {
             $phone = User::where('phoneNumber', $validate['phoneNumber'])->first();
             if ($phone) {
@@ -109,8 +108,8 @@ class UserController extends Controller
             $password = Hash::make($validate['password']);
             $ref_code = Str::random(10);
             $user_id = User::insertGetId([
-                'name' => $validate['name'],
-                'family' => $validate['family'],
+                'name' => isset($validate['name']) ? $validate['name'] : null,
+                'family' => isset($validate['family']) ? $validate['family'] : null,
                 'phoneNumber' => $validate['phoneNumber'],
                 'password' => $password,
                 'ref_code' => $ref_code,
