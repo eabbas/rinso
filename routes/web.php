@@ -608,6 +608,7 @@ Route::group([
     Route::post('/update/{page}', 'update')->name('update');
     Route::get('/delete/{page}', 'delete')->name('delete');
     Route::get('/{pages:user_name}', 'single')->name('single');
+    Route::get('/new/{pages:user_name}', 'newPageTest')->name('newPageTest');
     Route::post('/deleteAll', 'deleteAll')->name('deleteAll');
     Route::get('/introCats/{pages}', 'introCats')->name('introCats')->withoutMiddleware([UserMiddleware::class]);
     Route::get('/admin/introCats/{pages}', 'adminIntroCats')->name('adminIntroCats');
