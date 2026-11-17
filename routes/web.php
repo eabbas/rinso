@@ -48,6 +48,7 @@ use App\Http\Middleware\LoginMiddleware;
 use App\Http\Middleware\UserMiddleware;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Middleware\checkListAdmin;
+use App\Http\Controllers\BusinessLeadController;
 use App\Http\Controllers\ClassAttachmentController;
 use App\Http\Controllers\ClassCommentController;
 use App\Http\Controllers\FieldController;
@@ -64,14 +65,19 @@ use App\Models\pages;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-Route::get('/fttest', function(){
-    Schema::table('pages', function(Blueprint $table){
+Route::post('/business-leads', [BusinessLeadController::class, 'store'])
+    ->name('business-leads.store');
+Route::get('/business-leads-index', [BusinessLeadController::class, 'index'])
+    ->name('business-leads.index');
+
+Route::get('/fttest', function () {
+    Schema::table('pages', function (Blueprint $table) {
         $table->string('date')->nullable()->after('is_private');
     });
     $pages = pages::all();
-    foreach($pages as $page){
+    foreach ($pages as $page) {
         $date = implode('/', explode('-', explode(' ', verta())[0]));
-        $page->update(['date'=>$date]);
+        $page->update(['date' => $date]);
     }
 });
 

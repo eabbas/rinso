@@ -272,8 +272,8 @@
                 </div>
             </div>
         </section>
-        {{-- {{ route('business-leads.store') }} --}}
-        <form action="" method="POST" id="businessLeadForm">
+        
+        <form action="{{ route('business-leads.store') }}" method="POST" id="businessLeadForm">
             @csrf
 
             <!-- STEP 1: Personal -->
