@@ -2,7 +2,7 @@
 @extends('admin.app.panel')
 
 @section('title')
-    {{ $user->name }} {{ $user->family }}
+  رینسو |  {{ $user->name }} {{ $user->family }} 
 @endsection
 
 @section('content')

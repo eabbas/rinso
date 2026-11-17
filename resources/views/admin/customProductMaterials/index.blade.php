@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'لیست آیتم‌ها')
+@section('title', 'رینسو | لیست آیتم‌ها')
 @section('content')
 
 <div class="w-full min-h-screen pb-10 pt-6 bg-gray-50">

@@ -1,7 +1,7 @@
 
 @extends('client.document')
 
-@section('title', 'جزئیات تیکت')
+@section('title', 'رینسو | جزئیات تیکت')
 
 @section('content')
 <div class="w-full py-8" dir="rtl">

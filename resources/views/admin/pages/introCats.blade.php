@@ -1,7 +1,7 @@
 @extends('admin.app.panel')
 
 @section('title')
-    همه دسته های {{ $page->title }}
+  رینسو |  همه دسته های  {{ $page->title }} 
 @endsection
 @section('content')
 {{--    <div class="w-full h-full pt-5 samim">--}}

@@ -4,7 +4,7 @@
         }
     </style>
     @extends('admin.app.panel')
-    @section('title', 'ایجاد لینک شبکه اجتماعی'  )
+    @section('title', 'رینسو | ایجاد لینک شبکه اجتماعی')
     @section('content')
     <form action="{{ route('siteLink.store') }}" method="post" enctype='multipart/form-data'>
         @csrf

@@ -1,6 +1,6 @@
 @extends('admin.app.panel')
 @section('title')
-    مشاهده محصول {{ $product->title }}
+    رینسو | مشاهده محصول {{ $product->title }} 
 @endsection
 @section('content')
     {{--@dd($product->attributes)--}}

@@ -1,6 +1,6 @@
 @extends('admin.app.panel')
 @section('title')
-    {{ $customProduct->title }}
+   رینسو | {{ $customProduct->title }}
 @endsection
 @section('content')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

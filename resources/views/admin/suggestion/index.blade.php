@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'لیست پیشنهادات')
+@section('title', 'رینسو | لیست پیشنهادات')
 @section('content')
     <div class="w-full flex flex-col pb-4">
         <div class="bg-white rounded-lg px-3">

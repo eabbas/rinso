@@ -1,6 +1,6 @@
 @extends('admin.app.panel')
 
-@section('title', 'صفحه‌های من')
+@section('title', 'رینسو | صفحه‌های من')
 
 @section('content')
 <div class="w-full max-w-6xl mx-auto px-3 sm:px-5 pb-8 space-y-6">

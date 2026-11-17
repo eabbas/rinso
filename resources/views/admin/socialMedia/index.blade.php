@@ -1,7 +1,7 @@
 
 @extends('admin.app.panel')
 
-@section('title', 'همه شبکه های اجتماعی')
+@section('title', 'رینسو | همه شبکه های اجتماعی')
 
 @section('content')
     <div class="w-full pb-6" dir="rtl">

@@ -1,6 +1,6 @@
 @extends('admin.app.panel')
 @section('title')
-    {{ $customProduct->title }}
+   رینسو | {{ $customProduct->title }}
 @endsection
 @section('content')
 <div class="w-full">

@@ -1,5 +1,5 @@
 @extends('client.document')
-@section('title', 'فامنو | جست و جو')
+@section('title', 'رینسو | جست و جو')
 @section('content')
 
     <div class="w-full px-3 flex flex-col lg:flex-row gap-5 mt-5 lg:mt-10">

@@ -1,6 +1,6 @@
 @extends('client.document')
 @section('title')
-    محصولات مرتبط
+     رینسو | محصولات مرتبط
 @endsection
 @section('content')
     <style>

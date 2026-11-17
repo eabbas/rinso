@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'ویرایش دسته بندی ')
+@section('title', 'رینسو | ویرایش دسته بندی')
 @section('content')
 <section class="2xl:container mx-auto">
     <div class="w-full mx-auto pb-5">
@@ -36,7 +36,7 @@
                             for="description">
                             <legend class="p-1 w-20 sm:bg-blue-400 sm:text-white rounded-full flex flex-row justify-center text-sm">
                                 حداکثر مقدار مواد</legend>
-                            <input type="text" name="max_item_amount" value="{{$customCategory -> max_item_amount}}"
+                            <input type="number" name="max_item_amount" value="{{$customCategory -> max_item_amount}}"
                                 class="w-full px-2 py-1 lg:px-2 outline-none text-gray-500">
                         </fieldset>
                     </div>

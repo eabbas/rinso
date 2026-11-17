@@ -1,6 +1,6 @@
 @extends('admin.app.panel')
 @section('title')
-{{ $cpm->title }}
+رینسو | {{ $cpm->title }}
 @endsection
 @section('content')
 <div class="w-full">

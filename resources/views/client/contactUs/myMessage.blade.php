@@ -1,7 +1,7 @@
 
 @extends('client.document')
 
-@section('title', 'ارتباط با ما')
+@section('title', 'رینسو | ارتباط با ما')
 
 @section('content')
 <div class="w-full pb-8" dir="rtl">

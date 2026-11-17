@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'ثبت دسته بندی')
+@section('title', 'رینسو | ثبت دسته بندی')
 @section('content')
     <div class="bg-white p-6 rounded-lg shadow">
         <h1 class="text-xl font-bold mb-6 text-gray-800">ثبت دسته بندی جدید</h1>

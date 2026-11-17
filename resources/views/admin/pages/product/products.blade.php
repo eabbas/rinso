@@ -1,7 +1,7 @@
 @extends('admin.app.panel')
 
 @section('title')
-    محصولات {{ $page->title }}
+     رینسو | محصولات {{ $page->title }}
 @endsection
 @section('content')
     <div class="w-full flex flex-col pb-4">

@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'ایجاد دسته صفحه')
+@section('title', 'رینسو | ایجاد دسته صفحه')
 @section('content')
     
         <div

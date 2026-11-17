@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'پروفایل کاربری')
+@section('title', 'رینسو | پروفایل کاربری')
 @section('content')
 
     <div class="w-full space-y-5" dir="rtl">

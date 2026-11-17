@@ -1,7 +1,7 @@
 @extends('admin.app.panel')
 
 @section('title')
-    ویرایش {{ $product->title }}
+     {{ $product->title }} رینسو | ویرایش
 @endsection
 @section('content')
     <div class="flex items-start justify-center lg:mb-10 mb-5">

@@ -1,7 +1,7 @@
 
 @extends('admin.app.panel')
 
-@section('title', 'جزئیات پیام')
+@section('title', 'رینسو | جزئیات پیام')
 
 @section('content')
 

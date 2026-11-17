@@ -1,7 +1,7 @@
 @extends('admin.app.panel')
 
 @section('title')
-    {{ $page->title }}
+   رینسو |  {{ $page->title }} 
 @endsection
 @section('content')
     <style>

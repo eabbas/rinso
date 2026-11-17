@@ -1,6 +1,6 @@
 
 @extends('admin.app.panel')
-@section('title', 'ایجاد درباره ما')
+@section('title', 'رینسو | ایجاد درباره ما')
 @section('content')
 
 <div class="absolute top-0 opacity-0 invisible right-1/2 translate-x-1/2 w-2/3 lg:w-1/3 bg-white rounded-lg shadow-md transition-all duration-500 z-50"

@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'دسته‌بندی‌های محصول')
+@section('title', 'رینسو | دسته‌بندی‌های محصول')
 @section('content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 

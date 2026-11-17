@@ -1,7 +1,7 @@
 
 @extends('admin.app.panel')
 
-@section('title', 'ایجاد کاربر جدید')
+@section('title', 'رینسو | ایجاد کاربر جدید')
 
 @section('content')
 
@@ -126,6 +126,11 @@
                                id="main_image"
                                accept="image/png,image/jpeg,image/webp"
                                class="hidden">
+                        @error('main_image')
+                            <p class="text-[11px] text-red-400">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
                 </div>
             </section>
@@ -159,6 +164,11 @@
                                value="{{ old('name') }}"
                                placeholder="نام کاربر"
                                class="w-full rounded-lg border border-[#E1E5EB] bg-[#FAFBFC] px-3 py-2.5 text-sm outline-none transition placeholder:text-gray-400 focus:border-[#FB9413] focus:bg-white focus:ring-2 focus:ring-orange-100">
+                        @error('name')
+                            <p class="text-[11px] text-red-400">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
 
                     {{-- نام خانوادگی --}}
@@ -173,6 +183,11 @@
                                value="{{ old('family') }}"
                                placeholder="نام خانوادگی کاربر"
                                class="w-full rounded-lg border border-[#E1E5EB] bg-[#FAFBFC] px-3 py-2.5 text-sm outline-none transition placeholder:text-gray-400 focus:border-[#FB9413] focus:bg-white focus:ring-2 focus:ring-orange-100">
+                        @error('family')
+                            <p class="text-[11px] text-red-400">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
 
                     {{-- شماره تماس --}}
@@ -189,6 +204,11 @@
                                required
                                dir="ltr"
                                class="w-full rounded-lg border border-[#E1E5EB] bg-[#FAFBFC] px-3 py-2.5 text-left text-sm outline-none transition placeholder:text-gray-400 focus:border-[#FB9413] focus:bg-white focus:ring-2 focus:ring-orange-100">
+                        @error('phoneNumber')
+                            <p class="text-[11px] text-red-400">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
 
                     {{-- ایمیل --}}
@@ -204,6 +224,11 @@
                                placeholder="example@gmail.com"
                                dir="ltr"
                                class="w-full rounded-lg border border-[#E1E5EB] bg-[#FAFBFC] px-3 py-2.5 text-left text-sm outline-none transition placeholder:text-gray-400 focus:border-[#FB9413] focus:bg-white focus:ring-2 focus:ring-orange-100">
+                        @error('email')
+                            <p class="text-[11px] text-red-400">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     </div>
 
                     {{-- رمز عبور --}}
@@ -219,6 +244,11 @@
                                    required
                                    placeholder="رمز عبور کاربر را وارد کنید"
                                    class="w-full rounded-lg border border-[#E1E5EB] bg-[#FAFBFC] px-3 py-2.5 pl-11 text-sm outline-none transition placeholder:text-gray-400 focus:border-[#FB9413] focus:bg-white focus:ring-2 focus:ring-orange-100">
+                            @error('password')
+                                <p class="text-[11px] text-red-400">
+                                    {{ $message }}
+                                </p>
+                            @enderror
 
                             <button type="button"
                                     id="togglePassword"
@@ -296,6 +326,11 @@
                             </option>
                         @endforeach
                     </select>
+                    @error('role')
+                        <p class="text-[11px] text-red-400">
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
             </section>
 

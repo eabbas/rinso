@@ -1,7 +1,7 @@
 
 @extends('admin.app.panel')
 
-@section('title', 'فامنو | مشتریان من')
+@section('title', 'رینسو | مشتریان من')
 
 @section('content')
     <div class="w-full pb-6" dir="rtl">

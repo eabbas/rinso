@@ -1,5 +1,5 @@
     @extends('admin.app.panel')
-    @section('title', 'ارسال پیشنهاد')
+    @section('title', 'رینسو | ارسال پیشنهاد')
     @section('content')
 
         <div class="text-center mb-4">

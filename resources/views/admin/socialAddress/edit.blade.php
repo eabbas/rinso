@@ -1,5 +1,5 @@
 @extends('admin.app.panel')
-@section('title', 'ویرایش شبکه اجتماعی')
+@section('title', 'رینسو | ویرایش شبکه اجتماعی')
 @section('content')
     <div class="my-10">
         <h1 class="lg:text-3xl md:text-2xl text-md font-bold text-center text-gray-700">ویرایش شبکه اجتماعی</h1>

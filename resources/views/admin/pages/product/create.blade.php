@@ -1,7 +1,7 @@
 @extends('admin.app.panel')
 
 @section('title')
-    ایجاد محصول {{ $page->title }}
+  رینسو |  ایجاد محصول  {{ $page->title }} 
 @endsection
 @section('content')
 

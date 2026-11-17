@@ -356,7 +356,7 @@ function contactus(state) {
                         <span class="w-full h-[1px] bg-[#e4e6eb] rounded-2xl"></span>
                         <input type="text" class="outline-hidden w-full py-3 text-sm createPageContactusRequire" name="pageContactus[0][key]" id="key_input" placeholder="عنوان ایتم">
                         <span class="w-full h-[1px] bg-[#e4e6eb] rounded-2xl"></span>
-                        <input type="text" class="outline-hidden w-full py-3 text-sm createPageContactusRequire" name="pageContactus[0][value]" id="value_input" placeholder="شماره موبایل خود را وارد کنید" maxlength="11">
+                        <input type="number" class="outline-hidden w-full py-3 text-sm createPageContactusRequire" name="pageContactus[0][value]" id="value_input" placeholder="شماره موبایل خود را وارد کنید" maxlength="11">
                     </div>
                     <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1" id="parentContactus">
                     </div>
@@ -377,7 +377,7 @@ function contactus(state) {
                         <span class="w-full h-[1px] bg-[#e4e6eb] rounded-2xl"></span>
                         <input type="text" class="outline-hidden w-full py-3 text-sm createPageContactusRequire" name='pageContactus[0][key]' id="key_input" placeholder="عنوان ایتم">
                         <span class="w-full h-[1px] bg-[#e4e6eb] rounded-2xl"></span>
-                        <input type="text" class="outline-hidden w-full py-3 text-sm createPageContactusRequire" name='pageContactus[0][value]' id="value_input" placeholder="شماره ثابت خود را وارد کنید" maxlength="11">
+                        <input type="number" class="outline-hidden w-full py-3 text-sm createPageContactusRequire" name='pageContactus[0][value]' id="value_input" placeholder="شماره ثابت خود را وارد کنید" maxlength="11">
                     </div>
                     <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1" id="parentContactus">
                     </div>
@@ -420,7 +420,7 @@ function contactus(state) {
                         <span class="w-full h-[1px] bg-[#e4e6eb] rounded-2xl"></span>
                         <input type="text" class="outline-hidden w-full py-3 text-sm createPageContactusRequire"name='pageContactus[0][key]' id="key_input"placeholder="عنوان ایتم">
                         <span class="w-full h-[1px] bg-[#e4e6eb] rounded-2xl"></span>
-                        <input type="text" class="outline-hidden w-full py-3 text-sm createPageContactusRequire" name='pageContactus[0][value]' id="value_input" placeholder=" شماره پیامک خود را وارد کنید" maxlength="11">
+                        <input type="number" class="outline-hidden w-full py-3 text-sm createPageContactusRequire" name='pageContactus[0][value]' id="value_input" placeholder=" شماره پیامک خود را وارد کنید" maxlength="11">
                     </div>
                     <div class="w-full flex flex-col gap-3 itmes-center max-md:flex-col max-md:gap-1" id="parentContactus">
                     </div>

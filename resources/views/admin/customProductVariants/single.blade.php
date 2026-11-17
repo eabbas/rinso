@@ -1,6 +1,6 @@
 @extends('admin.app.panel')
 @section('title')
-     {{ $cpVariants->title }}
+    رینسو | {{ $cpVariants->title }}
 @endsection
 @section('content')
 <div class="w-full">
