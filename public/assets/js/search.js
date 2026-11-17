@@ -150,10 +150,6 @@ function loadDatas(datas) {
                 <p class="text-[11px] text-slate-400 mt-1 truncate">
                     ${ data.subTitle }
                 </p>
-                <p class="text-[11px] text-slate-500 leading-6 line-clamp-2 mt-3">
-                    ${ data.description }
-                </p>
-
             </div>
 
                         

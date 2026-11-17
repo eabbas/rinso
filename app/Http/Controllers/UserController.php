@@ -31,23 +31,23 @@ class UserController extends Controller
     public function validator()
     {
         return [
-            'name' => ['required', 'string', 'max:191'],
-            'family' => ['required', 'string', 'max:191'],
+            'name' => ['nullable', 'string', 'max:191'],
+            'family' => ['nullable', 'string', 'max:191'],
             'phoneNumber' => ['required', 'string', 'regex:/^09[0-9]{9}$/'],
             'email' => ['nullable', 'email', 'max:191'],
-            'password' => ['nullable', 'string', 'min:8'],
+            'password' => ['nullable', 'string', 'min:4'],
             'main_image' => ['nullable', 'image', 'max:2048'],
-            'ref_code' => ['nullable', 'exists:users,ref_code'],
+            'ref_code' => ['nullable'],
+            'role' => ['nullable' , 'integer'],
+            'code' => ['nullable' , 'integer']
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'نام الزامی است',
             'name.string' => 'استفاده از کاراکتر غیرمجاز',
             'name.max' => 'تعداد کاراکترها باید کمتر از 191 عدد باشد',
-            'family.required' => 'نام خانوادگی الزامی است',
             'family.string' => 'استفاده از کاراکتر غیرمجاز',
             'family.max' => 'تعداد کاراکترها باید کمتر از 191 عدد باشد',
             'phoneNumber.required' => 'شماره تلفن الزامی است',
@@ -60,8 +60,8 @@ class UserController extends Controller
             'main_image.image' => 'تصویر پروفایل باید تصویر باشد',
             'main_image.max' => 'حجم تصویر نباید بیشتر از 2 مگابایت باشد',
             'ref_code.exists' => 'کد معرف وارد شده معتبر نیست',
-            'role.required' => 'انتخاب نقش کاربر الزامی است',
-            'role.exists' => 'نقش انتخاب شده معتبر نیست',
+            'role.integer' => 'مقدار ورودی باید عددی باشد',
+            'code.integer' => 'مقدار ورودی باید عددی باشد'
         ];
     }
 
@@ -98,25 +98,28 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+
+        $validate = $request->validate($this->validator() , $this->messages());
+        dd($validate , $request->all());
         if ($request->rules) {
-            $phone = User::where('phoneNumber', $request->phoneNumber)->first();
+            $phone = User::where('phoneNumber', $validate['phoneNumber'])->first();
             if ($phone) {
                 return redirect()->back()->with('message', 'این شماره تلفن قبلا استفاده شده');
             }
-            $password = Hash::make($request->password);
+            $password = Hash::make($validate['password']);
             $ref_code = Str::random(10);
             $user_id = User::insertGetId([
-                'name' => $request->name,
-                'family' => $request->family,
-                'phoneNumber' => $request->phoneNumber,
+                'name' => $validate['name'],
+                'family' => $validate['family'],
+                'phoneNumber' => $validate['phoneNumber'],
                 'password' => $password,
                 'ref_code' => $ref_code,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
             role_user::create(['role_id' => 2, 'user_id' => $user_id]);
-            if (isset($request->ref_code)) {
-                $ref_user = User::where('ref_code', $request->ref_code)->first();
+            if (isset($validate['ref_code'])) {
+                $ref_user = User::where('ref_code', $validate['ref_code'])->first();
                 refUser::create(['user_id' => $ref_user->id, 'invited_user_id' => $user_id]);
             }
             $user = User::find($user_id);
@@ -130,20 +133,21 @@ class UserController extends Controller
 
     public function check(Request $request)
     {
-        $user = User::where('phoneNumber', $request->phoneNumber)->first();
+        $validate = $request->validate($this->validator(), $this->messages());
+        $user = User::where('phoneNumber', $validate['phoneNumber'])->first();
 
         if ($user) {
-            if (isset($request->password)) {
-                $checkHash = Hash::check($request->password, $user->password);
+            if (isset($validate['password'])) {
+                $checkHash = Hash::check($validate['password'], $user->password);
                 if ($checkHash) {
                     Auth::login($user);
                     return to_route('dashboard');
                 }
                 return to_route('login', ['message' => 'لطفا اطلاعات خود را مجددا بررسی کنید']);
             }
-            if (isset($request->code)) {
-                $code = phone_code::where('phoneNumber', $request->phoneNumber)->first();
-                if ($code->code == $request->code) {
+            if (isset($validate['code'])) {
+                $code = phone_code::where('phoneNumber', $validate['phoneNumber'])->first();
+                if ($code->code == $validate['code']) {
                     Auth::login($user);
                     return to_route('dashboard');
                 }
@@ -238,35 +242,36 @@ class UserController extends Controller
    
     public function update(Request $request, User $user)
     {
-        $user = User::find($request->user_id);
-        if (isset($request->roles)) {
+        $validate = $request->validate($this->validator(), $this->messages());
+        $user = User::find($user);
+        if (isset($validate['roles'])) {
             role_user::where('user_id', $user->id)->delete();
-            foreach ($request->roles as $role) {
+            foreach ($validate['roles'] as $role) {
                 role_user::create([
-                    'user_id' => $request->user_id,
+                    'user_id' => $validate['user_id'],
                     'role_id' => $role
                 ]);
             }
         }
-        $user->name = $request->name;
-        $user->family = $request->family;
-        if (isset($request->phoneNumber)) {
-            $user->phoneNumber = $request->phoneNumber;
+        $user->name = $validate['name'];
+        $user->family = $validate['family'];
+        if (isset($validate['phoneNumber'])) {
+            $user->phoneNumber = $validate['phoneNumber'];
         }
-        if (isset($request->email)) {
-            $user->email = $request->email;
+        if (isset($validate['email'])) {
+            $user->email = $validate['email'];
         }
-        if ($request->password) {
-            $password = Hash::make($request->password);
+        if ($validate['password']) {
+            $password = Hash::make($validate['password']);
             $user->password = $password;
         }
-        if ($request->main_image) {
+        if ($validate['main_image']) {
             if ($user->main_image) {
                 Storage::disk('public')->delete($user->main_image);
             }
-            $name = $request->main_image->getClientOriginalName();
+            $name = $validate['main_image']->getClientOriginalName();
             $fullName = time() . '_' . $name;
-            $path = $request->file('main_image')->storeAs('images', $fullName, 'public');
+            $path = $validate['file']('main_image')->storeAs('images', $fullName, 'public');
             $user->main_image = $path;
         }
         //        $request->address && $user->address = $request->address;
@@ -446,17 +451,18 @@ class UserController extends Controller
  
     public function save(Request $request)
     {
+        $validate = $request->validate($this->validator(), $this->messages());
         $user = Auth::user();
         $user->role;
-        if (isset($request->main_image)) {
-            $name = $request->main_image->getClientOriginalName();
+        if (isset($validate['main_image'])) {
+            $name = $validate['main_image']->getClientOriginalName();
             $fullName = time() . '_' . $name;
             $path = $request->file('main_image')->storeAs('images', $fullName, 'public');
             $user->main_image = $path;
         }
-        $user->email = $request->email;
-        $user->name = $request->name;
-        $user->family = $request->family;
+        $user->email = $validate['email'];
+        $user->name = $validate['name'];
+        $user->family = $validate['family'];
         $user->save();
         return to_route('user.profile');
     }
@@ -512,38 +518,112 @@ class UserController extends Controller
         }
         return view('admin.user.create', ['roles' => $roles]);
     }
- 
+
     public function store_user(Request $request)
     {
-        $password = Hash::make($request->password);
-        $ref_code = Str::random(10);
-        $path = null;
-        if (isset($request->main_image)) {
-            $name = $request->main_image->getClientOriginalName();
+        $validate = $request->validate($this->validator(), $this->messages());
+        $user = User::where('phoneNumber', $validate['phoneNumber'])
+            ->orderBy('id', 'asc')
+            ->first();
+
+        $isNewUser = !$user;
+        $password = null;
+
+        if ($validate['filled']('password')) {
+            $password = Hash::make($validate['password']);
+        }
+        $path = $user ? $user->main_image : null;
+
+        if ($validate['hasFile']('main_image')) {
+            $name = $validate['file']('main_image')->getClientOriginalName();
             $fullName = time() . '_' . $name;
-            $path = $request->file('main_image')->storeAs('images', $fullName, 'public');
+
+            $path = $validate['file']('main_image')->storeAs(
+                'images',
+                $fullName,
+                'public'
+            );
         }
-        $user_id = User::insertGetId([
-            'name' => $request->name,
-            'family' => $request->family,
-            'phoneNumber' => $request->phoneNumber,
-            'email' => $request->email,
-            'main_image' => $path,
-            'password' => $password,
-            'ref_code' => $ref_code,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        if (isset($request->ref_code)) {
-            $ref_user = User::where('ref_code', $request->ref_code)->first();
-            refUser::create(['user_id' => $ref_user->id, 'invited_user_id' => $user_id]);
+
+        if ($isNewUser) {
+            $user_id = User::insertGetId([
+                'name' => $validate['name'],
+                'family' => $validate['family'],
+                'phoneNumber' => $validate['phoneNumber'],
+                'email' => $validate['email'],
+                'main_image' => $path,
+                'password' => $password,
+                'ref_code' => Str::random(10),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            $user = User::findOrFail($user_id);
+            if ($validate['filled']('ref_code')) {
+
+                $ref_user = User::where('ref_code', $validate['ref_code'])
+                    ->where('id', '!=', $user->id)
+                    ->first();
+
+                if ($ref_user) {
+                    refUser::firstOrCreate([
+                        'user_id' => $ref_user->id,
+                        'invited_user_id' => $user->id
+                    ]);
+                }
+            }
+        } else {
+            $user->name = $validate['name'];
+            $user->family = $validate['family'];
+            $user->email = $validate['email'];
+            $user->main_image = $path;
+
+            if ($password) {
+                $user->password = $password;
+            }
+
+            $user->save();
         }
-        role_user::create([
-            'user_id' => $user_id,
-            'role_id' => $request->role
-        ]);
+
+        role_user::updateOrCreate(
+            ['user_id' => $user->id],
+            ['role_id' => $validate['role']]
+        );
+
         return to_route('user.list');
     }
+
+    // public function store_user(Request $request)
+    // {
+    //     $password = Hash::make($request->password);
+    //     $ref_code = Str::random(10);
+    //     $path = null;
+    //     if (isset($request->main_image)) {
+    //         $name = $request->main_image->getClientOriginalName();
+    //         $fullName = time() . '_' . $name;
+    //         $path = $request->file('main_image')->storeAs('images', $fullName, 'public');
+    //     }
+    //     $user_id = User::insertGetId([
+    //         'name' => $request->name,
+    //         'family' => $request->family,
+    //         'phoneNumber' => $request->phoneNumber,
+    //         'email' => $request->email,
+    //         'main_image' => $path,
+    //         'password' => $password,
+    //         'ref_code' => $ref_code,
+    //         'created_at' => now(),
+    //         'updated_at' => now(),
+    //     ]);
+    //     if (isset($request->ref_code)) {
+    //         $ref_user = User::where('ref_code', $request->ref_code)->first();
+    //         refUser::create(['user_id' => $ref_user->id, 'invited_user_id' => $user_id]);
+    //     }
+    //     role_user::create([
+    //         'user_id' => $user_id,
+    //         'role_id' => $request->role
+    //     ]);
+    //     return to_route('user.list');
+    // }
 
     public function send_code(Request $request)
     {
