@@ -75,156 +75,156 @@ Route::get('/fttest', function(){
     }
 });
 
-Route::get('/test', function () {
-    Schema::table('pages', function (BluePrint $table) {
-        $table->longText('description')->nullable()->change();
-        $table->integer('category_id')->default(0)->after('description');
-    });
-    $allCats = [
-        [
-            'title' => 'عمومی',
-            'slug' => 'General',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'هنرمند',
-            'slug' => 'Artist',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'موزیسین / بند',
-            'slug' => 'Musician / band',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'بلاگر',
-            'slug' => 'Blogger',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'پوشاک (برند)',
-            'slug' => 'Clothing (brand)',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'انجمن',
-            'slug' => 'Community',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'سازنده دیجیتال',
-            'slug' => 'Digital Creator',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'آموزش',
-            'slug' => 'Education',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'کارآفرین',
-            'slug' => 'Entrepreneur',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'سلامتی / زیبایی',
-            'slug' => 'Health / Beauty',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'ویرایشگر',
-            'slug' => 'Editor',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'نویسنده',
-            'slug' => 'Writer',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'وبلاگ شخصی',
-            'slug' => 'Personal blog',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'محصول / خدمات',
-            'slug' => 'Product / service',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'گیمر',
-            'slug' => 'gamer',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'رستوران',
-            'slug' => 'Restaurant',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'زیبایی، آرایشی و بهداشت شخصی',
-            'slug' => 'Beauty, cosmetic & personal care',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'خواربار فروشی',
-            'slug' => 'Grocery Store',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'عکاس',
-            'slug' => 'Photographer',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'فروش و خرده فروشی',
-            'slug' => 'Shopping & retail',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'طراح سایت',
-            'slug' => 'Web developer',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'برنامه نویس',
-            'slug' => 'Programmer',
-            'parent_id' => 0,
-            'description' => null
-        ],
-        [
-            'title' => 'متفرقه',
-            'slug' => 'Sundry',
-            'parent_id' => 0,
-            'description' => null
-        ],
-    ];
-    page_category::insert($allCats);
-    $cat = page_category::where('slug', 'general')->first();
-    pages::on('mysql')->update(['category_id' => $cat->id]);
-    return "compeleted";
-});
+// Route::get('/test', function () {
+//     Schema::table('pages', function (BluePrint $table) {
+//         $table->longText('description')->nullable()->change();
+//         $table->integer('category_id')->default(0)->after('description');
+//     });
+//     $allCats = [
+//         [
+//             'title' => 'عمومی',
+//             'slug' => 'General',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'هنرمند',
+//             'slug' => 'Artist',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'موزیسین / بند',
+//             'slug' => 'Musician / band',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'بلاگر',
+//             'slug' => 'Blogger',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'پوشاک (برند)',
+//             'slug' => 'Clothing (brand)',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'انجمن',
+//             'slug' => 'Community',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'سازنده دیجیتال',
+//             'slug' => 'Digital Creator',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'آموزش',
+//             'slug' => 'Education',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'کارآفرین',
+//             'slug' => 'Entrepreneur',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'سلامتی / زیبایی',
+//             'slug' => 'Health / Beauty',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'ویرایشگر',
+//             'slug' => 'Editor',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'نویسنده',
+//             'slug' => 'Writer',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'وبلاگ شخصی',
+//             'slug' => 'Personal blog',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'محصول / خدمات',
+//             'slug' => 'Product / service',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'گیمر',
+//             'slug' => 'gamer',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'رستوران',
+//             'slug' => 'Restaurant',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'زیبایی، آرایشی و بهداشت شخصی',
+//             'slug' => 'Beauty, cosmetic & personal care',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'خواربار فروشی',
+//             'slug' => 'Grocery Store',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'عکاس',
+//             'slug' => 'Photographer',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'فروش و خرده فروشی',
+//             'slug' => 'Shopping & retail',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'طراح سایت',
+//             'slug' => 'Web developer',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'برنامه نویس',
+//             'slug' => 'Programmer',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//         [
+//             'title' => 'متفرقه',
+//             'slug' => 'Sundry',
+//             'parent_id' => 0,
+//             'description' => null
+//         ],
+//     ];
+//     page_category::insert($allCats);
+//     $cat = page_category::where('slug', 'general')->first();
+//     pages::on('mysql')->update(['category_id' => $cat->id]);
+//     return "compeleted";
+// });
 
 Route::group([
     'prefix' => 'page-category',
@@ -608,6 +608,7 @@ Route::group([
     Route::post('/update/{page}', 'update')->name('update');
     Route::get('/delete/{page}', 'delete')->name('delete');
     Route::get('/{pages:user_name}', 'single')->name('single');
+    Route::get('/new/{pages:user_name}', 'newPageTest')->name('newPageTest');
     Route::post('/deleteAll', 'deleteAll')->name('deleteAll');
     Route::get('/introCats/{pages}', 'introCats')->name('introCats')->withoutMiddleware([UserMiddleware::class]);
     Route::get('/admin/introCats/{pages}', 'adminIntroCats')->name('adminIntroCats');
