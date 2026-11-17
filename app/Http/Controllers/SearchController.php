@@ -27,7 +27,6 @@ class SearchController extends Controller
 
     public function getFilters(Request $request){
         $filters = $request->input('filters');
-        // return response()->json($filters);
         $keyword = $filters['keyword'];
         $sortType = $filters['sortType'];
         $sortBy = $filters['sortBy'];
@@ -61,7 +60,7 @@ class SearchController extends Controller
         $socialMedias = socialMedia::whereIn('id', $socialMediaIds)->with(['pages'])->get();
 
         $pages = $pages->orderBy($sortBy, $sortType)->get();
-        $result = [$pages, $categories, $filters, $categoryIds , $socialMedias];
+        $result = [$pages, $categories, $filters , $socialMedias];
         return response()->json($result);
     }
 }

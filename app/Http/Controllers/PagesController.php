@@ -141,9 +141,9 @@ class pagesController extends Controller
         $page->title = $validated['title'];
         $page->subTitle = $validated['subTitle'];
         $page->description = $validated['description'];
-        $page->show_in_home = $validated['show_in_home'] ? 1 : 0;
-        $page->active = $validated['active'] ? 1 : 0;
-        $page->is_private = $validated['is_private'] ? 1 : 0;
+        $page->show_in_home = isset($validated['show_in_home']) ? 1 : 0;
+        $page->active = isset($validated['active']) ? 1 : 0;
+        $page->is_private = isset($validated['is_private']) ? 1 : 0;
         $page->category_id = $validated['category_id'];
         $page->save();
         if (Auth::user()->role[0]->title == 'admin') {

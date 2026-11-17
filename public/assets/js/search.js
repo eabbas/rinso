@@ -82,6 +82,7 @@ function getFilters(){
             'filters': filters
         },
         success: function(response){
+            console.log(response)
             loadDatas(response)
         },
         error: function(){
