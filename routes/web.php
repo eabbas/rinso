@@ -65,7 +65,7 @@ use App\Models\pages;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-Route::post('/business-leads', [BusinessLeadController::class, 'store'])
+Route::post('/form', [BusinessLeadController::class, 'store'])
     ->name('business-leads.store');
 Route::get('/business-leads-index', [BusinessLeadController::class, 'index'])
     ->name('business-leads.index');
