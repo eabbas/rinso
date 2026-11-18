@@ -154,31 +154,31 @@
                     <thead>
                         <tr class="bg-gray-50 text-gray-500 text-xs">
 
-                            <th class="px-5 py-4 font-semibold">
+                            <th class="px-5 py-4 font-bold">
                                 ردیف
                             </th>
 
-                            <th class="px-5 py-4 font-semibold">
+                            <th class="px-5 py-4 font-bold">
                                 نام و نام خانوادگی
                             </th>
 
-                            <th class="px-5 py-4 font-semibold">
+                            <th class="px-5 py-4 font-bold">
                                 شماره تماس
                             </th>
 
-                            <th class="px-5 py-4 font-semibold">
+                            <th class="px-5 py-4 font-bold">
                                 عنوان شغلی
                             </th>
 
-                            <th class="px-5 py-4 font-semibold">
+                            <th class="px-5 py-4 font-bold">
                                 سابقه فعالیت
                             </th>
 
-                            <th class="px-5 py-4 font-semibold">
+                            <th class="px-5 py-4 font-bold">
                                 تاریخ ثبت
                             </th>
 
-                            <th class="px-5 py-4 font-semibold">
+                            <th class="px-5 py-4 font-bold">
                                 وضعیت
                             </th>
 
@@ -202,7 +202,7 @@
                                 <td class="px-5 py-4">
 
                                     <a href="{{ route('business-leads.show', $lead->id) }}"
-                                    class="font-semibold text-sm text-gray-800 hover:text-[#FF9D16] transition">
+                                    class="font-bold text-sm text-gray-800 hover:text-[#FF9D16] transition">
                                         {{ trim(($lead->first_name ?? '') . ' ' . ($lead->last_name ?? '')) ?: 'بدون نام' }}
                                     </a>
 

@@ -73,7 +73,7 @@
 
         <div class="flex items-center gap-2">
 
-            <span class="inline-flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-semibold {{ $statusColor }}">
+            <span class="inline-flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-bold {{ $statusColor }}">
                 <span class="w-2 h-2 rounded-full bg-current"></span>
                 {{ $statusLabel }}
             </span>
@@ -275,7 +275,7 @@
 
                     <div class="flex items-center gap-2 mb-3">
                         <span class="w-2 h-2 rounded-full bg-[#FF9D16]"></span>
-                        <h4 class="text-sm font-semibold text-gray-700">
+                        <h4 class="text-sm font-bold text-gray-700">
                             فروشگاه فیزیکی
                         </h4>
                     </div>
@@ -292,7 +292,7 @@
 
                     <div class="flex items-center gap-2 mb-3">
                         <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-                        <h4 class="text-sm font-semibold text-gray-700">
+                        <h4 class="text-sm font-bold text-gray-700">
                             وب‌سایت
                         </h4>
                     </div>
@@ -509,7 +509,7 @@
                     ذخیره اطلاعات مشتریان
                 </p>
 
-                <p class="text-sm font-semibold text-gray-800">
+                <p class="text-sm font-bold text-gray-800">
                     @if($lead->stores_customer_data === null)
                         مشخص نشده
                     @else
@@ -526,7 +526,7 @@
                 </p>
 
                 @if($lead->repeat_purchase_unknown)
-                    <p class="text-sm font-semibold text-gray-800">
+                    <p class="text-sm font-bold text-gray-800">
                         درصد خرید تکراری مشخص نیست
                     </p>
                 @elseif($lead->repeat_purchase_percent !== null)
@@ -584,7 +584,7 @@
 
             <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
 
-                <h4 class="text-sm font-semibold text-gray-700 mb-3">
+                <h4 class="text-sm font-bold text-gray-700 mb-3">
                     موانع دیجیتال
                 </h4>
 
@@ -596,7 +596,7 @@
 
             <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
 
-                <h4 class="text-sm font-semibold text-gray-700 mb-3">
+                <h4 class="text-sm font-bold text-gray-700 mb-3">
                     علت کمبود وقت
                 </h4>
 
