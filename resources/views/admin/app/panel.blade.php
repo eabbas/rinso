@@ -112,7 +112,7 @@
                     <rect x="3" y="13" width="8" height="8" rx="2"/>
                 </svg>
 
-                <span class="text-sm font-semibold">داشبورد</span>
+                <span class="text-sm font-bold">داشبورد</span>
 
                 @if(Route::is('dashboard'))
                     <span class="size-1.5 rounded-full bg-white mr-auto"></span>
@@ -129,7 +129,7 @@
                     <path d="M5 21v-2a7 7 0 0 1 14 0v2"/>
                 </svg>
 
-                <span class="text-sm font-semibold">پروفایل من</span>
+                <span class="text-sm font-bold">پروفایل من</span>
 
                 @if(Route::is('user.profile'))
                     <span class="size-1.5 rounded-full bg-white mr-auto"></span>
@@ -159,7 +159,7 @@
                             <rect x="3" y="13" width="8" height="8" rx="2"/>
                         </svg>
 
-                        <span class="text-sm font-medium">دسته‌بندی صفحه ها</span>
+                        <span class="text-sm font-medium">فرم شناخت کسب و کار</span>
 
                         <svg viewBox="0 0 24 24"
                              class="size-4 mr-auto transition-transform group-open:rotate-180"

@@ -486,7 +486,7 @@
 
 </svg>
 
-                    <span class="text-sm font-semibold">
+                    <span class="text-sm font-bold">
                        خانه
                     </span>
 
@@ -511,7 +511,7 @@
                         <rect x="3" y="13" width="8" height="8" rx="2"/>
                     </svg>
 
-                    <span class="text-sm font-semibold">
+                    <span class="text-sm font-bold">
                         داشبورد
                     </span>
 
@@ -520,6 +520,78 @@
                     @endif
                 </a>
 
+
+                @if(in_array(1, $ids))
+
+                    <details class="group rounded-xl overflow-hidden"
+                             @if(Route::is('business-leads.*')) open @endif>
+
+                        <summary class="list-none cursor-pointer
+                            flex items-center justify-between
+                            px-4 py-3.5 rounded-xl
+                            transition-all
+                            {{ Route::is('business-leads.*')
+                                ? 'bg-white text-[#142033] font-bold'
+                                : 'text-slate-600 hover:bg-white' }}">
+
+                            <div class="flex items-center gap-3">
+
+                                <svg viewBox="0 0 24 24"
+                                     class="size-5 shrink-0 text-[#FF9018]"
+                                     fill="none" stroke="currentColor"
+                                     stroke-width="1.8">
+                                    <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                </svg>
+
+                                <span class="text-sm">
+                                   فرم شناخت کسب و کار
+                                </span>
+
+                            </div>
+
+                            <svg viewBox="0 0 24 24"
+                                 class="size-4 text-slate-400
+                                        transition-transform
+                                        group-open:rotate-180"
+                                 fill="none" stroke="currentColor"
+                                 stroke-width="2">
+                                <path d="m6 9 6 6 6-6"/>
+                            </svg>
+
+                        </summary>
+
+                        <div class="mr-6 ml-2 mt-1 pr-4
+                                    border-r-2 border-slate-200
+                                    flex flex-col gap-1">
+
+                            <a href="{{ route('business-leads.create', 'berso') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('business-leads.create')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                فرم ایجاد برسو
+                            </a>
+                            <a href="{{ route('business-leads.create', 'pinaweb') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('business-leads.create')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                فرم ایجاد پیناوب
+                            </a>
+
+                            <a href="{{ route('business-leads.index') }}"
+                               class="px-4 py-3 rounded-lg text-sm transition
+                               {{ Route::is('business-leads.index')
+                                    ? 'bg-orange-50 text-[#FF9018] font-bold'
+                                    : 'text-slate-500 hover:bg-white' }}">
+                                لیست
+                            </a>
+
+                        </div>
+
+                    </details>
+
+                @endif
 
                 {{-- Page Categories --}}
                 @if(in_array(1, $ids))

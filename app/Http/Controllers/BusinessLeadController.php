@@ -247,10 +247,26 @@ class BusinessLeadController extends Controller
             report($e);
 
             return redirect()
-                ->back()
-                ->withInput()
-                ->with('error', 'متأسفانه هنگام ثبت اطلاعات مشکلی رخ داد. لطفاً مجدداً تلاش کنید.');
+               ->back()
+               ->withInput()
+               ->with('error', 'متأسفانه هنگام ثبت اطلاعات مشکلی رخ داد. لطفاً مجدداً تلاش کنید.');
         }
+        // catch (Throwable $e) {
+
+        //     dd([
+        //         'message' => $e->getMessage(),
+        //         'file' => $e->getFile(),
+        //         'line' => $e->getLine(),
+        //         'code' => $e->getCode(),
+        //     ]);
+
+        //     report($e);
+
+        //     return redirect()
+        //         ->back()
+        //         ->withInput()
+        //         ->with('error', 'مشکلی هنگام ثبت اطلاعات رخ داد.');
+        // }
     }
 
     public function index(Request $request)

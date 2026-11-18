@@ -73,6 +73,9 @@ Route::get('/business-leads/{businessLead}', [BusinessLeadController::class, 'sh
 
 
 Route::get('/fttest', function () {
+//    Schema::table('pages', function (Blueprint $table) {
+//        $table->string('date')->nullable()->after('is_private');
+//    });
     Schema::table('business_leads', function (Blueprint $table) {
         $table->string('team')->nullable()->after('job_title');
     });
@@ -376,7 +379,7 @@ Route::group([
     Route::get('/profile', 'profile')->name('profile');
     Route::get('/show/{user}', 'show')->name('show');
     Route::get('/edit/{user}', 'edit')->name('edit');
-    Route::post('/update', 'update')->name('update');
+    Route::post('/update/{user}', 'update')->name('update');
     Route::get('/delete/{user}', 'delete')->name('delete');
     Route::post('/deleteAll', 'deleteAll')->name('deleteAll');
     Route::get('/compelete', 'compelete_form')->name('compelete_form');

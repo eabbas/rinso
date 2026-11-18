@@ -242,18 +242,17 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $validate = $request->validate($this->validator(), $this->messages());
-        $user = User::find($user);
-        if (isset($validate['roles'])) {
+        if ($request->roles) {
             role_user::where('user_id', $user->id)->delete();
-            foreach ($validate['roles'] as $role) {
+            foreach ($request->roles as $role) {
                 role_user::create([
-                    'user_id' => $validate['user_id'],
+                    'user_id' => $user->id,
                     'role_id' => $role
                 ]);
             }
         }
-        $user->name = $validate['name'];
-        $user->family = $validate['family'];
+        $user->name = isset($validate['name']) ? $validate['name'] : null;
+        $user->family = isset($validate['family']) ? $validate['family'] : null;
         if (isset($validate['phoneNumber'])) {
             $user->phoneNumber = $validate['phoneNumber'];
         }
@@ -264,7 +263,7 @@ class UserController extends Controller
             $password = Hash::make($validate['password']);
             $user->password = $password;
         }
-        if ($validate['main_image']) {
+        if (isset($validate['main_image']) && $validate['main_image']) {
             if ($user->main_image) {
                 Storage::disk('public')->delete($user->main_image);
             }
