@@ -206,12 +206,36 @@
         .step-panel {
             overflow: visible !important;
         }
+
+        /* فضای خالی برای فوتر موبایل */
+        @media (max-width: 1023px) {
+            #businessLeadForm {
+                padding-bottom: calc(115px + env(safe-area-inset-bottom));
+            }
+
+            /* دکمه‌های ناوبری همیشه در دسترس */
+            #businessLeadForm>div:last-child {
+                position: sticky;
+                bottom: calc(90px + env(safe-area-inset-bottom));
+                z-index: 100;
+                background: #f5f7fb;
+                padding: 12px 0;
+                margin-top: 20px;
+            }
+        }
+
+        /* جلوگیری از تداخل در دسکتاپ */
+        @media (min-width: 1024px) {
+            #businessLeadForm {
+                padding-bottom: 0;
+            }
+        }
     </style>
 
 
     <div class="max-w-5xl mx-auto">
 
-    
+
 
         @if ($errors->any())
             <div class="bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 mb-5 text-sm">
@@ -272,7 +296,7 @@
                 </div>
             </div>
         </section>
-        
+
         <form action="{{ route('business-leads.store') }}" method="POST" id="businessLeadForm">
             @csrf
 
@@ -607,7 +631,7 @@
             </section>
 
             <!-- Navigation -->
-            <div class="flex items-center justify-between gap-3 mt-5">
+            <div class="w-11/12 mx-auto flex items-center justify-between gap-3 mt-5">
                 <button type="button" id="prevStep" class="secondary-btn hidden">مرحله قبل</button>
                 <span class="flex-1"></span>
                 <button type="button" id="nextStep" class="primary-btn">مرحله بعد</button>
@@ -669,8 +693,11 @@
                 nextButton.classList.toggle('hidden', index === panels.length - 1);
                 submitButton.classList.toggle('hidden', index !== panels.length - 1);
 
+                const formTop = document.getElementById('businessLeadForm')
+                    .getBoundingClientRect().top + window.scrollY;
+
                 window.scrollTo({
-                    top: 0,
+                    top: Math.max(0, formTop - 15),
                     behavior: 'smooth'
                 });
             }
