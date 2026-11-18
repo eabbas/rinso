@@ -28,7 +28,7 @@
         .field-label {
             display: block;
             font-size: 13px;
-            font-weight: 600;
+            /* font-weight: 600; */
             color: #334155;
             margin-bottom: 9px;
         }
@@ -72,7 +72,7 @@
             background: #edf1f6;
             color: #64748b;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: bold;
             transition: .2s;
         }
 
@@ -88,7 +88,7 @@
 
         .step-item.active .step-name {
             color: var(--navy);
-            font-weight: 700;
+            font-weight: bold;
         }
 
         .step-name {
@@ -145,7 +145,7 @@
             border-radius: 12px;
             padding: 12px 25px;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: bold;
             transition: .2s;
         }
 
