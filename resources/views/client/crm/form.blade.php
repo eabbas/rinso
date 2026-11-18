@@ -304,7 +304,7 @@
             <section class="step-panel active form-card p-5 sm:p-8" data-step="0">
                 <div class="mb-7">
                     <span class="orange-dot mb-3"></span>
-                    <h3 class="font-extrabold text-lg" style="color:var(--navy)">اطلاعات فردی</h3>
+                    <h3 class="font-bold text-lg" style="color:var(--navy)">اطلاعات فردی</h3>
                     <p class="text-xs text-slate-400 mt-2">ابتدا کمی با شما و فعالیت حرفه‌ای‌تان آشنا شویم.</p>
                 </div>
 
@@ -354,7 +354,7 @@
             <section class="step-panel form-card p-5 sm:p-8" data-step="1">
                 <div class="mb-7">
                     <span class="orange-dot mb-3"></span>
-                    <h3 class="font-extrabold text-lg" style="color:var(--navy)">اطلاعات کسب‌وکار</h3>
+                    <h3 class="font-bold text-lg" style="color:var(--navy)">اطلاعات کسب‌وکار</h3>
                     <p class="text-xs text-slate-400 mt-2">می‌خواهیم با ساختار و سابقه فعالیت شما آشنا شویم.</p>
                 </div>
 
@@ -420,7 +420,7 @@
             <section class="step-panel form-card p-5 sm:p-8" data-step="2">
                 <div class="mb-7">
                     <span class="orange-dot mb-3"></span>
-                    <h3 class="font-extrabold text-lg" style="color:var(--navy)">شبکه‌های اجتماعی</h3>
+                    <h3 class="font-bold text-lg" style="color:var(--navy)">شبکه‌های اجتماعی</h3>
                     <p class="text-xs text-slate-400 mt-2">آدرس صفحات و کانال‌های فعال کسب‌وکارتان را وارد کنید.</p>
                 </div>
 
@@ -438,7 +438,7 @@
 
                     @foreach ($platforms as $key => $label)
                         <div class="grid sm:grid-cols-3 gap-3 items-center">
-                            <div class="text-sm font-semibold text-slate-600">{{ $label }}</div>
+                            <div class="text-sm font-bold text-slate-600">{{ $label }}</div>
                             <div class="sm:col-span-2">
                                 <input type="hidden" name="socials[{{ $loop->index }}][platform]"
                                     value="{{ $key }}">
@@ -456,7 +456,7 @@
             <section class="step-panel form-card p-5 sm:p-8" data-step="3">
                 <div class="mb-7">
                     <span class="orange-dot mb-3"></span>
-                    <h3 class="font-extrabold text-lg" style="color:var(--navy)">تیم فروش</h3>
+                    <h3 class="font-bold text-lg" style="color:var(--navy)">تیم فروش</h3>
                     <p class="text-xs text-slate-400 mt-2">آیا در کسب‌وکار خود فروشنده یا نیروی فروش دارید؟</p>
                 </div>
 
@@ -488,7 +488,7 @@
             <section class="step-panel form-card p-5 sm:p-8" data-step="4">
                 <div class="mb-7">
                     <span class="orange-dot mb-3"></span>
-                    <h3 class="font-extrabold text-lg" style="color:var(--navy)">شناخت مشتریان</h3>
+                    <h3 class="font-bold text-lg" style="color:var(--navy)">شناخت مشتریان</h3>
                     <p class="text-xs text-slate-400 mt-2">اطلاعات مشتریان و رفتار خرید آن‌ها را بررسی کنیم.</p>
                 </div>
 
@@ -533,7 +533,7 @@
             <section class="step-panel form-card p-5 sm:p-8" data-step="5">
                 <div class="mb-7">
                     <span class="orange-dot mb-3"></span>
-                    <h3 class="font-extrabold text-lg" style="color:var(--navy)">چالش‌های کسب‌وکار</h3>
+                    <h3 class="font-bold text-lg" style="color:var(--navy)">چالش‌های کسب‌وکار</h3>
                     <p class="text-xs text-slate-400 mt-2">می‌خواهیم موانع رشد و فروش را از نگاه خودتان بشناسیم.</p>
                 </div>
 
@@ -572,7 +572,7 @@
             <section class="step-panel form-card p-5 sm:p-8" data-step="6">
                 <div class="mb-7">
                     <span class="orange-dot mb-3"></span>
-                    <h3 class="font-extrabold text-lg" style="color:var(--navy)">ارزش پیشنهادی و زمینه همکاری</h3>
+                    <h3 class="font-bold text-lg" style="color:var(--navy)">ارزش پیشنهادی و زمینه همکاری</h3>
                     <p class="text-xs text-slate-400 mt-2">در پایان، مزیت‌های کسب‌وکار و حوزه‌های مورد علاقه‌تان را
                         مشخص کنید.</p>
                 </div>
