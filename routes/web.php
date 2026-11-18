@@ -65,15 +65,12 @@ use App\Models\pages;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-Route::post('/store', [BusinessLeadController::class, 'store'])
-    ->name('business-leads.store');
-Route::get('/business-leads-index', [BusinessLeadController::class, 'index'])
-    ->name('business-leads.index')
-    ->middleware(AdminMiddleware::class);
 
-Route::get('/business-leads/{businessLead}', [BusinessLeadController::class, 'show'])
-    ->name('business-leads.show')
-    ->middleware(AdminMiddleware::class);
+Route::get('/form/{team?}', [BusinessLeadController::class, 'create'])->name('business-leads.create');
+Route::post('/store', [BusinessLeadController::class, 'store'])->name('business-leads.store');
+Route::get('/business-leads-index', [BusinessLeadController::class, 'index'])->name('business-leads.index')->middleware(AdminMiddleware::class);
+Route::get('/business-leads/{businessLead}', [BusinessLeadController::class, 'show'])->name('business-leads.show')->middleware(AdminMiddleware::class);
+
 
 Route::get('/fttest', function () {
     Schema::table('business_leads', function (Blueprint $table) {
@@ -87,7 +84,6 @@ Route::get('/fttest', function () {
 });
 
 // Route::view('/form', 'client.crm.form');
-Route::get('/form/{berso}', [BusinessLeadController::class, 'create'])->name('create');
 
 // Route::get('/test', function () {
 //     Schema::table('pages', function (BluePrint $table) {

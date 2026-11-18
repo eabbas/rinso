@@ -2,7 +2,14 @@
 @section('title', 'رینسو | داشبورد')
 
 @section('content')
+@php
+    $ids = Auth::check()
+        ? Auth::user()->role->pluck('id')->toArray()
+        : [];
 
+    $isAdmin = in_array(1, $ids);
+    $canManageUsers = $isAdmin || in_array(4, $ids);
+@endphp
     {{-- پیام شناور --}}
     <div class="fixed top-0 opacity-0 invisible right-1/2 translate-x-1/2 w-11/12 sm:w-3/4 lg:w-1/3 bg-white rounded-2xl shadow-xl border border-gray-100 transition-all duration-500 z-[99999999]"
         id="message">
@@ -27,6 +34,117 @@
             </div>
         </div>
     </div>
+
+    @if ($isAdmin)
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+
+            {{-- برسو --}}
+            <div
+                class="group relative overflow-hidden bg-white border border-gray-100 rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-md hover:border-orange-200 transition-all duration-300">
+
+                <div
+                    class="absolute -left-8 -top-10 size-32 rounded-full bg-orange-50 group-hover:bg-orange-100/70 transition-colors">
+                </div>
+
+                <div class="relative flex items-center justify-between gap-3">
+
+                    <div class="flex items-center gap-3 min-w-0">
+
+                        <div class="size-12 shrink-0 rounded-xl bg-orange-50 text-[#FF9D16] flex items-center justify-center">
+                            <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 20h9" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16.5 3.5a2.12 2.12 0 0 1 3 3L8 18l-4 1 1-4Z" />
+                            </svg>
+                        </div>
+
+                        <div class="min-w-0">
+                            <h3 class="text-sm font-bold text-gray-800">
+                                فرم شناخت کسب‌وکار برسو
+                            </h3>
+                            <p class="text-xs text-gray-400 mt-1">
+                                دریافت اطلاعات اولیه کسب‌وکار
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <button type="button" onclick="copyText('{{ route('business-leads.create', ['berso']) }}')"
+                        class="relative shrink-0 size-10 rounded-xl bg-[#101F38] text-white flex items-center justify-center hover:bg-[#172B4D] active:scale-95 transition-all"
+                        title="کپی لینک فرم برسو">
+
+                        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <rect x="8" y="8" width="13" height="13" rx="2" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+                        </svg>
+
+                    </button>
+
+                </div>
+
+                <div class="relative flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+                    <span class="text-[11px] text-gray-400">لینک اختصاصی فرم</span>
+                    <span class="text-xs font-semibold text-[#FF9D16]">BERSO</span>
+                </div>
+
+            </div>
+
+
+            {{-- پیناوب --}}
+            <div
+                class="group relative overflow-hidden bg-white border border-gray-100 rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300">
+
+                <div
+                    class="absolute -left-8 -top-10 size-32 rounded-full bg-blue-50 group-hover:bg-blue-100/70 transition-colors">
+                </div>
+
+                <div class="relative flex items-center justify-between gap-3">
+
+                    <div class="flex items-center gap-3 min-w-0">
+
+                        <div class="size-12 shrink-0 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                            <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3 3 8l9 5 9-5-9-5Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m3 12 9 5 9-5M3 16l9 5 9-5" />
+                            </svg>
+                        </div>
+
+                        <div class="min-w-0">
+                            <h3 class="text-sm font-bold text-gray-800">
+                                فرم شناخت کسب‌وکار پیناوب
+                            </h3>
+                            <p class="text-xs text-gray-400 mt-1">
+                                دریافت اطلاعات اولیه کسب‌وکار
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <button type="button" onclick="copyText('{{ route('business-leads.create', ['pinaweb']) }}')"
+                        class="relative shrink-0 size-10 rounded-xl bg-[#101F38] text-white flex items-center justify-center hover:bg-[#172B4D] active:scale-95 transition-all"
+                        title="کپی لینک فرم پیناوب">
+
+                        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <rect x="8" y="8" width="13" height="13" rx="2" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+                        </svg>
+
+                    </button>
+
+                </div>
+
+                <div class="relative flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+                    <span class="text-[11px] text-gray-400">لینک اختصاصی فرم</span>
+                    <span class="text-xs font-semibold text-blue-600">PINAWEB</span>
+                </div>
+
+            </div>
+
+        </div>
+    @endif
+
 
     {{-- درخواست نمایندگی --}}
     {{-- @if (!isset(Auth::user()->request) && !in_array(1, Auth::user()->role->pluck('id')->toArray()))
@@ -152,7 +270,8 @@
                     @else
                         <div class="text-center py-8">
                             <div class="size-12 mx-auto mb-3 rounded-2xl bg-gray-50 flex items-center justify-center">
-                                <svg class="size-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="size-6 text-gray-300" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
                                         d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 18.5z" />
                                 </svg>
@@ -336,6 +455,10 @@
     </div>
 
     <script>
+        function copyText(link) {
+            navigator.clipboard.writeText(link)
+            alert("لینک کپی شد")
+        }
         // باز و بسته کردن منوی صفحه‌ها
         function toggleDropdown(element) {
             const clickedDropdown = element.nextElementSibling

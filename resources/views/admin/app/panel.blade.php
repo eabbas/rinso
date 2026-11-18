@@ -145,6 +145,51 @@
             {{-- دسته بندی صفحه ها --}}
             @if($isAdmin)
                 <details class="group rounded-xl overflow-hidden"
+                    @if(Route::is('business-leads.*')) open @endif>
+
+                    <summary class="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer list-none transition-all
+                        {{ Route::is('business-leads.*') ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
+
+                        <svg viewBox="0 0 24 24" class="size-5 shrink-0"
+                             fill="none" stroke="currentColor" stroke-width="1.8"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="8" height="8" rx="2"/>
+                            <rect x="13" y="3" width="8" height="5" rx="2"/>
+                            <rect x="13" y="10" width="8" height="11" rx="2"/>
+                            <rect x="3" y="13" width="8" height="8" rx="2"/>
+                        </svg>
+
+                        <span class="text-sm font-medium">دسته‌بندی صفحه ها</span>
+
+                        <svg viewBox="0 0 24 24"
+                             class="size-4 mr-auto transition-transform group-open:rotate-180"
+                             fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </summary>
+
+                    <div class="pr-5 pt-1 pb-2 space-y-1">
+                        <a href="{{ route('business-leads.create', ['berso']) }}"
+                           class="block px-4 py-2.5 rounded-lg text-xs transition-all
+                           {{ Route::is('business-leads.create') ? 'text-[#FB9413] bg-[#FB9413]/10' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
+                            ایجاد فرم برسو
+                        </a>
+                        <a href="{{ route('business-leads.create', ['pinaweb']) }}"
+                           class="block px-4 py-2.5 rounded-lg text-xs transition-all
+                           {{ Route::is('business-leads.create') ? 'text-[#FB9413] bg-[#FB9413]/10' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
+                            ایجاد فرم پیناوب
+                        </a>
+
+                        <a href="{{ route('business-leads.index') }}"
+                           class="block px-4 py-2.5 rounded-lg text-xs transition-all
+                           {{ Route::is('business-leads.index') ? 'text-[#FB9413] bg-[#FB9413]/10' : 'text-slate-400 hover:text-white hover:bg-white/5' }}">
+                            لیست 
+                        </a>
+                    </div>
+                </details>
+            @endif
+            @if($isAdmin)
+                <details class="group rounded-xl overflow-hidden"
                     @if(Route::is('pageCategory.*')) open @endif>
 
                     <summary class="flex items-center gap-3 px-4 py-3 rounded-xl cursor-pointer list-none transition-all
@@ -460,8 +505,6 @@
         </main>
 
     </div>
-
-</div>
 
 <script src="{{ asset('assets/js/adminMenu.js') }}"></script>
 
