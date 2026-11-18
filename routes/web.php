@@ -553,7 +553,7 @@ Route::group([
 });
 
 // aboutUs
-Route::get('/aboutUs', [AboutUsController::class, 'clientList'])->name('aboutUs.clientList');
+// Route::get('/aboutUs', [AboutUsController::class, 'clientList'])->name('aboutUs.clientList');
 Route::group([
     'prefix' => 'aboutUs',
     'controller' => AboutUsController::class,
