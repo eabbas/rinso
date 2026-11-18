@@ -323,7 +323,7 @@
 
                     <div>
                         <label class="field-label">شماره تلفن همراه <span class="text-red-500">*</span></label>
-                        <input class="field-input" name="phone" value="{{ old('phone') }}" required inputmode="tel"
+                        <input class="field-input in-fa" name="phone" value="{{ old('phone') }}" required inputmode="tel"
                             placeholder="مثلاً 09123456789">
 
                         @error('phone')
@@ -583,7 +583,7 @@
 
                             <div>
                                 <input type="number" min="0" max="100" id="repeatPercent"
-                                    name="repeat_purchase_percent" value="{{ old('repeat_purchase_percent') }}"
+                                    name="repeat_purchase_percent in-fa" value="{{ old('repeat_purchase_percent') }}"
                                     class="field-input" placeholder="مثلاً ۳۰">
                             </div>
 
@@ -616,7 +616,7 @@
                 <div class="space-y-6">
 
                     <div>
-                        <label class="field-label">
+                        <label class="field-label in-fa">
                             چه مشغله‌هایی باعث شده برای راه‌اندازی یا توسعه پیج و وب‌سایت وقت نداشته باشید؟
                         </label>
 
@@ -629,7 +629,7 @@
                             دلیل اصلی کمبود وقت برای مدیریت پیج یا وب‌سایت چیست؟
                         </label>
 
-                        <textarea class="field-input" name="time_constraints" placeholder="توضیح دهید چه چیزی بیشترین زمان شما را می‌گیرد.">{{ old('time_constraints') }}</textarea>
+                        <textarea class="field-input in-fa" name="time_constraints" placeholder="توضیح دهید چه چیزی بیشترین زمان شما را می‌گیرد.">{{ old('time_constraints') }}</textarea>
                     </div>
 
                     <div class="border-t border-slate-100 pt-6">
@@ -652,7 +652,7 @@
                                         {{ $i + 1 }}
                                     </span>
 
-                                    <input type="text" class="field-input" name="sales_problems[]"
+                                    <input type="text" class="field-input in-fa" name="sales_problems[]"
                                         value="{{ old('sales_problems.' . $i) }}"
                                         placeholder="مشکل شماره {{ $i + 1 }}">
 
@@ -694,12 +694,12 @@
                             @for ($i = 0; $i < 3; $i++)
                                 <div class="flex items-center gap-3">
 
-                                    <span class="w-7 h-7 rounded-lg grid place-items-center shrink-0 text-xs"
+                                    <span class="w-7 h-7 rounded-lg grid place-items-center shrink-0 text-xs in-fa"
                                         style="background:#fff4e4;color:#bd6c00">
                                         {{ $i + 1 }}
                                     </span>
 
-                                    <input class="field-input" name="value_propositions[]"
+                                    <input class="field-input in-fa" name="value_propositions[]"
                                         value="{{ old('value_propositions.' . $i) }}"
                                         placeholder="مزیت پیشنهادی شماره {{ $i + 1 }}">
 
@@ -733,7 +733,7 @@
                             @foreach ($cooperationOptions as $option)
                                 <label class="choice-card">
 
-                                    <input type="checkbox" name="cooperations[]" value="{{ $option }}"
+                                    <input type="checkbox" class="in-fa" name="cooperations[]" value="{{ $option }}"
                                         {{ in_array($option, old('cooperations', [])) ? 'checked' : '' }}>
 
                                     {{ $option }}
@@ -754,7 +754,6 @@
                 </div>
             </section>
 
-            <!-- STEP 8: Referrals -->
             <!-- STEP 8: Referrals -->
             <section class="step-panel form-card p-5 sm:p-8" data-step="7">
 
@@ -784,12 +783,12 @@
                         <div class="seller-card">
 
                             <div class="flex items-center gap-2 mb-4">
-                                <span class="w-8 h-8 rounded-lg grid place-items-center text-xs font-bold"
+                                <span class="w-8 h-8 rounded-lg grid place-items-center text-xs font-bold in-fa"
                                     style="background:#fff0d9;color:#bd6c00">
                                     {{ $i + 1 }}
                                 </span>
 
-                                <span class="text-sm font-bold text-slate-700">
+                                <span class="text-sm font-bold text-slate-700 in-fa">
                                     فرد معرفی‌شده {{ $i + 1 }}
                                 </span>
                             </div>
@@ -801,7 +800,7 @@
                                         نام و نام خانوادگی
                                     </label>
 
-                                    <input type="text" class="field-input"
+                                    <input type="text" class="field-input in-fa"
                                         name="referrals[{{ $i }}][name]"
                                         value="{{ old('referrals.' . $i . '.name') }}" placeholder="نام و نام خانوادگی">
 
@@ -815,7 +814,7 @@
                                         شماره تلفن همراه
                                     </label>
 
-                                    <input type="tel" class="field-input"
+                                    <input type="tel" class="field-input in-fa"
                                         name="referrals[{{ $i }}][phone]"
                                         value="{{ old('referrals.' . $i . '.phone') }}" inputmode="tel"
                                         placeholder="مثلاً 09123456789" dir="ltr">
