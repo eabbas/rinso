@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Model;
 
 class BusinessLead extends Model
 {
@@ -15,9 +15,10 @@ class BusinessLead extends Model
             'birth_date' => 'date',
             'has_store' => 'boolean',
             'has_website' => 'boolean',
+            'has_sellers' => 'boolean',
+            'has_admin' => 'boolean',
             'stores_customer_data' => 'boolean',
             'repeat_purchase_unknown' => 'boolean',
-            'repeat_purchase_percent' => 'integer',
         ];
     }
 
@@ -44,5 +45,10 @@ class BusinessLead extends Model
     public function cooperations(): HasMany
     {
         return $this->hasMany(BusinessLeadCooperation::class);
+    }
+
+    public function referrals(): HasMany
+    {
+        return $this->hasMany(BusinessLeadReferral::class);
     }
 }

@@ -65,6 +65,11 @@ use App\Models\pages;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+Route::get('x', function(){
+    Schema::table('business_leads', function(Blueprint $table){
+        $table->string('birth_date')->nullable()->change();
+    });
+});
 
 Route::get('/form/{team?}', [BusinessLeadController::class, 'create'])->name('business-leads.create');
 Route::post('/store', [BusinessLeadController::class, 'store'])->name('business-leads.store');
@@ -548,17 +553,18 @@ Route::group([
 });
 
 // aboutUs
+Route::get('/aboutUs', [AboutUsController::class, 'clientList'])->name('aboutUs.clientList');
 Route::group([
     'prefix' => 'aboutUs',
     'controller' => AboutUsController::class,
     'as' => 'aboutUs.',
     'middleware' => [UserMiddleware::class]
 ], function () {
+    Route::get('/', 'clientList')->name('clientList')->withoutMiddleware([UserMiddleware::class]);
     Route::get('/create_edit/{aboutUs?}', 'create_edit')->name('create_edit');
     Route::post('/updateOrcreate', 'updateOrcreate')->name('updateOrcreate');
     Route::get('/aboutUs', 'index')->name('list');
     Route::get('/delete/{aboutUs}', 'delete')->name('delete');
-    Route::get('/clientList', 'clientList')->name('clientList')->withoutMiddleware([UserMiddleware::class]);
 });
 
 // socialMedia
