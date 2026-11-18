@@ -560,7 +560,9 @@ Route::group([
     'as' => 'aboutUs.',
     'middleware' => [UserMiddleware::class]
 ], function () {
-    Route::get('/', 'clientList')->name('clientList')->withoutMiddleware([UserMiddleware::class]);
+    Route::get('/', function(){
+        dd(6666);
+    })->name('clientList')->withoutMiddleware([UserMiddleware::class]);
     Route::get('/create_edit/{aboutUs?}', 'create_edit')->name('create_edit');
     Route::post('/updateOrcreate', 'updateOrcreate')->name('updateOrcreate');
     Route::get('/aboutUs', 'index')->name('list');
