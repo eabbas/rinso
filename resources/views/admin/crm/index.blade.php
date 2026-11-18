@@ -175,6 +175,10 @@
                             </th>
 
                             <th class="px-5 py-4 font-bold">
+                                تیم
+                            </th>
+
+                            <th class="px-5 py-4 font-bold">
                                 تاریخ ثبت
                             </th>
 
@@ -241,6 +245,11 @@
                                 </td>
 
 
+                                {{-- Created At --}}
+                                <td class="px-5 py-4 text-sm text-gray-500 in-fa">
+                                    {{ $lead->team ?? '---' }}
+                                </td>
+                                
                                 {{-- Created At --}}
                                 <td class="px-5 py-4 text-sm text-gray-500 in-fa">
                                     {{ $lead->date ?? '---' }}
