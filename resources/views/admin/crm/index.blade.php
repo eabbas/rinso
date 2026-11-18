@@ -1,5 +1,5 @@
 
-@extends('client.document')
+@extends('admin.app.panel')
 
 @section('title', 'لیست اطلاعات کسب‌وکارها')
 
@@ -57,7 +57,7 @@
               class="grid grid-cols-1 md:grid-cols-12 gap-3">
 
             {{-- Search --}}
-            <div class="md:col-span-7">
+            <div class="md:col-span-5">
                 <div class="relative">
 
                     <svg class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"
@@ -100,7 +100,7 @@
 
 
             {{-- Buttons --}}
-            <div class="md:col-span-2 flex gap-2">
+            <div class="md:col-span-4 flex gap-2">
 
                 <button
                     type="submit"
@@ -201,15 +201,14 @@
                                 {{-- Name --}}
                                 <td class="px-5 py-4">
 
-                                    <div class="font-semibold text-sm text-gray-800">
+                                    <a href="{{ route('business-leads.show', $lead->id) }}"
+                                    class="font-semibold text-sm text-gray-800 hover:text-[#FF9D16] transition">
                                         {{ trim(($lead->first_name ?? '') . ' ' . ($lead->last_name ?? '')) ?: 'بدون نام' }}
-                                    </div>
+                                    </a>
 
-                                    @if($lead->birth_date)
-                                        <div class="text-xs text-gray-400 mt-1">
-                                            تاریخ تولد: {{ $lead->birth_date }}
-                                        </div>
-                                    @endif
+                                    <div class="text-xs text-gray-400 mt-1">
+                                        مشاهده پرونده
+                                    </div>
 
                                 </td>
 
@@ -218,7 +217,7 @@
                                 <td class="px-5 py-4">
 
                                     @if($lead->phone)
-                                        <span class="text-sm text-gray-600" dir="ltr">
+                                        <span class="text-sm text-gray-600 in-fa" dir="ltr">
                                             {{ $lead->phone }}
                                         </span>
                                     @else
@@ -237,14 +236,14 @@
 
 
                                 {{-- Business Age --}}
-                                <td class="px-5 py-4 text-sm text-gray-600">
+                                <td class="px-5 py-4 text-sm text-gray-600 in-fa">
                                     {{ $lead->business_age ?: 'ثبت نشده' }}
                                 </td>
 
 
                                 {{-- Created At --}}
-                                <td class="px-5 py-4 text-sm text-gray-500">
-                                    {{ $lead->created_at?->format('Y/m/d') ?? '---' }}
+                                <td class="px-5 py-4 text-sm text-gray-500 in-fa">
+                                    {{ $lead->date ?? '---' }}
                                 </td>
 
 

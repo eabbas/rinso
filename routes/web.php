@@ -65,23 +65,29 @@ use App\Models\pages;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-Route::post('/form', [BusinessLeadController::class, 'store'])
+Route::post('/store', [BusinessLeadController::class, 'store'])
     ->name('business-leads.store');
 Route::get('/business-leads-index', [BusinessLeadController::class, 'index'])
-    ->name('business-leads.index');
+    ->name('business-leads.index')
+    ->middleware(AdminMiddleware::class);
+
+Route::get('/business-leads/{businessLead}', [BusinessLeadController::class, 'show'])
+    ->name('business-leads.show')
+    ->middleware(AdminMiddleware::class);
 
 Route::get('/fttest', function () {
-    Schema::table('pages', function (Blueprint $table) {
-        $table->string('date')->nullable()->after('is_private');
+    Schema::table('business_leads', function (Blueprint $table) {
+        $table->string('team')->nullable()->after('job_title');
     });
-    $pages = pages::all();
-    foreach ($pages as $page) {
-        $date = implode('/', explode('-', explode(' ', verta())[0]));
-        $page->update(['date' => $date]);
-    }
+    // $pages = pages::whereNull('date')->get();
+    // foreach ($pages as $page) {
+    //     $date = implode('/', explode('-', explode(' ', verta())[0]));
+    //     $page->update(['date' => $date]);
+    // }
 });
 
-Route::view('/form', 'client.crm.form');
+// Route::view('/form', 'client.crm.form');
+Route::get('/form/{berso}', [BusinessLeadController::class, 'create'])->name('create');
 
 // Route::get('/test', function () {
 //     Schema::table('pages', function (BluePrint $table) {

@@ -11,6 +11,11 @@ use Throwable;
 
 class BusinessLeadController extends Controller
 {
+    public function create($team)
+    {
+        return view('client.crm.form', ['team' => $team]);
+    }
+
     public function store(Request $request)
     {
         $request->merge([
@@ -22,6 +27,7 @@ class BusinessLeadController extends Controller
 
         $validated = $request->validate([
             // اطلاعات فردی
+            'team' => ['nullable', 'string', 'max:191'],
             'first_name' => ['nullable', 'string', 'max:191'],
             'last_name' => ['nullable', 'string', 'max:191'],
             'phone' => ['nullable', 'string', 'max:20'],
@@ -83,6 +89,7 @@ class BusinessLeadController extends Controller
             'value_propositions.max' => 'حداکثر سه ارزش پیشنهادی می‌توانید وارد کنید.',
             'sales_problems.max' => 'حداکثر پنج مشکل فروش می‌توانید وارد کنید.',
         ], [
+            'team' => 'تیم',
             'first_name' => 'نام',
             'last_name' => 'نام خانوادگی',
             'phone' => 'شماره تلفن',
@@ -111,6 +118,7 @@ class BusinessLeadController extends Controller
                  */
 
                 $leadData = Arr::only($validated, [
+                    'team',
                     'first_name',
                     'last_name',
                     'phone',
@@ -276,9 +284,42 @@ class BusinessLeadController extends Controller
             ->paginate(15)
             ->withQueryString();
 
-        return view('client.crm.index', compact(
+        foreach ($leads as $lead) {
+            $birthDate = implode('/', explode('-', explode(' ', verta($lead->birth_date))[0]));
+            $lead->birthDate = $birthDate;
+
+            $date = implode('/', explode('-', explode(' ', verta($lead->created_at))[0]));
+            $lead->date = $date;
+        }
+
+        return view('admin.crm.index', compact(
             'leads',
             'totalLeads'
         ));
+    }
+
+    public function show(BusinessLead $businessLead)
+    {
+        $businessLead->load([
+            'socials',
+            'sellers',
+            'valuePropositions',
+            'salesProblems',
+            'cooperations',
+        ]);
+    
+        $birthDate = implode('/', explode('-', explode(' ', verta($businessLead->birth_date))[0]));
+        $businessLead->birthDate = $birthDate;
+
+        $date = implode('/', explode('-', explode(' ', verta($businessLead->created_at))[0]));
+        $businessLead->date = $date;
+
+        $update = implode('/', explode('-', explode(' ', verta($businessLead->updated_at))[0]))." - ".explode(' ', $businessLead->updated_at)[1];
+        $businessLead->update = $update;
+
+
+        return view('admin.crm.single', [
+            'lead' => $businessLead,
+        ]);
     }
 }

@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->string('phone', 20)->nullable();
             $table->date('birth_date')->nullable();
             $table->string('job_title')->nullable();
+            $table->string('team')->nullable();
 
             // Business information
             $table->string('business_age')->nullable();

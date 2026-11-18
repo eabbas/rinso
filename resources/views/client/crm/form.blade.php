@@ -299,7 +299,7 @@
 
         <form action="{{ route('business-leads.store') }}" method="POST" id="businessLeadForm">
             @csrf
-
+            <input type="hidden" name="team" value="{{ $team }}">
             <!-- STEP 1: Personal -->
             <section class="step-panel active form-card p-5 sm:p-8" data-step="0">
                 <div class="mb-7">
