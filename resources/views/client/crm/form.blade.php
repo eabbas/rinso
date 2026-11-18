@@ -233,7 +233,7 @@
     </style>
 
 
-    <div class="max-w-5xl mx-auto">
+    <div class="max-w-5xl mx-auto mt-5 lg:mt-10">
 
 
 
