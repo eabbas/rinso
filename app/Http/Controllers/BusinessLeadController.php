@@ -19,208 +19,301 @@ class BusinessLeadController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            // مرحله اول: تنها فیلدهای اجباری فرم
+
+            /*
+            |--------------------------------------------------------------------------
+            | Step 1 - Personal Information
+            |--------------------------------------------------------------------------
+            */
+
+            'team' => ['nullable', 'string', 'max:191'],
+
             'first_name' => ['required', 'string', 'max:191'],
             'last_name' => ['required', 'string', 'max:191'],
-            'phone' => ['required', 'string', 'max:30'],
+            'phone' => ['required', 'string', 'max:20'],
+            'birth_date' => ['nullable', 'date'],
             'job_title' => ['required', 'string', 'max:191'],
-            'birth_date' => ['nullable', 'string'],
-            // مرحله دوم: اطلاعات کسب‌وکار
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Step 2 - Business Information
+            |--------------------------------------------------------------------------
+            */
+
             'business_age' => ['nullable', 'string', 'max:191'],
+
             'has_store' => ['nullable', 'boolean'],
-            'store_address' => ['nullable', 'string', 'max:1000'],
+            'store_address' => ['nullable', 'string'],
+
             'has_website' => ['nullable', 'boolean'],
             'website_url' => ['nullable', 'string', 'max:2048'],
             'website_age' => ['nullable', 'string', 'max:191'],
-            // مرحله سوم: شبکه‌های اجتماعی
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Step 3 - Social Networks
+            |--------------------------------------------------------------------------
+            */
+
             'socials' => ['nullable', 'array'],
+
             'socials.*.platform' => [
                 'nullable',
                 'string',
-                Rule::in([
-                    'telegram',
-                    'instagram',
-                    'eitaa',
-                    'rubika',
-                    'bale',
-                    'linkedin',
-                ]),
+                'in:telegram,instagram,eitaa,rubika,bale,linkedin'
             ],
+
             'socials.*.address' => ['nullable', 'string', 'max:2048'],
-            // مرحله چهارم: فروشندگان و ادمین
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Step 4 - Business Team
+            |--------------------------------------------------------------------------
+            */
+
             'has_sellers' => ['nullable', 'boolean'],
             'has_admin' => ['nullable', 'boolean'],
-            'sellers' => ['nullable', 'array'],
-            'sellers.*.first_name' => ['nullable', 'string', 'max:191'],
-            'sellers.*.last_name' => ['nullable', 'string', 'max:191'],
-            'sellers.*.phone' => ['nullable', 'string', 'max:30'],
-            'sellers.*.birth_date' => ['nullable', 'string'],
-            // مرحله پنجم: اطلاعات مشتریان
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Step 5 - Customers
+            |--------------------------------------------------------------------------
+            */
+
             'stores_customer_data' => ['nullable', 'boolean'],
-            'repeat_purchase_unknown' => ['nullable', 'boolean'],
+
             'repeat_purchase_percent' => [
                 'nullable',
                 'integer',
-                'between:0,100',
+                'between:0,100'
             ],
-            // مرحله ششم: چالش‌ها
-            'digital_obstacles' => ['nullable', 'string', 'max:5000'],
-            'time_constraints' => ['nullable', 'string', 'max:5000'],
+
+            'repeat_purchase_unknown' => ['nullable', 'boolean'],
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Step 6 - Business Challenges
+            |--------------------------------------------------------------------------
+            */
+
+            'digital_obstacles' => ['nullable', 'string'],
+            'time_constraints' => ['nullable', 'string'],
+
             'sales_problems' => ['nullable', 'array'],
             'sales_problems.*' => ['nullable', 'string', 'max:1000'],
-            // مرحله هفتم: ارزش پیشنهادی و همکاری
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Step 7 - Value Propositions & Cooperation
+            |--------------------------------------------------------------------------
+            */
+
             'value_propositions' => ['nullable', 'array'],
             'value_propositions.*' => ['nullable', 'string', 'max:191'],
+
             'cooperations' => ['nullable', 'array'],
             'cooperations.*' => ['nullable', 'string', 'max:191'],
-            // مرحله هشتم: معرفی‌شدگان
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Step 8 - Referrals
+            |--------------------------------------------------------------------------
+            */
+
             'referrals' => ['nullable', 'array'],
-            'referrals.*.name' => ['nullable', 'string', 'max:191'],
-        ], [
-            'first_name.required' => 'لطفاً نام خود را وارد کنید.',
-            'last_name.required' => 'لطفاً نام خانوادگی خود را وارد کنید.',
-            'phone.required' => 'لطفاً شماره تماس خود را وارد کنید.',
-            'job_title.required' => 'لطفاً عنوان شغلی خود را وارد کنید.',
-            // 'birth_date.date' => 'تاریخ تولد واردشده معتبر نیست.',
+
+            'referrals.*.name' => [
+                'nullable',
+                'string',
+                'max:191'
+            ],
+
+            'referrals.*.phone' => [
+                'nullable',
+                'string',
+                'max:20'
+            ],
+
         ]);
 
-        try {
-            DB::transaction(function () use ($validated) {
-                $lead = BusinessLead::create([
-                    // مرحله اول
-                    'first_name' => $validated['first_name'],
-                    'last_name' => $validated['last_name'],
-                    'phone' => $validated['phone'],
-                    'birth_date' => $validated['birth_date'] ?? null,
-                    'job_title' => $validated['job_title'],
-                    // مرحله دوم
-                    'business_age' => $validated['business_age'] ?? null,
-                    'has_store' => $validated['has_store'] ?? null,
-                    'store_address' => $validated['store_address'] ?? null,
-                    'has_website' => $validated['has_website'] ?? null,
-                    'website_url' => $validated['website_url'] ?? null,
-                    'website_age' => $validated['website_age'] ?? null,
-                    // مرحله چهارم
-                    'has_sellers' => $validated['has_sellers'] ?? null,
-                    'has_admin' => $validated['has_admin'] ?? null,
-                    // مرحله پنجم
-                    'stores_customer_data' => $validated['stores_customer_data'] ?? null,
-                    'repeat_purchase_unknown' => $validated['repeat_purchase_unknown'] ?? null,
-                    'repeat_purchase_percent' => $validated['repeat_purchase_percent'] ?? null,
-                    // مرحله ششم
-                    'digital_obstacles' => $validated['digital_obstacles'] ?? null,
-                    'time_constraints' => $validated['time_constraints'] ?? null,
-                    'status' => 'new',
-                ]);
 
-                // شبکه‌های اجتماعی
-                $socials = collect($validated['socials'] ?? [])
-                    ->filter(function ($item) {
-                        return !empty($item['address']);
-                    })
-                    ->map(function ($item) {
-                        return [
-                            'platform' => $item['platform'] ?? null,
-                            'address' => trim($item['address']),
-                        ];
-                    })
-                    ->values()
-                    ->all();
+        DB::transaction(function () use ($validated) {
 
-                if (!empty($socials)) {
-                    $lead->socials()->createMany($socials);
-                }
+            /*
+            |--------------------------------------------------------------------------
+            | Create Main Business Lead
+            |--------------------------------------------------------------------------
+            */
 
-                // فروشندگان؛ فقط اگر اطلاعاتی وارد شده باشد
-                $sellers = collect($validated['sellers'] ?? [])
-                    ->filter(function ($item) {
-                        return collect($item)->contains(
-                            fn($value) => filled($value)
-                        );
-                    })
-                    ->map(function ($item) {
-                        return [
-                            'first_name' => $item['first_name'] ?? null,
-                            'last_name' => $item['last_name'] ?? null,
-                            'phone' => $item['phone'] ?? null,
-                            'birth_date' => $item['birth_date'] ?? null,
-                        ];
-                    })
-                    ->values()
-                    ->all();
+            $mainFields = [
+                'team',
+                'first_name',
+                'last_name',
+                'phone',
+                'birth_date',
+                'job_title',
 
-                if (!empty($sellers)) {
-                    $lead->sellers()->createMany($sellers);
-                }
+                'business_age',
+                'has_store',
+                'store_address',
+                'has_website',
+                'website_url',
+                'website_age',
 
-                // مشکلات فروش
-                $problems = collect($validated['sales_problems'] ?? [])
-                    ->filter(fn($item) => filled($item))
-                    ->map(fn($item) => [
-                        'description' => trim($item),
-                    ])
-                    ->values()
-                    ->all();
+                'has_sellers',
+                'has_admin',
 
-                if (!empty($problems)) {
-                    $lead->salesProblems()->createMany($problems);
-                }
+                'stores_customer_data',
+                'repeat_purchase_percent',
+                'repeat_purchase_unknown',
 
-                // ارزش‌های پیشنهادی
-                $values = collect($validated['value_propositions'] ?? [])
-                    ->filter(fn($item) => filled($item))
-                    ->map(fn($item) => [
-                        'title' => trim($item),
-                    ])
-                    ->values()
-                    ->all();
+                'digital_obstacles',
+                'time_constraints',
+            ];
 
-                if (!empty($values)) {
-                    $lead->valuePropositions()->createMany($values);
-                }
+            $leadData = array_intersect_key(
+                $validated,
+                array_flip($mainFields)
+            );
 
-                // زمینه‌های همکاری
-                $cooperations = collect($validated['cooperations'] ?? [])
-                    ->filter(fn($item) => filled($item))
-                    ->map(fn($item) => [
-                        'title' => trim($item),
-                    ])
-                    ->values()
-                    ->all();
+            // اگر کاربر آمار خرید تکراری ندارد، درصد را خالی ذخیره می‌کنیم.
+            if (!empty($leadData['repeat_purchase_unknown'])) {
+                $leadData['repeat_purchase_percent'] = null;
+            }
 
-                if (!empty($cooperations)) {
-                    $lead->cooperations()->createMany($cooperations);
-                }
+            $lead = BusinessLead::create($leadData);
 
-                // افراد معرفی‌شده
-                $referrals = collect($validated['referrals'] ?? [])
-                    ->filter(fn($item) => filled($item['name'] ?? null))
-                    ->map(fn($item) => [
-                        'name' => trim($item['name']),
-                    ])
-                    ->values()
-                    ->all();
 
-                if (!empty($referrals)) {
-                    $lead->referrals()->createMany($referrals);
-                }
-            });
+            /*
+            |--------------------------------------------------------------------------
+            | Save Social Networks
+            |--------------------------------------------------------------------------
+            */
 
-            return redirect()
-                ->back()
-                ->with('success', 'اطلاعات شما با موفقیت ثبت شد.');
-        } catch (Throwable $e) {
-            Log::error('Business lead registration failed', [
-                'message' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-            ]);
+            $socials = collect($validated['socials'] ?? [])
+                ->filter(function ($social) {
+                    return !empty(trim($social['address'] ?? ''));
+                })
+                ->map(function ($social) {
+                    return [
+                        'platform' => $social['platform'],
+                        'address' => trim($social['address']),
+                    ];
+                })
+                ->values()
+                ->all();
 
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with('error', 'در ثبت اطلاعات مشکلی پیش آمد. لطفاً دوباره تلاش کنید.');
-        }
+            if (!empty($socials)) {
+                $lead->socials()->createMany($socials);
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Save Sales Problems
+            |--------------------------------------------------------------------------
+            */
+
+            $salesProblems = collect($validated['sales_problems'] ?? [])
+                ->filter(function ($item) {
+                    return !empty(trim($item ?? ''));
+                })
+                ->map(function ($item) {
+                    return ['description' => trim($item)];
+                })
+                ->values()
+                ->all();
+
+            if (!empty($salesProblems)) {
+                $lead->salesProblems()->createMany($salesProblems);
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Save Value Propositions
+            |--------------------------------------------------------------------------
+            */
+
+            $valuePropositions = collect($validated['value_propositions'] ?? [])
+                ->filter(function ($item) {
+                    return !empty(trim($item ?? ''));
+                })
+                ->map(function ($item) {
+                    return ['title' => trim($item)];
+                })
+                ->values()
+                ->all();
+
+            if (!empty($valuePropositions)) {
+                $lead->valuePropositions()->createMany($valuePropositions);
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Save Cooperations
+            |--------------------------------------------------------------------------
+            */
+
+            $cooperations = collect($validated['cooperations'] ?? [])
+                ->filter(function ($item) {
+                    return !empty(trim($item ?? ''));
+                })
+                ->map(function ($item) {
+                    return ['title' => trim($item)];
+                })
+                ->values()
+                ->all();
+
+            if (!empty($cooperations)) {
+                $lead->cooperations()->createMany($cooperations);
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Save Referrals
+            |--------------------------------------------------------------------------
+            */
+
+            $referrals = collect($validated['referrals'] ?? [])
+                ->filter(function ($referral) {
+
+                    $name = trim($referral['name'] ?? '');
+                    $phone = trim($referral['phone'] ?? '');
+
+                    // اگر هر دو فیلد خالی باشند، این فرد ذخیره نمی‌شود.
+                    return $name !== '' || $phone !== '';
+                })
+                ->map(function ($referral) {
+
+                    return [
+                        'name' => trim($referral['name'] ?? ''),
+                        'phone' => trim($referral['phone'] ?? ''),
+                    ];
+
+                })
+                ->values()
+                ->all();
+
+            if (!empty($referrals)) {
+                $lead->referrals()->createMany($referrals);
+            }
+
+        });
+
+
+        return redirect()
+            ->back()
+            ->with('success', 'اطلاعات کسب‌وکار شما با موفقیت ثبت شد.');
     }
 
     public function index(Request $request)
