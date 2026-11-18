@@ -24,7 +24,7 @@ class BusinessLeadController extends Controller
             'last_name' => ['required', 'string', 'max:191'],
             'phone' => ['required', 'string', 'max:30'],
             'job_title' => ['required', 'string', 'max:191'],
-            'birth_date' => ['nullable', 'date'],
+            'birth_date' => ['nullable', 'string'],
             // مرحله دوم: اطلاعات کسب‌وکار
             'business_age' => ['nullable', 'string', 'max:191'],
             'has_store' => ['nullable', 'boolean'],
@@ -54,7 +54,7 @@ class BusinessLeadController extends Controller
             'sellers.*.first_name' => ['nullable', 'string', 'max:191'],
             'sellers.*.last_name' => ['nullable', 'string', 'max:191'],
             'sellers.*.phone' => ['nullable', 'string', 'max:30'],
-            'sellers.*.birth_date' => ['nullable', 'date'],
+            'sellers.*.birth_date' => ['nullable', 'string'],
             // مرحله پنجم: اطلاعات مشتریان
             'stores_customer_data' => ['nullable', 'boolean'],
             'repeat_purchase_unknown' => ['nullable', 'boolean'],
@@ -81,7 +81,7 @@ class BusinessLeadController extends Controller
             'last_name.required' => 'لطفاً نام خانوادگی خود را وارد کنید.',
             'phone.required' => 'لطفاً شماره تماس خود را وارد کنید.',
             'job_title.required' => 'لطفاً عنوان شغلی خود را وارد کنید.',
-            'birth_date.date' => 'تاریخ تولد واردشده معتبر نیست.',
+            // 'birth_date.date' => 'تاریخ تولد واردشده معتبر نیست.',
         ]);
 
         try {
