@@ -334,7 +334,7 @@
                     <div>
                         <label class="field-label">تاریخ تولد</label>
                         <input type="text" class="field-input in-fa" name="birth_date" value="{{ old('birth_date') }}"
-                            placeholder="مثلاً 1381/12/06" dir="ltr">
+                            placeholder="1381-12-06" dir="ltr">
                     </div>
 
                     <div class="sm:col-span-2">

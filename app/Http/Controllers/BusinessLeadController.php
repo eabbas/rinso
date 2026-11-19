@@ -31,7 +31,7 @@ class BusinessLeadController extends Controller
             'first_name' => ['required', 'string', 'max:191'],
             'last_name' => ['required', 'string', 'max:191'],
             'phone' => ['required', 'string', 'max:20'],
-            'birth_date' => ['nullable', 'date'],
+            'birth_date' => ['nullable', 'string'],
             'job_title' => ['required', 'string', 'max:191'],
 
 
@@ -142,8 +142,6 @@ class BusinessLeadController extends Controller
             ],
 
         ]);
-
-
         DB::transaction(function () use ($validated) {
 
             /*

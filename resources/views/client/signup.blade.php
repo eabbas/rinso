@@ -26,7 +26,7 @@
 
 
 {{-- Main --}}
-<div class="min-h-[85dvh] w-full flex flex-col md:flex-row-reverse bg-[#F5F6F8]">
+<div class="min-h-[85dvh] w-full flex flex-col md:flex-row-reverse bg-[#F5F6F8] pb-40 lg:pb-0">
 
     {{-- Branding Panel --}}
     <div class="relative overflow-hidden md:w-5/12 lg:w-1/2 bg-[#0E1D35] text-white">
@@ -38,7 +38,7 @@
         <div class="absolute inset-0 opacity-[0.05]"
              style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 25px 25px;"></div>
 
-        <div class="relative z-10 h-full flex flex-col items-center justify-center px-8 py-10 md:py-16">
+        <div class="relative z-10 h-full hidden lg:flex flex-col items-center justify-center px-8 py-10 md:py-16">
 
             {{-- Logo --}}
             <a href="{{ route('home') }}"
