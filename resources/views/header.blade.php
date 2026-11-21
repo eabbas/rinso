@@ -47,14 +47,8 @@
             {{-- سمت راست: لوگو و منو --}}
             <div class="flex items-center gap-3 lg:gap-9 shrink-0">
 
-                <a href="{{ route('home') }}"
-                    class="flex items-center shrink-0">
-                    <img src="{{ asset('logo/rinso.png') }}"
-                        alt="رینسو"
-                        class="w-[105px] sm:w-[120px] max-h-[55px] object-contain">
-                </a>
 
-                {{-- همبرگر موبایل --}}
+                   {{-- همبرگر موبایل --}}
                 <button type="button"
                     onclick="hamburgerMenu('open')"
                     id="menuBlockliet"
@@ -75,6 +69,15 @@
                                  transition-all duration-300"></span>
 
                 </button>
+
+                <a href="{{ route('home') }}"
+                    class="flex items-center shrink-0">
+                    <img src="{{ asset('logo/rinso.png') }}"
+                        alt="رینسو"
+                        class="w-[105px] sm:w-[120px] max-h-[55px] object-contain">
+                </a>
+
+             
 
                 {{-- منوی دسکتاپ --}}
                 <nav class="hidden lg:flex items-center gap-7">

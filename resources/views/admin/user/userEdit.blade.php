@@ -68,7 +68,7 @@
 
                 <div class="flex flex-wrap justify-center sm:justify-start gap-2 mt-4">
 
-                    <span class="px-3 py-1.5 rounded-lg bg-white/10 border border-white/10 text-xs text-slate-200">
+                    <span class="px-3 py-1.5 rounded-lg bg-white/10 border border-white/10 text-xs text-slate-200 in-fa">
                         {{ Auth::user()->phoneNumber }}
                     </span>
 
@@ -96,35 +96,6 @@
 
         @csrf
 
-        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-
-
-        {{-- Form Header --}}
-        <div class="px-5 sm:px-7 py-5 border-b border-slate-100 flex items-center gap-3">
-
-            <div class="size-11 rounded-xl bg-[#101d3b]/5 text-[#2454a6] flex items-center justify-center">
-
-                <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
-                          d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/>
-                    <path stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"
-                          d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.7 2.94-.09-.03a1.7 1.7 0 0 0-1.8.43l-.07.07h-3.4l-.02-.1a1.7 1.7 0 0 0-1.3-1.3l-.1-.02-1.7-2.94.06-.06A1.7 1.7 0 0 0 10 14.05l-.03-.09v-3.4l.1-.02a1.7 1.7 0 0 0 1.3-1.3l.02-.1h3.4l.07.07a1.7 1.7 0 0 0 1.8.43l.09-.03 1.7 2.94-.06.06A1.7 1.7 0 0 0 19.4 15Z"/>
-                </svg>
-
-            </div>
-
-            <div>
-                <h2 class="font-black text-[#142343]">
-                    جزئیات پروفایل
-                </h2>
-
-                <p class="text-xs text-slate-400 mt-1">
-                    اطلاعات شخصی و امنیت حساب کاربری
-                </p>
-            </div>
-
-        </div>
-
 
         {{-- Form Body --}}
         <div class="p-5 sm:p-7 space-y-7">
@@ -132,15 +103,7 @@
             {{-- Avatar Upload --}}
             <div class="flex flex-col sm:flex-row sm:items-center gap-4">
 
-                <div class="w-full sm:w-1/4">
-                    <label class="text-sm font-bold text-[#243653]">
-                        تصویر پروفایل
-                    </label>
-
-                    <p class="text-xs text-slate-400 mt-1">
-                        تصویر دلخواه خود را انتخاب کنید.
-                    </p>
-                </div>
+              
 
                 <div class="flex-1">
 
@@ -164,9 +127,7 @@
                                 انتخاب تصویر جدید
                             </p>
 
-                            <p class="text-xs text-slate-400 mt-1">
-                                برای تغییر تصویر پروفایل کلیک کنید.
-                            </p>
+                          
                         </div>
 
                         <span class="text-xs font-bold text-[#2454a6] bg-blue-50 px-4 py-2 rounded-lg">
@@ -202,9 +163,7 @@
                         نام و نام خانوادگی
                     </label>
 
-                    <p class="text-xs text-slate-400 mt-1">
-                        نام نمایشی حساب شما
-                    </p>
+                   
                 </div>
 
                 <div class="flex-1 flex flex-col sm:flex-row gap-3">
@@ -263,9 +222,6 @@
                         شماره تلفن
                     </label>
 
-                    <p class="text-xs text-slate-400 mt-1">
-                        شماره تماس حساب کاربری
-                    </p>
                 </div>
 
                 <div class="flex-1">
@@ -276,7 +232,7 @@
                         name="phoneNumber"
                         value="{{ Auth::user()->phoneNumber }}"
                         placeholder="شماره تلفن"
-                        class="w-full sm:w-1/2 h-12 px-4 rounded-xl border border-slate-200 bg-slate-50 text-sm text-[#243653] outline-none transition focus:bg-white focus:border-[#2454a6] focus:ring-4 focus:ring-blue-500/10">
+                        class="w-full sm:w-1/2 h-12 px-4 in-fa rounded-xl border border-slate-200 bg-slate-50 text-sm text-[#243653] outline-none transition focus:bg-white focus:border-[#2454a6] focus:ring-4 focus:ring-blue-500/10">
                     @error('phoneNumber')
                         <p class="text-[11px] text-red-400">
                             {{ $message }}
@@ -333,9 +289,6 @@
                         رمز عبور جدید
                     </label>
 
-                    <p class="text-xs text-slate-400 mt-1">
-                        در صورت تمایل به تغییر رمز وارد کنید.
-                    </p>
                 </div>
 
                 <div class="flex-1">

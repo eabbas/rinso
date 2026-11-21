@@ -384,7 +384,7 @@ Route::group([
     Route::get('/profile', 'profile')->name('profile');
     Route::get('/show/{user}', 'show')->name('show');
     Route::get('/edit/{user}', 'edit')->name('edit');
-    Route::post('/update/{user}', 'update')->name('update');
+    Route::post('/update/{user?}', 'update')->name('update');
     Route::get('/delete/{user}', 'delete')->name('delete');
     Route::post('/deleteAll', 'deleteAll')->name('deleteAll');
     Route::get('/compelete', 'compelete_form')->name('compelete_form');

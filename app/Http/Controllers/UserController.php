@@ -239,8 +239,11 @@ class UserController extends Controller
     }
 
    
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user = null)
     {
+        if(!$user){
+            $user = Auth::user();
+        }
         $validate = $request->validate($this->validator(), $this->messages());
         if ($request->roles) {
             role_user::where('user_id', $user->id)->delete();
