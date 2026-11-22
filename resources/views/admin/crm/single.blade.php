@@ -501,6 +501,79 @@
             </div>
 
         </div>
+        {{-- Referrals --}}
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+
+            <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.8">
+                            <circle cx="9" cy="8" r="4" />
+                            <path d="M2 21v-2a7 7 0 0 1 14 0v2" />
+                            <path d="M19 8v6M22 11h-6" />
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-sm">
+                            معرف‌های کسب‌وکار
+                        </h3>
+                        <p class="text-xs text-gray-400 mt-1">
+                            افرادی که این کسب‌وکار را معرفی کرده‌اند
+                        </p>
+                    </div>
+                </div>
+
+                <span class="text-xs rounded-lg bg-gray-100 px-3 py-1.5 text-gray-600 in-fa">
+                    {{ $lead->referrals->count() }} معرف
+                </span>
+
+            </div>
+
+            <div class="p-5">
+
+                @if ($lead->referrals->count())
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[500px] text-right">
+
+                            <thead>
+                                <tr class="text-xs text-gray-400 border-b border-gray-100">
+                                    <th class="py-3 px-3 font-medium">نام معرف</th>
+                                    <th class="py-3 px-3 font-medium">شماره تماس</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="divide-y divide-gray-100">
+
+                                @foreach ($lead->referrals as $referral)
+                                    <tr>
+                                        <td class="py-4 px-3 text-sm font-medium text-gray-800">
+                                            {{ $referral->name ?: 'ثبت نشده' }}
+                                        </td>
+
+                                        <td class="py-4 px-3 text-sm text-gray-600 in-fa" dir="ltr">
+                                            {{ $referral->phone ?: 'ثبت نشده' }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                @else
+                    <p class="text-sm text-gray-400 text-center py-5">
+                        اطلاعاتی برای معرف‌ها ثبت نشده است.
+                    </p>
+                @endif
+
+            </div>
+
+        </div>
 
 
         {{-- Customer Information --}}
