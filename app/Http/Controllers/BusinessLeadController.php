@@ -365,9 +365,13 @@ class BusinessLeadController extends Controller
             'valuePropositions',
             'salesProblems',
             'cooperations',
+            'referrals',
         ]);
 
-        $businessLead->birthDate = $businessLead->birth_date;
+        // $businessLead->birthDate = $businessLead->birth_date;
+        $businessLead->birthDate = $businessLead->birth_date
+            ? str_replace('-', '/', explode(' ', $businessLead->birth_date)[0])
+            : null;
 
         $date = implode('/', explode('-', explode(' ', verta($businessLead->created_at))[0]));
         $businessLead->date = $date;
