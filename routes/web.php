@@ -656,6 +656,8 @@ Route::group([
     Route::post('/update', 'update')->name('update');
     Route::get('/delete/{contactUs}', 'delete')->name('delete');
     Route::post('/deleteAll', 'deleteAll')->name('deleteAll');
+    Route::post('/sendTicketCode', 'sendTicketCode')->name('sendTicketCode');
+    Route::post('/verifyTicketCode', 'verifyTicketCode')->name('verifyTicketCode');
 });
 // page contactus
 Route::group([

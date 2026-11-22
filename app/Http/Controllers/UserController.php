@@ -993,4 +993,6 @@ class UserController extends Controller
         Auth::user()->save();
         return response()->json(Auth::user());
     }
+
+  
 }
