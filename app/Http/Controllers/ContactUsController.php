@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\contactUs;
 use App\Models\User;
+use App\Models\phone_code;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -13,27 +14,46 @@ class ContactUsController extends Controller
         return view('client.contactUs.create');
     }
 
+
     public function store(Request $request)
     {
-        $userId = null;
-        if(Auth::check()){
-            $userId = Auth::id();
-        } else {
-            $user = User::where('phoneNumber', $request->phoneNumber)->first();
-            if($user){
-                $userId = $user->id;
-            }
+        $request->validate([
+            'phoneNumber' => 'required|regex:/^09[0-9]{9}$/',
+            'code' => 'required|digits:4',
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+
+        // بررسی کد تأیید
+        $activationCode = phone_code::where('phoneNumber', $request->phoneNumber)
+            ->where('code', $request->code)
+            ->first();
+
+        if (!$activationCode) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'code' => 'کد تأیید وارد شده نامعتبر است یا اعتبار آن به پایان رسیده است.'
+                ]);
         }
+
+        $userId = Auth::check() ? Auth::id() : null;
+        
         contactUs::create([
-            'user_id'=>$userId,
+            'user_id' => $userId,
             'title' => $request->title,
             'description' => $request->description,
             'phoneNumber' => $request->phoneNumber
         ]);
-        if(Auth::check()){
+
+        // حذف کد استفاده شده
+        $activationCode->delete();
+
+        if (Auth::check()) {
             return to_route('contactUs.myMessage');
         }
-        return to_route('home')->with('message', 'نظر شما با موفقیت به ادمین ارسال شد.');
+
+        return to_route('home')->with('message', 'تیکت شما با موفقیت به ادمین ارسال شد.');
     }
 
     public function index()
@@ -84,5 +104,33 @@ class ContactUsController extends Controller
         }
         $contactUs->delete();
         return redirect()->back();
+    }
+    public function sendTicketCode(Request $request)
+    {
+     
+            $code = rand(1000, 10000);
+            phone_code::upsert(['phoneNumber' => $request->phoneNumber, 'code' => $code], ['phoneNumber'], ['code']);
+
+            $ch = curl_init('https://api.iranpayamak.com/ws/v1/sms/pattern');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Accept: application/json',
+                'Api-Key: M1MIQPQ9s85i6dxdzTeRGx9t87AtRQJlXNiu01e7awuQz94TkI',
+                'Content-Type: application/json'
+            ]);
+            $payload = [
+                'code' => '7fvdx77gveizxqn',
+                'attributes' => [
+                    'activation_code' => $code,
+                ],
+                'recipient' => $request->phoneNumber,
+                'line_number' => '50002178584000',
+                'number_format' => 'english'
+            ];
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+            $response = curl_exec($ch);
+        
+        return response()->json('ok');
     }
 }
