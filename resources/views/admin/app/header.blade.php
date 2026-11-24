@@ -356,7 +356,7 @@
                     <div
                         class="size-11 rounded-xl bg-white
                                 flex items-center justify-center">
-                        <img src="{{ asset('logo/faveicon.png') }}" alt="رینسو" class="w-9 h-9 object-contain">
+                        <img src="{{ asset('logo/faveIcon.png') }}" alt="رینسو" class="w-9 h-9 object-contain">
                     </div>
 
                     <div>
